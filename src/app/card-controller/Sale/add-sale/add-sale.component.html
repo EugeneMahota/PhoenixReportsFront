@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../../../']">Карты</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Продажи({{itemGroupRepl.name}})</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавить</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="font-weight-bold">Добавить</h3>
+  </div>
+  <div class="card-body">
+    <form #editForm="ngForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>График</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <select class="custom-select" id="graphic_id" [(ngModel)]="graphic_id" name="graphic_id" required>
+                <option *ngFor="let graphic of listGraphic" value="{{graphic.graphic_id}}">{{graphic.name}}</option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Установите график.</small>
+          </div>
+          <div class="form-group">
+            <label for="add_money">Цена</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-money-bill-alt"></i></span>
+              </div>
+              <input type="number" class="form-control" id="price" placeholder="Введите сумму" name="price"
+                     [(ngModel)]="price" required>
+            </div>
+            <small class="form-text text-muted">Стоимость карты при продаже.</small>
+          </div>
+          <div class="form-group">
+            <label for="add_money">Сумма при продаже</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-money-bill-alt"></i></span>
+              </div>
+              <input type="number" class="form-control" id="add_money" placeholder="Введите сумму" name="add_money"
+                     [(ngModel)]="add_money" required>
+            </div>
+            <small class="form-text text-muted">Количество денег на счету при продаже карты.</small>
+          </div>
+          <div class="form-group">
+            <label for="add_money">Бонусы при продаже</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-gift"></i></span>
+              </div>
+              <input type="number" class="form-control" id="add_bonus" placeholder="Введите сумму" name="add_bonus"
+                     [(ngModel)]="add_bonus" required>
+            </div>
+            <small class="form-text text-muted">Количество бонусов на счету при продаже карты.</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Период</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <select class="custom-select" id="period_id" [(ngModel)]="period_act_card_id"
+                      name="period_act_card_id" required>
+                <option *ngFor="let period of listPeriod" value="{{period.period_act_card_id}}">
+                  {{period.name_period}}
+                </option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Установите период действия карты.</small>
+          </div>
+          <div class="form-group">
+            <label for="add_money">Значение периода</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-stopwatch"></i></span>
+              </div>
+              <input type="number" class="form-control" id="value" placeholder="Введите значение" name="value"
+                     [(ngModel)]="value" required>
+            </div>
+            <small class="form-text text-muted">Количество повторений периода.</small>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_add"
+                   [(ngModel)]="fl_add"
+                   name="fl_add">
+            <label class="" for="fl_add">Возможность пополнять</label>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_sale"
+                   [(ngModel)]="fl_sale"
+                   name="fl_sale">
+            <label class="" for="fl_sale">Возможность продавать</label>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_gift"
+                   [(ngModel)]="fl_gift"
+                   name="fl_gift">
+            <label class="" for="fl_gift">Подарочная</label>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-info" [disabled]="editForm.form.invalid" (click)="addSale({
+          type_card_id: id,
+          graphic_id: graphic_id,
+          add_bonus: add_bonus,
+          add_money: add_money,
+          fl_add: +fl_add,
+          fl_gift: +fl_gift,
+          fl_sale: +fl_sale,
+          period_act_card_id: period_act_card_id,
+          price: price,
+          value: value
+          })">Добавить параметр
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

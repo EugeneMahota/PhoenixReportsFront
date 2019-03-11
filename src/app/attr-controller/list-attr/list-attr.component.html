@@ -1,0 +1,186 @@
+<div class="row">
+  <div class="col-md-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Аттракционы</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-md-5 text-center align-self-center">
+    <div class="input-group input-search mb-2">
+      <div class="input-group-prepend">
+            <span class="input-group-text input-search-icon">
+              <i class="fas fa-search"></i>
+            </span>
+      </div>
+      <input type="text" class="form-control border-left-0" placeholder="Поиск..." [(ngModel)]="searchStr">
+    </div>
+  </div>
+
+  <div class="col-md-4 text-right align-self-center">
+    <button class="btn btn-pink mb-2 ml-2" data-toggle="modal" data-target="#exampleModalPrice">Цена<i class="fas fa-money-bill-alt ml-2"></i></button>
+
+    <div class="btn-group mb-2 ml-2">
+      <button type="button" class="btn btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Парки <i class="fab fa-fort-awesome ml-2"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right mt-2">
+        <button class="dropdown-item mr-2 mb-2 pl-3" *ngFor="let park of listPark"
+                [ngClass]="park.name === itemPark.name ? 'btn-pink':''" (click)="selectPark(park)">{{park.name}}</button>
+      </div>
+    </div>
+
+    <button class="btn btn-pink mb-2 ml-2" routerLink="add"><span>Добавить</span> <i class="fas fa-rocket ml-2"></i></button>
+  </div>
+
+</div>
+
+
+
+
+<div class="row page-animate">
+  <div class="col-md-12">
+    <div class="card" [ngClass]="listAttr.length === 0 ? 'd-none':''">
+      <div class="card-header">
+        <h3 class="font-weight-bold">{{itemPark.name}}</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center pointer" (click)="setOrder('ip_adr')">Ip адрес
+              <i [hidden]="reverse" [ngClass]="order === 'ip_adr' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
+              <i [hidden]="!reverse" [ngClass]="order === 'ip_adr' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
+            </th>
+            <th scope="col" class="text-center pointer" (click)="setOrder('rep_name')">Название
+              <i [hidden]="reverse" [ngClass]="order === 'rep_name' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
+              <i [hidden]="!reverse" [ngClass]="order === 'rep_name' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
+            </th>
+            <th scope="col" class="text-center">Цена(Деньги)</th>
+            <th scope="col" class="text-center">Цена(Бонусы)</th>
+            <th scope="col" class="text-center">Настроить цену</th>
+            <th scope="col" class="text-center">Активность</th>
+            <th scope="col" class="text-center">Архив</th>
+            <th scope="col" class="text-center">Тайм-аут сообщения</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let attr of listAttr | SearchPipe:searchStr | orderBy: order:reverse">
+            <th class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">
+              <button class="btn btn-info">
+                <i class="fas fa-rocket"></i>
+              </button>
+            </th>
+            <th class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.ip_adr}}</th>
+            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.rep_name}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.price}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.bonus}}</td>
+            <th class="align-middle text-center" scope="row" (click)="listPrice(attr)">
+              <button class="btn btn-pink">
+                <i class="fas fa-money-bill-alt"></i>
+              </button>
+            </th>
+            <td (click)="editAttr(attr.attr_id)" class="text-center">
+              <input onclick="return false;" type="checkbox" class="form-check-input checkbox" id="{{attr.user_id}}" [(ngModel)]="+attr.fl_active" name="checkbox">
+              <label class="" for="{{attr.user_id}}"></label>
+            </td>
+            <td (click)="editAttr(attr.rep_name)" class="text-center">
+              <input onclick="return false;" type="checkbox" class="form-check-input checkbox" id="{{attr.rep_name}}" [(ngModel)]="+attr.fl_archive" name="checkbox">
+              <label class="" for="{{attr.rep_name}}"></label>
+            </td>
+            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.timeout_msg}} мин.</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="selectAttr(attr)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление аттракцион</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить аттракцион {{itemAttr.rep_name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="deleteAttr()" data-toggle="modal" data-target="#exampleModalCenter">Удалить</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<form #paramForm="ngForm">
+  <div class="modal fade" id="exampleModalPrice" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Значение цены на установленные параметры</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label>Тип карты</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="type_card_id"><i class="fas fa-credit-card"></i></label>
+              </div>
+              <select class="custom-select" id="type_card_id" [(ngModel)]="+type_card_id" name="type_card_id"
+                      required>
+                <option *ngFor="let card of listCard" value="{{+card.type_card_id}}">{{card.name_type_card}}
+                </option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Выберите тип карты из существующих.</small>
+          </div>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="date"><i class="fas fa-calendar-alt"></i></label>
+            </div>
+            <input type="datetime-local" class="form-control" id="date" name="date"
+                   [ngModel]="date | date: 'yyyy-MM-ddTHH:mm'"
+                   (ngModelChange)="date = $event" required>
+          </div>
+          <small>Этот параметр покажет какие цены действуют в установленную дату.</small>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" (click)="getPrice({park_id: itemPark.park_id, type_card_id: +type_card_id, date: date})"
+                  [disabled]="paramForm.form.invalid" data-dismiss="modal">Узнать цену
+          </button>
+          <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

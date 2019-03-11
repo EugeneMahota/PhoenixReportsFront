@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../../../']">Карты</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Бонусы({{itemGroupRepl.name}})</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="font-weight-bold">Редактировать</h3>
+      </div>
+      <div class="card-body">
+        <form #editForm="ngForm">
+
+          <div class="form-group">
+            <label>Минимальное значение пополнения</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-money-bill-alt"></i></span>
+              </div>
+              <input type="number" class="form-control" id="val_start" placeholder="Введите сумму" name="val_start"
+                     [(ngModel)]="val_start" required>
+            </div>
+            <small class="form-text text-muted">Минимальная сумма необходимая для зачисления бонусов.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Максимальное значение пополнения</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-money-bill-alt"></i></span>
+              </div>
+              <input type="number" class="form-control" id="val_end" placeholder="Введите сумму" name="val_end"
+                     [(ngModel)]="val_end" required>
+            </div>
+            <small class="form-text text-muted">Максимальная сумма необходимая для зачисления бонусов.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Количество получаемых бонусов</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-gift"></i></span>
+              </div>
+              <input type="number" class="form-control" id="val_bon" placeholder="Введите значение" name="val_bon"
+                     [(ngModel)]="val_bon" required>
+            </div>
+            <small class="form-text text-muted">Количество получаемых бонусов при попадении в диапазон.</small>
+          </div>
+
+
+          <div class="form-group text-center">
+            <button class="btn btn-info" type="submit" [disabled]="editForm.form.invalid" (click)="editBonus({id: id, val_start: val_start, val_end: val_end, val_bon: val_bon})">Сохранить изменения</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

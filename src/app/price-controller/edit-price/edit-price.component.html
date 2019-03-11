@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../../../']">Аттракционы</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Цены</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="font-weight-bold">{{itemAttr.rep_name}}({{itemPark.name}})</h3>
+  </div>
+  <div class="card-body">
+    <form #editForm="ngForm">
+      <div class="row">
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label>График</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="graphic_id"><i class="fas fa-chart-area"></i></label>
+              </div>
+              <select class="custom-select" id="graphic_id" [(ngModel)]="+graphic_id" name="graphic_id" required>
+                <option *ngFor="let graphic of listGraphic" value="{{+graphic.graphic_id}}">{{graphic.name}}
+                </option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Выберите график из существующих.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Цена</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="price"><i class="fas fa-ruble-sign"></i></label>
+              </div>
+              <input type="number" class="form-control" id="price" name="price" [(ngModel)]="price" placeholder="Введите значение цены" required>
+            </div>
+            <small class="form-text text-muted">Установите цену.</small>
+          </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label>Тип карты</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="type_card_id"><i class="fas fa-credit-card"></i></label>
+              </div>
+              <select class="custom-select" id="type_card_id" [(ngModel)]="+type_card_id" name="type_card_id"
+                      required>
+                <option *ngFor="let card of listCard" value="{{+card.type_card_id}}">{{card.name_type_card}}
+                </option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Выберите тип карты из существующих.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Бонусы</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="bonus"><i class="fas fa-gift"></i></label>
+              </div>
+              <input type="number" class="form-control" id="bonus" name="bonus" [(ngModel)]="bonus" placeholder="Введите значение бонусов" required>
+            </div>
+            <small class="form-text text-muted">Установите количество бонусов.</small>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="form-group text-center">
+        <button class="btn btn-info" type="submit" [disabled]="editForm.form.invalid" (click)="editPrice({
+        id: id,
+        graphic_id: graphic_id,
+        type_card_id: type_card_id,
+        price: price,
+        bonus: bonus
+        })">Сохранить изменения</button>
+      </div>
+
+    </form>
+  </div>
+</div>

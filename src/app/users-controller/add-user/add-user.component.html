@@ -1,0 +1,155 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Пользователи</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавить</li>
+      </ol>
+    </nav>
+
+  </div>
+</div>
+
+
+<div class="row page-animate" [ngClass]="listRole.length === 0 || listPark.length === 0 ? 'd-none':''" >
+  <div class="col-md-12">
+    <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="font-weight-bold">
+            Добавить
+          </h3>
+        </div>
+        <div class="col-6 text-right">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="id"
+                   [(ngModel)]="fl_active"
+                   name="savelogin">
+            <label class="" for="id"> Активность</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form #addForm="ngForm">
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group" style="border-radius: .25rem;">
+              <label for="listRoleActive">Добавьте роли <i class="fas fa-unlock-alt"></i></label>
+              <angular2-multiselect [data]="listRole" [(ngModel)]="listRoleActive" [settings]="settingsRole" name="listRoleActive" id="listRoleActive">
+                <c-item>
+                  <ng-template let-item="item">
+                    {{item.displayName}}
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+              <small class="form-text text-muted">Отметьте необходимые роли.</small>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group" style="border-radius: .25rem;">
+              <label for="listParkActive">Добавьте парки <i class="fab fa-fort-awesome-alt"></i></label>
+              <angular2-multiselect [data]="listPark" [(ngModel)]="listParkActive" [settings]="settingsPark" name="listParkActive" id="listParkActive">
+                <c-item>
+                  <ng-template let-item="item">
+                    {{item.itemName}}
+                  </ng-template>
+                </c-item>
+              </angular2-multiselect>
+              <small class="form-text text-muted">Отметьте необходимые парки.</small>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="form-group">
+              <label for="name">Имя</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="fio"><i class="fas fa-user-tie"></i></span>
+                </div>
+                <input type="text" class="form-control" id="name" placeholder="Имя пользователя" name="name"
+                       [(ngModel)]="name"
+                       required>
+              </div>
+              <small class="form-text text-muted">Не обязательно полное имя</small>
+            </div>
+            <div class="form-group">
+              <label for="login">Логин</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="log"><i class="fas fa-user-plus"></i></span>
+                </div>
+                <input type="text" class="form-control" id="login" placeholder="Логин авторизации" name="login"
+                       [(ngModel)]="login"
+                       required>
+              </div>
+              <small class="form-text text-muted">Придумайте логин.</small>
+            </div>
+            <div class="form-group">
+              <label for="phone">Телефон</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                </div>
+                <input type="text" class="form-control" id="phone" placeholder="Телефон" name="phone" [ngModel]="phone" (ngModelChange)="phone = $event" [dropSpecialCharacters]="true" mask="0(000)000-00-00">
+              </div>
+              <small class="form-text text-muted">Добавьте номер телефона.</small>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="mail"><i class="fas fa-envelope"></i></span>
+                </div>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email adress"
+                       [(ngModel)]="email">
+              </div>
+              <small class="form-text text-muted">Добавьте адрес электронной почты.</small>
+            </div>
+            <div class="form-group">
+              <label for="password1">Новый пароль</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="pass1"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" id="password1" placeholder="Придумайте пароль"
+                       name="password1"
+                       [(ngModel)]="password1" required>
+              </div>
+              <small class="form-text text-muted">Пароль должен содержать не менее 4 символов.</small>
+            </div>
+            <div class="form-group">
+              <label for="password2">Повторите пароль</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="pass2"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" id="password2" placeholder="Повторите пароль"
+                       name="password2"
+                       [(ngModel)]="password2" required>
+              </div>
+              <small class="form-text text-muted">Введите пароль еще раз.</small>
+            </div>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <button class="btn-info btn" [disabled]="addForm.form.invalid"
+            (click)="addUser({name: name, login: login, email: email, phone: phone, fl_active: +fl_active, password: password1, roles: listRoleActive, parks: listParkActive})">Добавить пользователя</button>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,278 @@
+<div class="row">
+  <div class="col-md-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Отчет по карте</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-md-6 align-self-center">
+    <form #formKey="ngForm" (ngSubmit)="getReport(code)">
+      <div class="input-group">
+        <input type="text" autocomplete="off" class="form-control input-key" name="code_card" id="code_card" [(ngModel)]="code"
+               placeholder="Введите код карты и нажмите Enter" required>
+        <div class="input-group-append" *appRoles="['rptCardEdit']" [ngClass]="name_type_card ? '':'d-none'">
+          <button class="btn-card" type="button" data-toggle="modal" data-target="#exampleModalCenter1">
+            <i class="fas fa-cog icon-card"></i>
+          </button>
+        </div>
+        <div class="input-group-append">
+          <button [disabled]="formKey.form.invalid" class="btn-card" type="submit"><i
+            class="fas fa-credit-card icon-card"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-3 text-right align-self-center" [ngClass]="listReport.length === 0 ? 'd-none':''">
+    <button class="btn btn-pink" (click)="exportExcel()">Экспорт в Excel</button>
+  </div>
+
+</div>
+
+
+<div class="row" [ngClass]="name_type_card ? '':'d-none'">
+
+  <div class="col-lg-3 col-md-6 mt-2 mb-3">
+    <div class="card  info-block h-100"
+         [ngStyle]="{'background-color': (+fl_block) === 1 ? '#ff827f':'', 'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+      <div class="card-header ">
+        <h5 class="font-weight-bold">CARD</h5>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="info-text text-center">
+            <h4>{{name_type_card}}</h4>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="icon text-center" [ngStyle]="{'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+            <i class="fas fa-credit-card"></i>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <small class="pb-4 text-muted mb-2 ml-2">Тип карты</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mt-2 mb-3">
+    <div class="card  info-block h-100"
+         [ngStyle]="{'background-color': (+fl_block) === 1 ? '#ff827f':'', 'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+      <div class="card-header ">
+        <h5 class="font-weight-bold">MONEY</h5>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="info-text text-center">
+            <h4>{{money_n}} <i class="fas fa-ruble-sign"></i></h4>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="icon text-center" [ngStyle]="{'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+            <i class="fas fa-money-bill-alt"></i>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <small class="pb-4 text-muted mb-2 ml-2">Баланс</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mt-2 mb-3">
+    <div class="card  info-block h-100"
+         [ngStyle]="{'background-color': (+fl_block) === 1 ? '#ff827f':'', 'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+      <div class="card-header ">
+        <h5 class="font-weight-bold">BONUS</h5>
+      </div>
+      <div class="row">
+        <div class="col-7">
+          <div class="info-text text-center">
+            <h4>{{money_b}} бон.</h4>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="icon text-center" [ngStyle]="{'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+            <i class="fas fa-gift"></i>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <small class="pb-4 text-muted mb-2 ml-2">Бонусы</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 mt-2 mb-3">
+    <div class="card  info-block h-100"
+         [ngStyle]="{'background-color': (+fl_block) === 1 ? '#ff827f':'', 'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+      <div class="card-header ">
+        <h5 class="font-weight-bold">MESSAGE</h5>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="info-text text-center">
+
+            <h6 class="ml-2">{{ msg || 'Сообщение отсутствует!'}}</h6>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="icon text-center" [ngStyle]="{'color': (+fl_block) === 1 ? '#FFFFFF':''}">
+            <i class="fas fa-comment"></i>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <small class="pb-4 text-muted mb-2 ml-2">Сообщение</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="row page-animate" [ngClass]="listReport.length === 0 ? 'd-none':''">
+  <div class="col-md-12">
+    <div class="card">
+        <table class="table table-responsive-md table-sm table-striped">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center table-header">Операция</th>
+            <th scope="col" class="text-center table-header">Парк</th>
+            <th scope="col" class="text-center table-header">Место</th>
+            <th scope="col" class="text-center table-header">Дата</th>
+            <th scope="col" class="text-center table-header">Сумма</th>
+            <th scope="col" class="text-center table-header">Отмена</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let item of listReport | orderBy:'date':true">
+            <th class="align-middle text-center" scope="row">{{item.name}}</th>
+            <td class="align-middle text-center" scope="row">{{item.name_park}}</td>
+            <td class="align-middle text-center" scope="row">
+              <button class="btn btn-sm mr-2 btn-info align-middle" *ngIf="item.user_name" (click)="showUser = !showUser"><i class="fas fa-user-secret"></i><span class="ml-2" *ngIf="showUser">{{item.user_name}}</span></button>
+              {{item.place}}
+            </td>
+            <td class="align-middle text-center" scope="row">{{item.date | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td class="align-middle text-center" scope="row">{{item.value}}</td>
+            <td class="align-middle text-center" scope="row">
+              <button [disabled]="item.fl_cancel" class="btn btn-sm btn-pink" (click)="selectPass(item)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-ban"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="picture-report text-center page-animate" [ngClass]="name_type_card ? 'd-none':''">
+  <div class="title-picture font-weight-bold display-4" [ngClass]="fl_change ? 'pink':''">
+    {{msg || 'Тут отчет будет!'}}
+  </div>
+  <div class="picture" [ngClass]="fl_change ? 'pink':''">
+    <i class="fas fa-rocket"></i>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Отмена операции</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите отменить операцию {{itemReport.name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="cancelPass()" data-toggle="modal" data-target="#exampleModalCenter">Да</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Modal-->
+<form #cardEdit="ngForm" *appRoles="['rptCardEdit']">
+  <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редактирование карты</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="bonus">Бонусы</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-gift"></i></span>
+              </div>
+              <input type="number" class="form-control" id="bonus" name="bonus" [(ngModel)]="money_b"
+                     placeholder="Введите количество бонусов" required>
+            </div>
+            <small class="form-text text-muted">Количество бонусов не должно превышать допустимый диапазон.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="messageCard">Сообщение</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-comment"></i></span>
+              </div>
+              <input type="text" class="form-control" id="messageCard" name="messageCard" maxlength="40"
+                     [(ngModel)]="msg" placeholder="Введите текст сообщения">
+            </div>
+            <small class="form-text text-muted">Информация о карте.</small>
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_block"
+                   [(ngModel)]="+fl_block"
+                   name="fl_block">
+            <label class="" for="fl_block"> Заблокировать карту</label>
+            <small class="form-text text-muted">Данный чекбокс блокирует карту.</small>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" [disabled]="cardEdit.form.invalid" data-dismiss="modal"
+                    (click)="editCard({code: saveCode, msg: msg, money_b: money_b, fl_block: +fl_block})">Сохранить
+            </button>
+            <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

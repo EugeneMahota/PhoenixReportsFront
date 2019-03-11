@@ -1,0 +1,257 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Аттракционы</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать({{itemPark.name}})</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="card">
+  <div class="card-body">
+    <form #editForm="ngForm">
+
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="form-group">
+            <label>Адрес считывателя</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="sch_id"><i class="fas fa-key"></i></label>
+              </div>
+              <select class="custom-select" id="sch_id" [(ngModel)]="sch_id" name="sch_id">
+                <option value="">Нет считывателя</option>
+                <optgroup *ngFor="let hub of listHub" label="{{hub.hub}}">
+                  <option *ngFor="let sch of hub.list | orderBy:'ip_adr'" value="{{+sch.sch_id}}">{{sch.ip_adr}}</option>
+                </optgroup>
+              </select>
+            </div>
+            <small class="form-text text-muted">Установите Ip адрес.</small>
+          </div>
+
+
+          <div class="form-group">
+            <label>Название на дисплее</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="1" id="1" [(ngModel)]="display_name_array[0]" maxlength="1" #input1>
+              <input type="text" class="form-control" name="2" id="2" [(ngModel)]="display_name_array[1]" maxlength="1" #input2>
+              <input type="text" class="form-control" name="3" id="3" [(ngModel)]="display_name_array[2]" maxlength="1" #input3>
+              <input type="text" class="form-control" name="4" id="4" [(ngModel)]="display_name_array[3]" maxlength="1" #input4>
+              <input type="text" class="form-control" name="5" id="5" [(ngModel)]="display_name_array[4]" maxlength="1" #input5>
+              <input type="text" class="form-control" name="6" id="6" [(ngModel)]="display_name_array[5]" maxlength="1" #input6>
+              <input type="text" class="form-control" name="7" id="7" [(ngModel)]="display_name_array[6]" maxlength="1" #input7>
+              <input type="text" class="form-control" name="8" id="8" [(ngModel)]="display_name_array[7]" maxlength="1" #input8>
+              <input type="text" class="form-control" name="9" id="9" [(ngModel)]="display_name_array[8]" maxlength="1" #input9>
+              <input type="text" class="form-control" name="10" id="10" [(ngModel)]="display_name_array[9]" maxlength="1" #input10>
+              <input type="text" class="form-control" name="11" id="11" [(ngModel)]="display_name_array[10]" maxlength="1" #input11>
+              <input type="text" class="form-control" name="12" id="12" [(ngModel)]="display_name_array[11]" maxlength="1" #input12>
+              <input type="text" class="form-control" name="13" id="13" [(ngModel)]="display_name_array[12]" maxlength="1" #input13>
+              <input type="text" class="form-control" name="14" id="14" [(ngModel)]="display_name_array[13]" maxlength="1" #input14>
+              <input type="text" class="form-control" name="15" id="15" [(ngModel)]="display_name_array[14]" maxlength="1" #input15>
+              <input type="text" class="form-control" name="16" id="16" [(ngModel)]="display_name_array[15]" maxlength="1" #input16>
+            </div>
+            <div class="input-group mt-1">
+              <input type="text" class="form-control" name="17" id="17" [(ngModel)]="display_name_array[16]" maxlength="1" #input17>
+              <input type="text" class="form-control" name="18" id="18" [(ngModel)]="display_name_array[17]" maxlength="1" #input18>
+              <input type="text" class="form-control" name="19" id="19" [(ngModel)]="display_name_array[18]" maxlength="1" #input19>
+              <input type="text" class="form-control" name="20" id="20" [(ngModel)]="display_name_array[19]" maxlength="1" #input20>
+              <input type="text" class="form-control" name="21" id="21" [(ngModel)]="display_name_array[20]" maxlength="1" #input21>
+              <input type="text" class="form-control" name="22" id="22" [(ngModel)]="display_name_array[21]" maxlength="1" #input22>
+              <input type="text" class="form-control" name="23" id="23" [(ngModel)]="display_name_array[22]" maxlength="1" #input23>
+              <input type="text" class="form-control" name="24" id="24" [(ngModel)]="display_name_array[23]" maxlength="1" #input24>
+              <input type="text" class="form-control" name="25" id="25" [(ngModel)]="display_name_array[24]" maxlength="1" #input25>
+              <input type="text" class="form-control" name="26" id="26" [(ngModel)]="display_name_array[25]" maxlength="1" #input26>
+              <input type="text" class="form-control" name="27" id="27" [(ngModel)]="display_name_array[26]" maxlength="1" #input27>
+              <input type="text" class="form-control" name="28" id="28" [(ngModel)]="display_name_array[27]" maxlength="1" #input28>
+              <input type="text" class="form-control" name="29" id="29" [(ngModel)]="display_name_array[28]" maxlength="1" #input29>
+              <input type="text" class="form-control" name="30" id="30" [(ngModel)]="display_name_array[29]" maxlength="1" #input30>
+              <input type="text" class="form-control" name="31" id="31" [(ngModel)]="display_name_array[30]" maxlength="1" #input31>
+              <input type="text" class="form-control" name="32" id="32" [(ngModel)]="display_name_array[31]" maxlength="1" #input32>
+            </div>
+            <small class="form-text text-muted">Название аттракциона указанное на дисплее считывателя.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Название в отчетности</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="rep_name"><i class="fas fa-file-alt"></i></label>
+              </div>
+              <input type="text" class="form-control rep_name" id="rep_name" name="rep_name" placeholder="Название аттракциона"
+                     [(ngModel)]="rep_name"  required>
+            </div>
+            <small class="form-text text-muted">Название аттракциона указанное в отчетности.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="type_sch_id">Тип считывателя</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="type_sch_id"><i class="fas fa-tablet"></i></label>
+              </div>
+              <select class="custom-select" id="type_sch_id" [(ngModel)]="+type_sch_id" name="type_sch_id"
+                      required>
+                <option *ngFor="let type_sch of listTypeSch" value="{{+type_sch.type_sch_id}}">{{type_sch.name}}
+                </option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Выберите тип считывателя.</small>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="checkbox" class="form-check-input checkbox" id="fl_active" [(ngModel)]="fl_active"
+                       name="fl_active">
+                <label class="" for="fl_active">Активность</label>
+                <!--<small class="form-text text-muted">Установите реле 2.</small>-->
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <input type="checkbox" class="form-check-input checkbox" id="fl_bonus" [(ngModel)]="fl_bonus"
+                       name="fl_bonus">
+                <label class="" for="fl_bonus">Отображение бонусов</label>
+                <!--<small class="form-text text-muted">Установите реле 2.</small>-->
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Бонусы за проход</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="val_bonus"><i class="fas fa-gift"></i></label>
+              </div>
+              <input type="number" class="form-control" id="val_bonus" name="val_bonus" [(ngModel)]="val_bonus" placeholder="Укажите количество бонусов за проход" required>
+            </div>
+            <small class="form-text text-muted">Количество получаемых бонусов за проход по данному аттракциону.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Тайм-аут сообщения</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_msg"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_msg" name="timeout_msg" [(ngModel)]="timeout_msg" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Количество милисекунд до того, как сообщение на считывателе погаснет.</small>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+
+          <div class="form-group">
+            <label>Тайм-аут зеленого</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_green"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_green" name="timeout_green" [(ngModel)]="timeout_green" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Количество милисекунд до того, как зеленый светодиод на считывателе погаснет.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Тайм-аут красного</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_red"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_red" name="timeout_red" [(ngModel)]="timeout_red" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Количество милисекунд до того, как красный светодиод на считывателе погаснет.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Тайм-аут реле 1</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_rele_1"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_rele_1" name="timeout_rele_1" [(ngModel)]="timeout_rele_1" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Тайм-аут реле.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Тайм-аут реле 2</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_rele_2"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_rele_2" name="timeout_rele_2" [(ngModel)]="timeout_rele_2" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Тайм-аут реле.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Интервал реле 1</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="interval_rele_1"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="interval_rele_1" name="interval_rele_1" [(ngModel)]="interval_rele_1" placeholder="Введите значение интервала" required>
+            </div>
+            <small class="form-text text-muted">Установите интервал реле.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Интервал реле 2</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="interval_rele_2"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="interval_rele_2" name="interval_rele_2" [(ngModel)]="interval_rele_2" placeholder="Введите значение интервала" required>
+            </div>
+            <small class="form-text text-muted">Установите интервал реле.</small>
+          </div>
+
+          <div class="form-group mt-3">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_archive" [(ngModel)]="fl_archive"
+                   name="fl_archive">
+            <label class="" for="fl_archive">Поместить в архив?</label>
+            <small class="form-text text-muted">При помещении аттракциона в архив сбрасывается считыватель.</small>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <button class="btn btn-info" type="submit" [disabled]="editForm.form.invalid" (click)="editAttr({
+        id: id,
+        sch_id: sch_id,
+        type_sch_id: type_sch_id,
+        rep_name: rep_name,
+        fl_bonus: +fl_bonus,
+        fl_active: +fl_active,
+        fl_archive: +fl_archive,
+        val_bonus: val_bonus,
+        timeout_msg: timeout_msg,
+        timeout_green: timeout_green,
+        timeout_red: timeout_red,
+        timeout_rele_1: timeout_rele_1,
+        timeout_rele_2: timeout_rele_2,
+        interval_rele_1: interval_rele_1,
+        interval_rele_2: interval_rele_2,
+        display_name: display_name_array
+        })">Сохранить изменения</button>
+      </div>
+
+    </form>
+  </div>
+</div>

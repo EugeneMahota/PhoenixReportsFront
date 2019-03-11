@@ -1,0 +1,70 @@
+.card-icon {
+  font-size: 8rem;
+  color: #FFFFFF;
+  background-image: linear-gradient(to bottom, #17a2b8, #74b6d4, #afcbe6, #dde3f3, #ffffff);
+}
+.green {
+  color: #00C851;
+}
+
+.yellow {
+  color: #FF8800;
+}
+.pink {
+  color: #FF6384!important;
+}
+.title {
+  color: #145468;
+}
+.input-group-text {
+  border: none!important;
+  background-color: #FFFFFF!important;
+}
+.form-control {
+  border-top:none!important;
+  border-right:none!important;
+  border-left:none!important;
+  border-radius: 0;
+}
+.form-control:active, .form-control:focus {
+  box-shadow: none!important;
+  border-color: #000000!important;
+}
+
+
+@-webkit-keyframes autofill {
+  to {
+    color: #000000;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
+.wrap {
+  display: flex;
+  /*flex-flow: column wrap;*/
+}
+.one {
+  order: 1;
+}
+.two {
+  order: 3;
+}
+.three {
+  order: 2;
+}
+@media (min-width: 768px) {
+  .one {
+    order: 2;
+  }
+  .two {
+    order: 1;
+  }
+  .three {
+    order: 3;
+  }
+}

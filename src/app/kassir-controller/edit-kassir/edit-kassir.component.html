@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Кассиры</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать({{itemGroupRepl.name}})</li>
+      </ol>
+    </nav>
+
+  </div>
+
+  <div class="col-md-6 text-right align-self-center">
+    <button class="btn btn-pink mb-2" data-toggle="modal" data-target="#exampleModalCenter">
+      Сменить пароль<i class="fas fa-key ml-2"></i>
+    </button>
+  </div>
+</div>
+
+<form #editForm="ngForm">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="font-weight-bold">{{login}}</h3>
+        </div>
+        <div class="col-6 text-right">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_active" [(ngModel)]="fl_active" name="fl_active">
+            <label class="" for="fl_active"> Активность</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Имя</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="fio"><i class="fas fa-user-tie"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="Имя пользователя" name="name" [(ngModel)]="name" required>
+            </div>
+            <small class="form-text text-muted">Не обязательно полное имя</small>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="login">Логин</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="log"><i class="fas fa-user-plus"></i></span>
+              </div>
+              <input type="text" disabled class="form-control" id="login" placeholder="Логин авторизации" name="login" [(ngModel)]="login" required>
+            </div>
+            <small class="form-text text-muted">Придумайте логин.</small>
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+          <div class="form-group">
+            <button class="btn btn-info" [disabled]="editForm.form.invalid || password1 != password2"
+                    (click)="editKassir({id: kassir_id, name: name, fl_active: fl_active})">
+              Сохранить изменения
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<!-- Modal -->
+<form #editFormPassword="ngForm">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Сменить пароль</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group w-100">
+            <label for="password1">Новый пароль</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="pass1"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="password" class="form-control" id="password1" placeholder="Придумайте пароль" name="password1" minlength="4" [(ngModel)]="password1" required>
+            </div>
+            <small class="form-text text-muted">Пароль должен содержать не менее 4 символов.</small>
+          </div>
+          <div class="form-group w-100">
+            <label for="password2">Повторите пароль</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="pass2"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="password" class="form-control" id="password2" placeholder="Повторите пароль" name="password2" minlength="4" [(ngModel)]="password2" required>
+            </div>
+            <small class="form-text text-muted">Введите пароль еще раз.</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" [disabled]="password1 != password2 || editFormPassword.form.invalid"
+                  (click)="editPassword(password1); editFormPassword.reset(password1)">Сохранить</button>
+          <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

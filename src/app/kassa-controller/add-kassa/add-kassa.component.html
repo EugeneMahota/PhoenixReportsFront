@@ -1,0 +1,98 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Кассы</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавить</li>
+      </ol>
+    </nav>
+
+  </div>
+</div>
+
+
+
+<form #addForm="ngForm">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="font-weight-bold">Добавить</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="park_id">Парк</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="park_id">
+                <i class="fab fa-fort-awesome"></i>
+              </label>
+            </div>
+            <select class="custom-select" id="park_id" name="park_id" [(ngModel)]="park_id" required>
+              <option value="{{group.park_id}}" *ngFor="let group of listPark">{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Касса</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="fio"> <i class="fas fa-store"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="Название кассы" name="name" [(ngModel)]="name" required>
+            </div>
+            <small class="form-text text-muted">Название кассы</small>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ip_adr">Ip адрес</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="ip адрес" id="ip_adr" name="ip_adr" [(ngModel)]="ip_adr" required>
+            </div>
+            <small class="form-text text-muted">Добавте ip адрес.</small>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-3">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-cog"></i></span>
+              </div>
+              <input type="number" class="form-control" id="skip" placeholder="Параметр" name="skip" [(ngModel)]="skip">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 align-self-center mb-3 text-center">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="pos" [(ngModel)]="pos" name="pos">
+            <label class="" for="pos"> POS</label>
+          </div>
+        </div>
+        <div class="col-lg-4 align-self-center mb-3 text-center">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="kkm" [(ngModel)]="kkm" name="kkm">
+            <label class="" for="kkm"> KKM</label>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 text-center">
+          <button class="btn btn-info" [disabled]="addForm.form.invalid"
+                  (click)="addKassa({park_id: park_id, name: name, ip_adr: ip_adr, pos: +pos, kkm: +kkm, skip: +skip})">Добавить кассу</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</form>

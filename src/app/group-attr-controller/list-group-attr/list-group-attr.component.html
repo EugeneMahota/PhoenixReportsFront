@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Группы аттракционов</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-md-6 text-right align-self-center">
+
+    <div class="btn-group mb-2 ml-2">
+      <button type="button" class="btn btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Группы репликации <i class="fas fa-layer-group ml-2"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right mt-2">
+        <button class="dropdown-item mr-2 mb-2 pl-3" *ngFor="let gr of listGroupRepl"
+                [ngClass]="gr.name === itemGroupRepl ? 'btn-pink':''" (click)="selectListGroup(gr)">{{gr.name}}</button>
+      </div>
+    </div>
+
+    <button class="btn btn-pink mb-2 ml-2" routerLink="add"><span>Добавить</span> <i class="fas fa-handshake ml-2"></i></button>
+  </div>
+
+</div>
+
+
+
+
+
+<div class="row page-animate">
+  <div class="col-md-12">
+    <div class="card" [ngClass]="listGroupAttr.length === 0 ? 'd-none':''">
+      <div class="card-header">
+        <h3 class="font-weight-bold">{{itemGroupRepl}}</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="w-75">Название</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let group of listGroupAttr">
+            <th class="align-middle text-center" scope="row" (click)="editGroup(group)">
+              <button class="btn btn-info">
+                <i class="fas fa-handshake"></i>
+              </button>
+            </th>
+            <th class="align-middle w-75" scope="row" (click)="editGroup(group)">{{group.name}}</th>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="selectGroup(group)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление группы аттракционов</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить группу {{itemGroupAttr.name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="deleteGroup()" data-toggle="modal" data-target="#exampleModalCenter">Удалить</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

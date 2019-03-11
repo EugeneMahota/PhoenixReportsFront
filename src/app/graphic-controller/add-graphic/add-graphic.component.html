@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Графики</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавить</li>
+      </ol>
+    </nav>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <form #addForm="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="font-weight-bold">Добавить график</h3>
+        </div>
+        <div class="card-body">
+
+          <label for="type_graphic_id">Группа</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="type_graphic_id">
+                <i class="fas fa-folder-open"></i>
+              </label>
+            </div>
+            <select class="custom-select" id="group_id" name="group_id" [(ngModel)]="group_id"
+                    required>
+              <option value="{{group.ex_group}}" *ngFor="let group of listGroup">{{group.name}}</option>
+            </select>
+          </div>
+
+          <label for="type_graphic_id">Тип графика</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="type_graphic_id">
+                <i class="fas fa-clock"></i>
+              </label>
+            </div>
+            <select class="custom-select" id="type_graphic_id" name="type_graphic_id" [(ngModel)]="type_graphic_id"
+                    required>
+              <option value="{{type.type_graphic_id}}" *ngFor="let type of listTypeGraphic">{{type.name_type}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">Название</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="fio"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="Название графика" name="name"
+                     [(ngModel)]="name"
+                     required>
+            </div>
+            <small class="form-text text-muted">Название графика</small>
+          </div>
+
+
+          <div class="form-group">
+            <label for="prior">Приоритет</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-crown"></i></span>
+              </div>
+              <input type="number" class="form-control" placeholder="Приоритет" id="prior" name="prior"
+                     [(ngModel)]="prior" required>
+            </div>
+            <small class="form-text text-muted">Приоритет графика.</small>
+          </div>
+
+
+          <div class="form-group text-center">
+            <button class="btn btn-info" [disabled]="addForm.form.invalid"
+                    (click)="addGraphic({group_id: group_id, name: name, type_graphic_id: type_graphic_id,prior: prior})">
+              Добавить график
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

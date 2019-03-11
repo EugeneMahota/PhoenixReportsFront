@@ -1,0 +1,85 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Кассы</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать({{itemPark.name}})</li>
+      </ol>
+    </nav>
+
+  </div>
+</div>
+
+
+
+<form #editForm="ngForm">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="font-weight-bold">{{name}}</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Касса</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="fio"> <i class="fas fa-store"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="Название кассы" name="name" [(ngModel)]="name" required>
+            </div>
+            <small class="form-text text-muted">Название кассы</small>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ip_adr">Ip адрес</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="ip адрес" id="ip_adr" name="ip_adr" [(ngModel)]="ip_adr" required>
+            </div>
+            <small class="form-text text-muted">Добавте ip адрес.</small>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-3">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-cog"></i></span>
+              </div>
+              <input type="number" class="form-control" id="skip" placeholder="Параметр" name="skip" [(ngModel)]="skip" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 align-self-center mb-3 text-center">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="pos" [(ngModel)]="pos" name="pos">
+            <label class="" for="pos"> POS</label>
+          </div>
+        </div>
+        <div class="col-lg-4 align-self-center mb-3 text-center">
+          <div class="pt-2">
+            <input type="checkbox" class="form-check-input checkbox" id="kkm" [(ngModel)]="kkm" name="kkm">
+            <label class="" for="kkm"> KKM</label>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 text-center">
+          <button class="btn btn-info" [disabled]="editForm.form.invalid"
+                  (click)="editKassa({id: id, name: name, ip_adr: ip_adr, pos: +pos, kkm: +kkm, skip: +skip})">Сохранить изменения</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</form>

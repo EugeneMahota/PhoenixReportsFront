@@ -1,0 +1,115 @@
+<div class="w-100">
+  <div class="row">
+    <div class="col-md-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Пользователи</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="col-md-5 text-center align-self-center">
+      <div class="input-group input-search mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text input-search-icon">
+              <i class="fas fa-search"></i>
+            </span>
+        </div>
+        <input type="text" class="form-control border-left-0" placeholder="Поиск..." [(ngModel)]="searchStr">
+      </div>
+    </div>
+
+    <div class="col-md-4 page-animate text-right align-self-center" [ngClass]="listUser.length === 0 ? 'd-none':''">
+      <div class="btn-group mb-2 mr-2">
+        <button type="button" class="btn btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+          Парки <i class="fab fa-fort-awesome ml-2"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right mt-2">
+          <button class="dropdown-item mr-2 mb-2 pl-3" [ngClass]=" all ? 'btn-pink':''" (click)="allUsers()">Все парки
+          </button>
+          <button class="dropdown-item mr-2 mb-2 pl-3" *ngFor="let park of listPark"
+                  [ngClass]="park.name === itemPark ? 'btn-pink':''" (click)="onPark(park.name)">{{park.name}}
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-pink mb-2" routerLink="add"><span>Добавить</span> <i class="fas fa-user-tie ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="row page-animate">
+    <div class="col-md-12">
+      <div class="card" [ngClass]="listUser.length === 0 ? 'd-none':''">
+        <div class="card-header">
+          <h3 class="font-weight-bold">Пользователи</h3>
+        </div>
+        <table class="table table-responsive-md">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Логин</th>
+            <th scope="col">Парки</th>
+            <th scope="col">Активность</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let user of listUser | SearchPipe:searchStr"
+              [ngStyle]="{'display': user.parks.includes(itemPark) || all ? '':'none'}">
+            <th class="align-middle text-center" scope="row" (click)="editUser(user.id)">
+              <button class="btn btn-info">
+                <i class="fas fa-user-tie"></i>
+              </button>
+            </th>
+            <th class="align-middle" scope="row" (click)="editUser(user.user_id)">{{user.name}}</th>
+            <td class="align-middle" scope="row" (click)="editUser(user.user_id)">{{user.login}}</td>
+            <td class="align-middle" (click)="editUser(user.user_id)">
+              <span class="badge badge-info p-2 ml-2 mb-2" [ngClass]="park === itemPark ? 'b-pink':''"
+                    *ngFor="let park of user.parks">{{park}}</span>
+            </td>
+            <td (click)="editUser(user.user_id)">
+              <input onclick="return false;" type="checkbox" class="form-check-input checkbox" id="{{user.user_id}}"
+                     [(ngModel)]="+user.fl_active" name="checkbox">
+              <label class="" for="{{user.user_id}}"></label>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="selectUser(user)" data-toggle="modal"
+                      data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление пользователя</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить пользователя {{itemUser.name}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="deleteUser()" data-toggle="modal"
+                data-target="#exampleModalCenter">Удалить
+        </button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

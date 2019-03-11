@@ -1,0 +1,47 @@
+<div class="row d-none-xl">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb pb-0 mb-0">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Отчет по кассам</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{namePark}}({{nameKassa}})</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="row page-animate mt-3" [ngClass]="listReport.length === 0 ? 'd-none':''">
+  <div class="col-md-12">
+    <div class="card">
+        <table class="table table-responsive-md table-sm table-striped table-hover table-borderless">
+          <thead>
+          <tr class="pt-4 pb-4">
+            <th scope="col" class="pointer text-center">Код карты</th>
+            <th scope="col" class="pointer text-center">Операция</th>
+            <th scope="col" class="pointer text-center">Кассир</th>
+            <th scope="col" class="pointer text-center">Дата</th>
+            <th scope="col" class="pointer text-center">Оплата</th>
+            <th scope="col" class="pointer text-center">Сумма</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let item of listReport | orderBy:'date':true">
+
+            <td class="align-middle text-center" scope="row">
+              <button class="btn btn-pink btn-sm btn-code" *ngIf="item.code" (click)="reportCard(item.code)">{{item.code}}</button>
+            </td>
+            <td class="align-middle text-center" scope="row">{{item.name_act}}</td>
+            <td class="align-middle text-center" scope="row">{{item.name}}</td>
+            <td class="align-middle text-center" scope="row">{{item.date | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td class="align-middle text-center" scope="row">{{item.name_cash}}</td>
+            <td class="align-middle text-center" scope="row">{{item.value}}</td>
+
+          </tr>
+
+          </tbody>
+        </table>
+    </div>
+
+  </div>
+</div>

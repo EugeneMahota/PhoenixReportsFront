@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Аттракционы</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Цены</li>
+      </ol>
+    </nav>
+
+  </div>
+
+
+  <div class="col-md-6 text-right align-self-center">
+    <button class="btn btn-pink mb-2" routerLink="add"><span>Добавить</span> <i class="fas fa-money-bill-alt ml-2"></i></button>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="row page-animate">
+  <div class="col-md-12">
+    <div class="card" [ngClass]="listPrice.length === 0 ? 'd-none':''">
+      <div class="card-header">
+        <h3 class="font-weight-bold">{{itemAttr.rep_name}}({{itemPark.name}})</h3>
+      </div>
+        <table class="table table-responsive-md">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">График</th>
+            <th scope="col" class="text-center">Карта</th>
+            <th scope="col" class="text-center">Цена(Деньги)</th>
+            <th scope="col" class="text-center">Цена(Бонусы)</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let price of listPrice">
+            <th class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">
+              <button class="btn btn-info">
+                <i class="fas fa-money-bill-alt"></i>
+              </button>
+            </th>
+            <th class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.name_graphic}}</th>
+            <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.name_type_card}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.price}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.bonus}}</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="selectPrice(price)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+    </div>
+
+
+    <div [ngClass]="listPrice.length === 0 ? '':'d-none'" class="text-center h-100 align-self-center">
+      <h3>Список пуст!</h3>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление цены</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить цену?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="deletePrice()" data-toggle="modal" data-target="#exampleModalCenter">Удалить</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

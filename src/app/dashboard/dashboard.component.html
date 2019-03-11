@@ -1,0 +1,428 @@
+<div class="wrapper">
+
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar" [ngClass]="show ? 'showSide':''">
+    <div class="side-block">
+      <div class="sidebar-header border-bottom" routerLink="home">
+        <div class="row">
+          <div class="col-5 mt-1"><img src="assets/fen5.png" class="" width="70" height="auto"></div>
+          <div class="col-7 h-100 align-self-center pl-0"><h3 class="font-weight-bold p-0 m-0">Phoenix<br/> Reports
+          </h3></div>
+        </div>
+      </div>
+
+      <ul class="list-unstyled components">
+
+        <li>
+          <ul class="row list-unstyled">
+            <li class="col-12 text-center" (click)="Side()">
+              <p class="">
+                <i class="fas fa-chevron-circle-left mr-2 user-xs"></i>
+                Навигационное меню
+              </p>
+            </li>
+
+            <!--<li class="col-12 text-center mb-4 user-xs">-->
+              <!--<div class="mr-3">-->
+                <!--<button type="button" class="btn btn-toggle"-->
+                        <!--(click)="Side()" [ngStyle]="{'display': show === true ? 'none':''}">-->
+                  <!--<i class="fas fa-bars mr-2"></i> Навигационное меню-->
+                <!--</button>-->
+              <!--</div>-->
+            <!--</li>-->
+          </ul>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']">
+          <a routerLink="home" (click)="ShowDisplaySm()" class="border-top">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-cubes"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                ГЛАВНАЯ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['users']">
+          <a routerLink="list-user" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                ПОЛЬЗОВАТЕЛИ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['kassirs']">
+          <a routerLink="list-kassir" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+              <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                КАССИРЫ
+              </div>
+              <div class="col-3 align-self-center h-100">
+                <!--<span class="badge badge-yellow">bobr</span>-->
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['aclKassa']">
+          <a routerLink="list-kassa" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                КАССЫ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['graphics']">
+          <a routerLink="list-graphic" (click)="ShowDisplaySm()" class="border-top">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                ГРАФИКИ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['cards']">
+          <a routerLink="list-card" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                КАРТЫ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['hubs']">
+          <a routerLink="list-hub" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-hdd"></i>
+              </div>
+              <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                КОНЦЕНТРАТОРЫ
+              </div>
+              <div class="col-3 align-self-center h-100">
+                <span class="badge badge-green">hub</span>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['attrs']">
+          <a routerLink="list-attr" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                АТТРАКЦИОНЫ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active"
+            *appRoles="['groups']">
+          <a routerLink="list-attr-group" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <div class="col-9 item-list-side h-100 align-self-center mt-1">
+                ГРУППЫ АТТРАКЦИОНОВ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-------------------------->
+        <li routerLinkActive="active" *appRoles="['rptKassa']">
+          <a routerLink="rep-kassa" (click)="ShowDisplaySm()" class="border-top">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">ОТЧЕТ ПО КАССАМ</div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active" *appRoles="['repAttrs']">
+          <a routerLink="rep-pass" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div class="col-10 item-list-side h-100 align-self-center mt-1">
+                ОТЧЕТ ПО АТТРАКЦИОНАМ
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <li routerLinkActive="active" *appRoles="['rptCard']">
+          <a routerLink="rep-card" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                ОТЧЕТ ПО КАРТАМ
+              </div>
+            </div>
+          </a>
+        </li>
+        <!------------------------------->
+
+        <li routerLinkActive="active">
+          <a routerLink="profile" (click)="ShowDisplaySm()" class="border-top">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-user-astronaut"></i>
+              </div>
+              <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                ПРОФИЛЬ
+              </div>
+              <div class="col-3 align-self-center h-100">
+                <!--<span class="badge badge-pink">new</span>-->
+              </div>
+            </div>
+          </a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="support" (click)="ShowDisplaySm()">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                ПОДДЕРЖКА
+              </div>
+              <div class="col-3 align-self-center h-100">
+                <!--<span class="badge badge-pink">new</span>-->
+              </div>
+            </div>
+          </a>
+        </li>
+        <li routerLinkActive="active">
+          <a data-toggle="modal" data-target="#ModalExit">
+            <div class="row">
+              <div class="col-2 pr-0 text-center side-icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                ВЫХОД
+              </div>
+              <div class="col-3 align-self-center h-100">
+                <!--<span class="badge badge-pink">exit</span>-->
+              </div>
+            </div>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div id="content" class="content" [ngClass]="show === false ? 'content-show':''">
+
+
+    <nav class="navbar navbar-light bg-light p-lg-3 mt-2 mb-2 mr-3 ml-3"
+         [ngClass]="show === false ? 'content-show-back':''">
+      <form class="form-inline">
+        <button type="button" class="btn btn-info" (click)="Side()">
+          <!--<i *ngIf="!show" class="fas fa-arrow-left"></i>-->
+          <!--<i *ngIf="show" class="fas fa-arrow-right"></i>-->
+          <i *ngIf="!show" class="fas fa-chevron-circle-left"></i>
+          <i *ngIf="show" class="fas fa-chevron-circle-right"></i>
+        </button>
+
+        <button class="btn btn-pink ml-2" [hidden]="!showButtonKassa" (click)="hideSettingsKassa()">
+          <i *ngIf="showIconKassa" class="fas fa-chevron-circle-down"></i>
+          <i *ngIf="!showIconKassa" class="fas fa-chevron-circle-up"></i>
+        </button>
+
+        <button class="btn btn-pink ml-2" [hidden]="!showButtonPass" (click)="hideSettingsPass()">
+          <i *ngIf="showIconPass" class="fas fa-chevron-circle-down"></i>
+          <i *ngIf="!showIconPass" class="fas fa-chevron-circle-up"></i>
+        </button>
+
+        <h5 class="ml-3 pt-2 d-none d-md-block" style="color: #0C5460">{{title}}</h5>
+
+      </form>
+
+      <form class="form-inline">
+
+        <!--<a routerLink="home" routerLinkActive="icon-link-active" title="Главная"-->
+           <!--class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">-->
+          <!--<i class="fas fa-cubes"></i>-->
+        <!--</a>-->
+        <a routerLink="list-park" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Парки"
+           *appRoles="['parks']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fab fa-fort-awesome"></i>
+        </a>
+        <a routerLink="list-user" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Пользователи"
+           *appRoles="['users']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-user-tie"></i>
+        </a>
+
+        <a routerLink="list-kassir" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Кассиры"
+           *appRoles="['kassirs']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-user-graduate"></i>
+        </a>
+
+        <a routerLink="list-kassa" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Кассы"
+           *appRoles="['aclKassa']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-store"></i>
+        </a>
+
+        <a routerLink="list-graphic" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Графики"
+           *appRoles="['graphics']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-calendar-alt"></i>
+        </a>
+
+        <a routerLink="list-card" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Карты"
+           *appRoles="['cards']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-credit-card"></i>
+        </a>
+
+        <a routerLink="list-hub" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Концентраторы"
+           *appRoles="['hubs']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-hdd"></i>
+        </a>
+
+        <a routerLink="list-attr" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Аттракционы"
+           *appRoles="['attrs']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-rocket"></i>
+        </a>
+
+        <a routerLink="list-attr-group" routerLinkActive="icon-link-active"
+           [ngStyle]="{'display': show === false ? 'none': ''}" title="Группы аттракционов"
+           *appRoles="['groups']"
+           class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center nav-text">
+          <i class="fas fa-handshake"></i>
+        </a>
+
+        <!--<div class="btn-group icon-group" *appRoles="['rptCards', 'rptKassa', 'rptAttrs']">-->
+          <!--<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"-->
+             <!--class="mr-1 ml-lg-2 ml-1 mr-lg-2 icon-link rounded-circle text-center drop-icon">-->
+            <!--<i class="fas fa-file-alt"></i>-->
+          <!--</a>-->
+
+          <!--<div class="dropdown-menu dropdown-menu-right">-->
+            <!--<button *appRoles="['rptKassa']" class="dropdown-item" routerLinkActive="icon-link-active"-->
+                    <!--routerLink="rep-kassa" type="button"><i class="fas fa-file mr-2"></i> Кассы-->
+            <!--</button>-->
+            <!--<div *appRoles="['repAttrs']" class="dropdown-divider"></div>-->
+            <!--<button *appRoles="['repAttrs']" class="dropdown-item" routerLinkActive="icon-link-active"-->
+                    <!--routerLink="rep-pass" type="button"><i class="fas fa-file mr-2"></i> Аттракционы-->
+            <!--</button>-->
+            <!--<div *appRoles="['rptCard']" class="dropdown-divider"></div>-->
+            <!--<button *appRoles="['rptCard']" class="dropdown-item" routerLinkActive="icon-link-active"-->
+                    <!--routerLink="rep-card" type="button"><i class="fas fa-file mr-2"></i> Карты-->
+            <!--</button>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="dropdown  ml-2 ml-lg-4">-->
+          <!--<button class="btn btn-info" type="button" id="dropdownMenuButton" data-toggle="dropdown"-->
+                  <!--aria-haspopup="true"-->
+                  <!--aria-expanded="false">-->
+            <!--<i class="fas fa-user-astronaut"></i>-->
+            <!--<span class="ml-2 user-lg">{{username}}</span>-->
+            <!--<span class="ml-2 user-xs">{{usernameDesktop}}...</span>-->
+            <!--<i class="fas fa-caret-down ml-2"></i>-->
+          <!--</button>-->
+          <!--<div class="dropdown-menu  dropdown-menu-right" a-labelledby="dropdownMenuButton">-->
+            <!--<button class="dropdown-item" routerLink="profile"><i class="fas fa-user-edit"></i> Профиль</button>-->
+            <!--<div class="dropdown-divider"></div>-->
+            <!--<button class="dropdown-item" data-toggle="modal" data-target="#ModalExit"><i-->
+              <!--class="fas fa-sign-out-alt"></i> Выйти-->
+            <!--</button>-->
+          <!--</div>-->
+        <!--</div>-->
+      </form>
+    </nav>
+
+
+    <div class="container-fluid mb-5" [ngClass]="show === false ? 'content-show-back':''">
+      <router-outlet></router-outlet>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalExit" tabindex="-1" role="dialog" aria-labelledby="ModalExit"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Выход из системы</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{username}}, вы уверены что хотите выйти?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="DropCookies()">Да</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Не очень</button>
+      </div>
+    </div>
+  </div>
+</div>
+

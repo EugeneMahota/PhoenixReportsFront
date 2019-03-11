@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../../../']">Концентраторы</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Считыватели</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавить</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="font-weight-bold">{{nameHub}}({{itemPark.name}})</h3>
+  </div>
+  <div class="card-body">
+    <form #addForm="ngForm">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Адрес считывателя</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="ip_adr"><i class="fas fa-key"></i></label>
+              </div>
+              <input type="text" class="form-control" id="ip_adr" name="ip_adr" placeholder="Адрес"
+                     [(ngModel)]="ip_adr" required>
+            </div>
+            <small class="form-text text-muted">Установите Ip адрес.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Максимальное количество проходов</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="pass"><i class="fas fa-hands-helping"></i></label>
+              </div>
+              <input type="number" class="form-control" id="pass" name="pass" [(ngModel)]="pass" placeholder="Проходы"
+                     required>
+            </div>
+            <small class="form-text text-muted">Укажите максимальное количество проходов.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Тайм-аут</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_sleep"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_sleep" name="timeout_sleep" placeholder="Тайм-аут"
+                     [(ngModel)]="timeout_sleep" required>
+            </div>
+            <small class="form-text text-muted">Установите количество минут до ухода в спящий режим.</small>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-12">
+                <label>Яркость светодиодов</label>
+              </div>
+
+              <div class="col-md-12 rgb-range">
+                <div class="range">
+                  <output class="right-output">R</output>
+                  <output>Max</output>
+                  <input type="range" name="R" min="0" max="5" [(ngModel)]="brig_ledR">
+                  <output class="right-left">Min</output>
+                </div>
+              </div>
+
+              <div class="col-md-12 rgb-range">
+                <div class="range">
+                  <output class="right-output">G</output>
+                  <output>Max</output>
+                  <input type="range" name="G" min="0" max="5" [(ngModel)]="brig_ledG">
+                  <output class="right-left">Min</output>
+                </div>
+              </div>
+
+              <div class="col-md-12 rgb-range">
+                <div class="range">
+                  <output class="right-output">B</output>
+                  <output>Max</output>
+                  <input type="range" name="B" min="0" max="5" [(ngModel)]="brig_ledB">
+                  <output class="right-left">Min</output>
+                </div>
+              </div>
+            </div>
+            <small class="form-text text-muted">Установите яркость светодиодов.</small>
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="fl_one_pass" [(ngModel)]="+fl_one_pass"
+                   name="fl_one_pass">
+            <label class="" for="fl_one_pass">Единичный проход</label>
+            <small class="form-text text-muted">Состояние светодиода при единичном проходе.</small>
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="rele_1" [(ngModel)]="+rele_1"
+                   name="rele_1">
+            <label class="" for="rele_1">Реле 1</label>
+            <!--<small class="form-text text-muted">Установите реле 1.</small>-->
+          </div>
+
+          <div class="form-group">
+            <input type="checkbox" class="form-check-input checkbox" id="rele_2" [(ngModel)]="+rele_2"
+                   name="rele_2">
+            <label class="" for="rele_2">Реле 2</label>
+            <!--<small class="form-text text-muted">Установите реле 2.</small>-->
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group text-center">
+        <button class="btn btn-info" type="submit" [disabled]="addForm.form.invalid" (click)="addSch({
+        hub_id: id,
+        ip_adr: ip_adr,
+        pass: pass,
+        timeout_sleep: timeout_sleep,
+        fl_one_pass: +fl_one_pass,
+        rele_1: +rele_1,
+        rele_2: +rele_2,
+        brig_led: brig_ledR.toString() + brig_ledG.toString() + brig_ledB.toString()
+        })">Добавить считыватель
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

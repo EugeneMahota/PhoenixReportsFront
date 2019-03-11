@@ -1,0 +1,250 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Графики</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактировать({{itemGroupRepl.name}})</li>
+      </ol>
+    </nav>
+
+  </div>
+  <div class="col-md-6 text-right align-self-center">
+    <button class="btn btn-pink mb-2" data-toggle="modal" data-target="#exampleModalCenter"><span>Добавить период</span> <i class="fas fa-calendar-check ml-2"></i></button>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <form #editForm="ngForm">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="font-weight-bold">{{name}}</h3>
+        </div>
+        <div class="card-body">
+
+          <label for="type_graphic_id">Тип графика</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="type_graphic_id">
+                <i class="fas fa-clock"></i>
+              </label>
+            </div>
+            <select class="custom-select" id="type_graphic_id" name="type_graphic_id" [(ngModel)]="type_graphic_id"
+                    required>
+              <option value="{{type.type_graphic_id}}" *ngFor="let type of listTypeGraphic">{{type.name_type}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="name">Название</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="fio"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name" placeholder="Название графика" name="name"
+                     [(ngModel)]="name"
+                     required>
+            </div>
+            <small class="form-text text-muted">Название графика</small>
+          </div>
+
+
+          <div class="form-group">
+            <label for="prior">Приоритет</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-crown"></i></span>
+              </div>
+              <input type="number" class="form-control" placeholder="Приоритет" id="prior" name="prior"
+                     [(ngModel)]="prior" required>
+            </div>
+            <small class="form-text text-muted">Приоритет графика.</small>
+          </div>
+
+
+          <div class="form-group text-center">
+            <button class="btn btn-info" [disabled]="editForm.form.invalid"
+                    (click)="editGraphic({id: id, name: name, type_graphic_id: type_graphic_id,prior: prior})">
+              Сохранить изменения
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-8 mb-3">
+
+    <div class="card h-100" [ngClass]="listPeriod.length === 0 ? 'd-none':''">
+      <div class="card-header">
+        <h3 class="font-weight-bold">Периоды</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">Дата старта</th>
+            <th scope="col" class="text-center">Дата окончания</th>
+            <th scope="col" class="text-center">Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let period of listPeriod">
+            <td class="align-middle text-center">{{period.date_start | date:'dd.MM.yyyy HH:mm'}}</td>
+            <td class="align-middle text-center">{{period.date_end | date:'dd.MM.yyyy HH:mm'}}</td>
+
+            <td class="text-center">
+              <div class="btn-group">
+                <button class="btn btn-info btn-sm" (click)="selectPeriodEdit(period)" data-toggle="modal" data-target="#exampleModalCenter2">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="btn btn-info btn-sm" (click)="selectPeriod(period)" data-toggle="modal" data-target="#exampleModalCenter1">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+<form #Period="ngForm">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавить период</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="date_s">Дата старта</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="form-control" id="date_s" name="date_s"
+                     [ngModel]="date_s | date: 'yyyy-MM-ddTHH:mm'"
+                     (ngModelChange)="date_s = $event" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date_e">Дата окончания</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="form-control" id="date_e" name="date_e"
+                     [ngModel]="date_e | date: 'yyyy-MM-ddTHH:mm'"
+                     (ngModelChange)="date_e = $event" required>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" [disabled]="Period.form.invalid" data-dismiss="modal" class="btn btn-info" (click)="addPeriod({id: id, date_start: date_s, date_end: date_e})">Добавить
+          </button>
+          <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+
+<form #editPeriodForm="ngForm">
+  <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редактировать период</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="date_start">Дата старта</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="form-control" id="date_start" name="date_start"
+                     [ngModel]="date_start | date: 'yyyy-MM-ddTHH:mm'"
+                     (ngModelChange)="date_start = $event" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date_end">Дата окончания</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+              </div>
+              <input type="datetime-local" class="form-control" id="date_end" name="date_end"
+                     [ngModel]="date_end | date: 'yyyy-MM-ddTHH:mm'"
+                     (ngModelChange)="date_end = $event" required>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" [disabled]="editPeriodForm.form.invalid" data-dismiss="modal" class="btn btn-info"
+                  (click)="editPeriod({id: period_act_id, date_start: date_start, date_end: date_end})">Сохранить
+          </button>
+          <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление периода</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить период?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="deletePeriod()" data-dismiss="modal">Удалить</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

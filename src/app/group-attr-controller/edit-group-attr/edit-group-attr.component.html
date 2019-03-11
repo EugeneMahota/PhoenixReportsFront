@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Группы аттракционов</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактироать({{itemGroupRepl.name}})</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+<div class="row page-animate">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="font-weight-bold">
+          {{name}}
+        </h3>
+      </div>
+      <div class="card-body">
+        <form #editForm="ngForm">
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="listAttrActive"><i class="fas fa-rocket mr-2"></i>Аттракцион</label>
+                <angular2-multiselect [data]="listAttr" [(ngModel)]="listAttrActive" [settings]="settingsAttr" name="listAttrActive" id="listAttrActive">
+                  <c-item>
+                    <ng-template let-item="item">
+                      {{item.itemName}}
+                    </ng-template>
+                  </c-item>
+                </angular2-multiselect>
+                <small class="form-text text-muted">Отметьте необходимые аттракционы.</small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="listUserActive"><i class="fas fa-user mr-2"></i>Пользователи</label>
+                <angular2-multiselect [data]="listUser" [(ngModel)]="listUserActive" [settings]="settingsUser" name="listUserActive" id="listUserActive">
+                  <c-item>
+                    <ng-template let-item="item">
+                      {{item.itemName}}
+                    </ng-template>
+                  </c-item>
+                </angular2-multiselect>
+                <small class="form-text text-muted">Отметьте необходимыех пользователей.</small>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="name">Название</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-handshake"></i></span>
+                  </div>
+                  <input type="text" class="form-control" id="name" placeholder="Группа" name="name" [(ngModel)]="name" required>
+                </div>
+                <small class="form-text text-muted">Название группы.</small>
+              </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <button class="btn-info btn" [disabled]="editForm.form.invalid"
+                      (click)="editGroup({id: id, name: name, attrs: listAttrActive, users: listUserActive})">
+                Сохранить изменения
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
