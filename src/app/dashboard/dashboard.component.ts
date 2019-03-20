@@ -63,24 +63,16 @@ export class DashboardComponent implements OnInit {
     this.usernameDesktop = this.authService.getLogin().slice(0, 5);
 
 
-
-    if (localStorage.getItem('show') === 'true') {
+    if (screen.width < 1131) {
       this.show = true;
-      if (screen.width < 1131) {
-        this.show = true;
-      }
-    } else if (localStorage.getItem('show') === 'false') {
-      this.show = false;
-      if (screen.width < 1131) {
-        this.show = true;
-      }
     }
-
+    if (screen.width > 1131) {
+      this.show = false;
+    }
   }
 
   Side() {
     this.show = !this.show;
-    localStorage.setItem('show', this.show.toString())
   }
 
   ShowDisplaySm() {
