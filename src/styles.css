@@ -6,6 +6,8 @@
 @import "~angular-notifier/styles/types/type-error.css";
 @import "~angular-notifier/styles/types/type-success.css";
 
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 .wrap {
   display: flex;
   /*flex-flow: column wrap;*/
@@ -35,10 +37,10 @@ body {
   overflow-x:hidden;
   font-family: 'Oswald', sans-serif;
   /*font-family: 'Neucha', cursive;*/
-  background-color: #FAFAFA;
+  background-color: #E9ECEF;
 }
 .breadcrumb {
-  background-color: #FAFAFA;
+  background-color: #E9ECEF;
 }
 ::-webkit-scrollbar {
   width:8px;
@@ -103,7 +105,7 @@ body {
   color: #0C5460;
 }
 .card-header h4 {
-  font-weight: bold;
+  letter-spacing: 2px;
 }
 .input-group-text {
   border: 1px solid #A9AFBB!important;
@@ -219,11 +221,18 @@ tbody tr:hover {
 }
 .c-label {
   color: #FFFFFF;
+  /*font-size: 0.6rem;*/
 }
 .c-btn {
-  border: 1px solid #A9AFBB!important;
+  /*border-top: none;*/
+  /*border-left: none;*/
+  /*border-right: none;*/
+  border-radius:2px!important;
+  border: 1px solid #A9AFBB;
 }
-
+.form-control {
+  border-radius:2px!important;
+}
 /*Animate*/
 
 .visual-graphic {
@@ -353,5 +362,10 @@ tbody {
 @media (min-width: 767.98px) {
   .d-none-xl {
     display: none;
+  }
+}
+@media (max-width: 991.98px) {
+  .mb-small {
+    margin-bottom: 1rem;
   }
 }

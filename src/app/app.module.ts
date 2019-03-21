@@ -67,11 +67,14 @@ import { EditGroupAttrComponent } from './group-attr-controller/edit-group-attr/
 import { AddGroupAttrComponent } from './group-attr-controller/add-group-attr/add-group-attr.component';
 import {SearchPipe} from './dashboard/SearchPipe';
 import { SupportComponent } from './support/support.component';
+import {OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DefaultIntl} from './locale/locale';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
-      position: 'left',
+      position: 'right',
       distance: 12
     },
     vertical: {
@@ -80,32 +83,12 @@ const customNotifierOptions: NotifierOptions = {
       gap: 10
     }
   },
-  theme: 'material',
   behaviour: {
-    autoHide: 5000,
+    autoHide: 4000,
     onClick: false,
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,
-    stacking: 3
-  },
-  animations: {
-    enabled: true,
-    show: {
-      preset: 'slide',
-      speed: 300,
-      easing: 'ease'
-    },
-    hide: {
-      preset: 'fade',
-      speed: 300,
-      easing: 'ease',
-      offset: 50
-    },
-    shift: {
-      speed: 300,
-      easing: 'ease'
-    },
-    overlap: 150
+    stacking: 1
   }
 };
 
@@ -116,401 +99,86 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canActivateChild: [RolesGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
-        data: {
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: HomeComponent, data: {
           title: 'home',
           roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']
         }
       },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        data: {
+      {path: 'profile', component: ProfileComponent, data: {
           title: 'profile',
           roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']
         }
       },
 
-      {
-        path: 'list-user',
-        component: ListUserComponent,
-        data: {
-          title: 'user',
-          roles: ['users']
-        }
-      },
-      {
-        path: 'list-user/add',
-        component: AddUserComponent,
-        data: {
-          title: 'user',
-          roles: ['users']
-        }
-      },
-      {
-        path: 'list-user/:id',
-        component: EditUserComponent,
-        data: {
-          title: 'user',
-          roles: ['users']
-        }
-      },
+      {path: 'list-user', component: ListUserComponent, data: {title: 'user', roles: ['users']}},
+      {path: 'list-user/add', component: AddUserComponent, data: {title: 'user', roles: ['users']}},
+      {path: 'list-user/:id', component: EditUserComponent, data: {title: 'user', roles: ['users']}},
 
-      {
-        path: 'list-kassir',
-        component: ListKassirComponent,
-        data: {
-          title: 'kassir',
-          roles: ['kassirs']
-        }
-      },
-      {
-        path: 'list-kassir/add',
-        component: AddKassirComponent,
-        data: {
-          title: 'kassir',
-          roles: ['kassirs']
-        }
-      },
-      {
-        path: 'list-kassir/:id',
-        component: EditKassirComponent,
-        data: {
-          title: 'kassir',
-          roles: ['kassirs']
-        }
-      },
+      {path: 'list-kassir', component: ListKassirComponent, data: {title: 'kassir', roles: ['kassirs']}},
+      {path: 'list-kassir/add', component: AddKassirComponent, data: {title: 'kassir', roles: ['kassirs']}},
+      {path: 'list-kassir/:id', component: EditKassirComponent, data: {title: 'kassir', roles: ['kassirs']}},
 
-      {
-        path: 'list-graphic',
-        component: ListGraphicComponent,
-        data: {
-          title: 'graphic',
-          roles: ['graphics']
-        }
-      },
-      {
-        path: 'list-graphic/add',
-        component: AddGraphicComponent,
-        data: {
-          title: 'graphic',
-          roles: ['graphics']
-        }
-      },
-      {
-        path: 'list-graphic/:id',
-        component: EditGraphicComponent,
-        data: {
-          title: 'graphic',
-          roles: ['graphics']
-        }
-      },
+      {path: 'list-graphic', component: ListGraphicComponent, data: {title: 'graphic', roles: ['graphics']}},
+      {path: 'list-graphic/add', component: AddGraphicComponent, data: {title: 'graphic', roles: ['graphics']}},
+      {path: 'list-graphic/:id', component: EditGraphicComponent, data: {title: 'graphic', roles: ['graphics']}},
 
-      {
-        path: 'list-kassa',
-        component: ListKassaComponent,
-        data: {
-          title: 'kassa',
-          roles: ['aclKassa']
-        }
-      },
-      {
-        path: 'list-kassa/add',
-        component: AddKassaComponent,
-        data: {
-          title: 'kassa',
-          roles: ['aclKassa']
-        }
-      },
-      {
-        path: 'list-kassa/:id',
-        component: EditKassaComponent,
-        data: {
-          title: 'kassa',
-          roles: ['aclKassa']
-        }
-      },
+      {path: 'list-kassa', component: ListKassaComponent, data: {title: 'kassa', roles: ['aclKassa']}},
+      {path: 'list-kassa/add', component: AddKassaComponent, data: {title: 'kassa', roles: ['aclKassa']}},
+      {path: 'list-kassa/:id', component: EditKassaComponent, data: {title: 'kassa', roles: ['aclKassa']}},
 
 
-      {
-        path: 'list-card',
-        component: ListCardComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/add',
-        component: AddCardComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/:id',
-        component: EditCardComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
+      {path: 'list-card', component: ListCardComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/add', component: AddCardComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/:id', component: EditCardComponent, data: {title: 'card', roles: ['cards']}},
 
 
-      {
-        path: 'list-card/:id/list-bonus',
-        component: ListBonusComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/:id/list-bonus/add',
-        component: AddBonusComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/:id/list-bonus/:bon_id',
-        component: EditBonusComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
+      {path: 'list-card/:id/list-bonus', component: ListBonusComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/:id/list-bonus/add', component: AddBonusComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/:id/list-bonus/:bon_id', component: EditBonusComponent, data: {title: 'card', roles: ['cards']}},
 
-      {
-        path: 'list-card/:id/list-sale',
-        component: ListSaleComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/:id/list-sale/add',
-        component: AddSaleComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
-      {
-        path: 'list-card/:id/list-sale/:sale_id',
-        component: EditSaleComponent,
-        data: {
-          title: 'card',
-          roles: ['cards']
-        }
-      },
+      {path: 'list-card/:id/list-sale', component: ListSaleComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/:id/list-sale/add', component: AddSaleComponent, data: {title: 'card', roles: ['cards']}},
+      {path: 'list-card/:id/list-sale/:sale_id', component: EditSaleComponent, data: {title: 'card', roles: ['cards']}},
 
-      {
-        path: 'list-hub',
-        component: ListHubComponent,
-        data: {
-          title: 'hub',
-          roles: ['hubs']
-        }
-      },
-      {
-        path: 'list-hub/add',
-        component: AddHubComponent,
-        data: {
-          title: 'hub',
-          roles: ['hubs']
-        }
-      },
-      {
-        path: 'list-hub/:id',
-        component: EditHubComponent,
-        data: {
-          title: 'hub',
-          roles: ['hubs']
-        }
-      },
+      {path: 'list-hub', component: ListHubComponent, data: {title: 'hub', roles: ['hubs']}},
+      {path: 'list-hub/add', component: AddHubComponent, data: {title: 'hub', roles: ['hubs']}},
+      {path: 'list-hub/:id', component: EditHubComponent, data: {title: 'hub', roles: ['hubs']}},
 
-      {
-        path: 'list-hub/:id/list-sch',
-        component: ListSchComponent,
-        data: {
-          title: 'sch',
-          roles: ['hubs']
-        }
-      },
-      {
-        path: 'list-hub/:id/list-sch/add',
-        component: AddSchComponent,
-        data: {
-          title: 'sch',
-          roles: ['hubs']
-        }
-      },
-      {
-        path: 'list-hub/:id/list-sch/:sch_id',
-        component: EditSchComponent,
-        data: {
-          title: 'sch',
-          roles: ['hubs']
-        }
-      },
+      {path: 'list-hub/:id/list-sch', component: ListSchComponent, data: {title: 'sch', roles: ['hubs']}},
+      {path: 'list-hub/:id/list-sch/add', component: AddSchComponent, data: {title: 'sch', roles: ['hubs']}},
+      {path: 'list-hub/:id/list-sch/:sch_id', component: EditSchComponent, data: {title: 'sch', roles: ['hubs']}},
 
-      {
-        path: 'list-attr',
-        component: ListAttrComponent,
-        data: {
-          title: 'attr',
-          roles: ['attrs']
-        }
-      },
-      {
-        path: 'list-attr/add',
-        component: AddAttrComponent,
-        data: {
-          title: 'attr',
-          roles: ['attrs']
-        }
-      },
-      {
-        path: 'list-attr/:id',
-        component: EditAttrComponent,
-        data: {
-          title: 'attr',
-          roles: ['attrs']
-        }
-      },
+      {path: 'list-attr', component: ListAttrComponent, data: {title: 'attr', roles: ['attrs']}},
+      {path: 'list-attr/add', component: AddAttrComponent, data: {title: 'attr', roles: ['attrs']}},
+      {path: 'list-attr/:id', component: EditAttrComponent, data: {title: 'attr', roles: ['attrs']}},
 
-      {
-        path: 'list-attr/:id/list-price',
-        component: ListPriceComponent,
-        data: {
-          title: 'price',
-          roles: ['attrs']
-        }
-      },
-      {
-        path: 'list-attr/:id/list-price/add',
-        component: AddPriceComponent,
-        data: {
-          title: 'price',
-          roles: ['attrs']
-        }
-      },
-      {
-        path: 'list-attr/:id/list-price/:price_id',
-        component: EditPriceComponent,
-        data: {
-          title: 'price',
-          roles: ['attrs']
-        }
-      },
+      {path: 'list-attr/:id/list-price', component: ListPriceComponent, data: {title: 'price', roles: ['attrs']}},
+      {path: 'list-attr/:id/list-price/add', component: AddPriceComponent, data: {title: 'price', roles: ['attrs']}},
+      {path: 'list-attr/:id/list-price/:price_id', component: EditPriceComponent, data: {title: 'price', roles: ['attrs']}},
 
-      {
-        path: 'list-attr-group',
-        component: ListGroupAttrComponent,
-        data: {
-          title: 'attr-group',
-          roles: ['groups']
-        }
-      },
-      {
-        path: 'list-attr-group/add',
-        component: AddGroupAttrComponent,
-        data: {
-          title: 'attr-group',
-          roles: ['groups']
-        }
-      },
-      {
-        path: 'list-attr-group/:id',
-        component: EditGroupAttrComponent,
-        data: {
-          title: 'attr-group',
-          roles: ['groups']
-        }
-      },
+      {path: 'list-attr-group', component: ListGroupAttrComponent, data: {title: 'attr-group', roles: ['groups']}},
+      {path: 'list-attr-group/add', component: AddGroupAttrComponent, data: {title: 'attr-group', roles: ['groups']}},
+      {path: 'list-attr-group/:id', component: EditGroupAttrComponent, data: {title: 'attr-group', roles: ['groups']}},
 
-      {
-        path: 'rep-kassa',
-        component: RepKassaComponent,
-        data: {
-          title: 'rep-kassa',
-          roles: ['rptKassa']
-        }
-      },
-      {
-        path: 'rep-kassa/:id',
-        component: KassaDetalizationComponent,
-        data: {
-          title: 'rep-kassa',
-          roles: ['rptKassa']
-        }
-      },
+      {path: 'rep-kassa', component: RepKassaComponent, data: {title: 'rep-kassa', roles: ['rptKassa']}},
+      {path: 'rep-kassa/:id', component: KassaDetalizationComponent, data: {title: 'rep-kassa', roles: ['rptKassa']}},
 
-      {
-        path: 'rep-pass',
-        component: RepPassComponent,
-        data: {
-          title: 'rep-pass',
-          roles: ['repAttrs']
-        }
-      },
-      {
-        path: 'rep-pass/:id',
-        component: PassDetalizationComponent,
-        data: {
-          title: 'rep-pass',
-          roles: ['repAttrs']
-        }
-      },
+      {path: 'rep-pass', component: RepPassComponent, data: {title: 'rep-pass', roles: ['repAttrs']}},
+      {path: 'rep-pass/:id', component: PassDetalizationComponent, data: {title: 'rep-pass', roles: ['repAttrs']}},
 
-      {
-        path: 'rep-card',
-        component: RepCardComponent,
-        data: {
-          title: 'rep-card',
-          roles: ['rptCard']
-        }
-      },
+      {path: 'rep-card', component: RepCardComponent, data: {title: 'rep-card', roles: ['rptCard']}},
 
-      {
-        path: 'support',
-        component: SupportComponent,
-        data: {
-          roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']
-        }
-      },
+      {path: 'support', component: SupportComponent, data:
+          {roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']}},
 
-      {
-        path: '**',
-        component: HomeComponent
-      }
+      {path: '**', component: HomeComponent}
     ]
 
   },
-  {
-    path: 'auth',
-    component: LoginFormComponent
-  },
-  {
-    path: 'error404',
-    component: ErrorComponent
-  },
-  {
-    path: '',
-    redirectTo: 'auth',
-    pathMatch: 'full'
-  }
+  {path: 'auth', component: LoginFormComponent},
+  {path: 'error404', component: ErrorComponent},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -576,13 +244,20 @@ const routes: Routes = [
     NgxMaskModule.forRoot(),
     OrderModule,
     ChartsModule,
-    NotifierModule.withConfig(customNotifierOptions)
+    NotifierModule.withConfig(customNotifierOptions),
+    BrowserAnimationsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [AuthGuard, AuthService, RolesGuard, CookieService, LoadingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptorService,
       multi: true
+    },
+    {
+      provide: OwlDateTimeIntl,
+      useClass: DefaultIntl
     }
   ],
   bootstrap: [AppComponent]

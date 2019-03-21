@@ -13,29 +13,29 @@
 <div class="row page-animate mt-3" [ngClass]="listReport.length === 0 ? 'd-none':''">
   <div class="col-md-12">
     <div class="card">
-        <table class="table table-responsive-md table-sm table-striped table-hover table-borderless">
+        <table class="table table-responsive-md table-sm table-bordered mb-0">
           <thead>
           <tr class="pt-4 pb-4">
-            <th scope="col" class="pointer text-center">Код карты</th>
-            <th scope="col" class="pointer text-center">Операция</th>
-            <th scope="col" class="pointer text-center">Кассир</th>
-            <th scope="col" class="pointer text-center">Дата</th>
-            <th scope="col" class="pointer text-center">Оплата</th>
-            <th scope="col" class="pointer text-center">Сумма</th>
+            <td scope="col" class="pointer text-center table-title border-0">Код карты</td>
+            <td scope="col" class="pointer text-center table-title border-0">Операция</td>
+            <td scope="col" class="pointer text-center table-title border-0">Кассир</td>
+            <td scope="col" class="pointer text-center table-title border-0">Дата</td>
+            <td scope="col" class="pointer text-center table-title border-0">Оплата</td>
+            <td scope="col" class="pointer text-center table-title border-0">Сумма</td>
           </tr>
           </thead>
           <tbody>
 
           <tr *ngFor="let item of listReport | orderBy:'date':true">
 
-            <td class="align-middle text-center" scope="row">
+            <td class="align-middle text-center border-left-0" scope="row">
               <button class="btn btn-pink btn-sm btn-code" *ngIf="item.code" (click)="reportCard(item.code)">{{item.code}}</button>
             </td>
             <td class="align-middle text-center" scope="row">{{item.name_act}}</td>
             <td class="align-middle text-center" scope="row">{{item.name}}</td>
             <td class="align-middle text-center" scope="row">{{item.date | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
             <td class="align-middle text-center" scope="row">{{item.name_cash}}</td>
-            <td class="align-middle text-center" scope="row">{{item.value}}</td>
+            <td class="align-middle text-center border-right-0" scope="row">{{item.value}}</td>
 
           </tr>
 

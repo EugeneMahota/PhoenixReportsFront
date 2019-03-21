@@ -3,35 +3,36 @@
   <!-- Sidebar -->
   <nav id="sidebar" class="sidebar" [ngClass]="show ? 'showSide':''">
     <div class="side-block">
-      <div class="sidebar-header border-bottom" routerLink="home">
+      <div class="sidebar-header" routerLink="home">
         <div class="row">
-          <div class="col-5 mt-1"><img src="assets/fen5.png" class="" width="70" height="auto"></div>
-          <div class="col-7 h-100 align-self-center pl-0"><h3 class="font-weight-bold p-0 m-0">Phoenix<br/> Reports
-          </h3></div>
+          <!--<div class="col-12 mt-1 text-center"><img src="assets/fen5.png" class="" width="70" height="auto"></div>-->
+          <div class="col-12 h-100 text-center">
+            <h3 class="pt-2 pb-2 m-0">Phoenix Reports</h3>
+            </div>
         </div>
       </div>
 
-      <ul class="list-unstyled components">
+      <ul class="list-unstyled components pt-0">
 
-        <li>
-          <ul class="row list-unstyled">
-            <li class="col-12 text-center" (click)="Side()">
-              <p class="">
-                <i class="fas fa-chevron-circle-left mr-2 user-xs"></i>
-                Навигационное меню
-              </p>
-            </li>
-
-            <!--<li class="col-12 text-center mb-4 user-xs">-->
-              <!--<div class="mr-3">-->
-                <!--<button type="button" class="btn btn-toggle"-->
-                        <!--(click)="Side()" [ngStyle]="{'display': show === true ? 'none':''}">-->
-                  <!--<i class="fas fa-bars mr-2"></i> Навигационное меню-->
-                <!--</button>-->
-              <!--</div>-->
+        <!--<li>-->
+          <!--<ul class="row list-unstyled">-->
+            <!--<li class="col-12 text-center" (click)="Side()">-->
+              <!--<p class="">-->
+                <!--<i class="fas fa-chevron-circle-left mr-2 user-xs"></i>-->
+                <!--Навигационное меню-->
+              <!--</p>-->
             <!--</li>-->
-          </ul>
-        </li>
+
+            <!--&lt;!&ndash;<li class="col-12 text-center mb-4 user-xs">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="mr-3">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="button" class="btn btn-toggle"&ndash;&gt;-->
+                        <!--&lt;!&ndash;(click)="Side()" [ngStyle]="{'display': show === true ? 'none':''}">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<i class="fas fa-bars mr-2"></i> Навигационное меню&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--</ul>-->
+        <!--</li>-->
 
         <li routerLinkActive="active"
             *appRoles="['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']">
@@ -256,9 +257,9 @@
 
   <!-- Page Content -->
   <div id="content" class="content" [ngClass]="show === false ? 'content-show':''">
+  <!--<div id="content" class="content">-->
 
-
-    <nav class="navbar navbar-light bg-light p-lg-3 mt-2 mb-2 mr-3 ml-3" [ngClass]="show === false ? 'content-show-back':''">
+    <nav class="navbar navbar-light bg-light p-lg-3 mt-2 mb-2 mr-3 ml-3" [ngClass]="show === false ? 'dark-back':''">
       <form class="form-inline">
         <button type="button" class="btn btn-info" (click)="Side()">
           <!--<i *ngIf="!show" class="fas fa-arrow-left"></i>-->
@@ -392,7 +393,7 @@
     </nav>
 
 
-    <div class="container-fluid mb-5" [ngClass]="show === false ? 'content-show-back':''">
+    <div class="container-fluid mb-5 mt-3" [ngClass]="show === false ? 'dark-back':''">
       <router-outlet></router-outlet>
 
     </div>

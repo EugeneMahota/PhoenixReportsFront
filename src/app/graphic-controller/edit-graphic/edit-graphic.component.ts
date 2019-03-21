@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GraphicService} from '../graphic.service';
 import {NotifierService} from 'angular-notifier';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DateTimeAdapter} from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-edit-graphic',
@@ -21,16 +22,17 @@ export class EditGraphicComponent implements OnInit {
 
   listTypeGraphic: any[] = [];
 
-  date_start: string;
-  date_end: string;
+  date_start: any;
+  date_end: any;
 
   period_act_id: number;
-  date_s: string;
-  date_e: string;
+  date_s: any;
+  date_e: any;
 
   itemGroupRepl: any;
-  constructor(notifierService: NotifierService, private route: ActivatedRoute, private graphicService: GraphicService, private router: Router) {
+  constructor(notifierService: NotifierService, dateTimeAdapter: DateTimeAdapter<any>, private route: ActivatedRoute, private graphicService: GraphicService, private router: Router) {
     this.notifier = notifierService;
+    dateTimeAdapter.setLocale('Ru');
   }
 
   ngOnInit() {
@@ -61,8 +63,6 @@ export class EditGraphicComponent implements OnInit {
   }
 
   addPeriod(Period) {
-    Period.date_start = Period.date_start.replace('T', ' ');
-    Period.date_end = Period.date_end.replace('T', ' ');
     this.graphicService.addPeriod(Period).subscribe(response => {
       if (response.status === 'Ok') {
         this.ngOnInit();
@@ -76,8 +76,8 @@ export class EditGraphicComponent implements OnInit {
 
   selectPeriodEdit(Period) {
     this.period_act_id = Period.period_act_id;
-    this.date_start = Period.date_start;
-    this.date_end = Period.date_end;
+    this.date_start = new Date(Period.date_start);
+    this.date_end = new Date(Period.date_end);
   }
 
   deletePeriod() {
@@ -89,15 +89,6 @@ export class EditGraphicComponent implements OnInit {
   }
 
   editPeriod(Period) {
-    if(Period.date_start.length > 18) {
-      Period.date_start = Period.date_start.slice(0, -3);
-    }
-    if(Period.date_end.length > 18) {
-      Period.date_end = Period.date_end.slice(0, -3);
-    }
-
-    Period.date_start = Period.date_start.replace('T', ' ');
-    Period.date_end = Period.date_end.replace('T', ' ');
     this.graphicService.editPeriod(Period).subscribe(response => {
       if (response.status === 'Ok') {
         this.ngOnInit();

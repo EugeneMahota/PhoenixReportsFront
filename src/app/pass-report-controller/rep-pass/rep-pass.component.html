@@ -17,87 +17,65 @@
 
 
         <div class="col-md-6 mb-3">
-          <label>Группы</label>
+          <!--<label>Группы</label>-->
               <angular2-multiselect [data]="listGroup" [(ngModel)]="listGroupActive" [settings]="settingsGroup" name="listGroupActive" id="listGroupActive">
               </angular2-multiselect>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label>Карты</label>
+          <!--<label>Карты</label>-->
             <angular2-multiselect [data]="listCard" [(ngModel)]="listCardActive" [settings]="settingsCard" name="listCardActive" id="listCardActive">
             </angular2-multiselect>
         </div>
 
-        <div class="col-md-6">
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label for="date_start" class="input-group-text text-input"><i class="fas fa-calendar-alt mr-2"></i>Начало</label>
-              </div>
-              <input type="datetime-local" class="form-control" id="date_start" name="date_start"
-                     [ngModel]="date_start | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_start = $event" required>
-            </div>
+        <div class="col-md-12 mb-3">
+              <!--<div class="input-group-prepend">-->
+                <!--<div class="input-group-text bg-white">-->
+                  <!--<i class="fas fa-calendar-alt"></i>-->
+                <!--</div>-->
+              <!--</div>-->
+              <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+                     [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'" placeholder="Выберите временной диапазон" id="date" name="date">
+              <owl-date-time #date></owl-date-time>
+        </div>
+
+
+        <div class="col-lg-2 col-md-6 col-12 mb-small">
+          <div class="btn-group w-100">
+            <div class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></div>
+            <div class="btn btn-info w-100" [ngClass]="activeDate === 'day' ? 'btn-active':''" (click)="getDay(); activeDate = 'day'">День</div>
+            <div class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label for="date_end" class="input-group-text text-input"><i class="fas fa-calendar-alt mr-2"></i>Окончание</label>
-              </div>
-              <input type="datetime-local" class="form-control" id="date_end" name="date_end"
-                     [ngModel]="date_end | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_end = $event" required>
-            </div>
+        <div class="col-lg-2 col-md-6 col-12 mb-small">
+          <div class="btn-group w-100">
+            <div class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></div>
+            <div class="btn btn-info w-100" [ngClass]="activeDate === 'week' ? 'btn-active':''" (click)="getWeek(); activeDate = 'week'">Неделя</div>
+            <div class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-12 mb-small">
+          <div class="btn-group w-100">
+            <div class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></div>
+            <div class="btn btn-info w-100" [ngClass]="activeDate === 'month' ? 'btn-active':''" (click)="getMonth(); activeDate = 'month'">Месяц</div>
+            <div class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-12 mb-small">
+          <div class="btn-group w-100">
+            <div class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></div>
+            <div class="btn btn-info w-100" [ngClass]="activeDate === 'year' ? 'btn-active':''" (click)="getYear(); activeDate = 'year'">Год</div>
+            <div class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></div>
           </div>
         </div>
 
-
-        <div class="col-lg-2 col-md-6 mb-2">
-            <div class="btn-group w-100" role="group" aria-label="Basic example">
-              <button class="btn btn-info" (click)="onDay('minus')"><i class="fas fa-caret-left"></i></button>
-              <button [ngClass]="type_rep === 'day' ? 'btn-pink':'btn-info'" class="btn w-100"
-                      (click)="onRepPassParam('day')">День
-              </button>
-              <button class="btn btn-info" (click)="onDay('plus')"><i class="fas fa-caret-right"></i></button>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-6 mb-2">
-            <div class="btn-group w-100" role="group" aria-label="Basic example">
-              <button class="btn btn-info" (click)="onWeek('minus')"><i class="fas fa-caret-left"></i></button>
-              <button [ngClass]="type_rep === 'week' ? 'btn-pink':'btn-info'" class="btn w-100"
-                      (click)="onRepPassParam('week')">Неделю
-              </button>
-              <button class="btn btn-info" (click)="onWeek('plus')"><i class="fas fa-caret-right"></i></button>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-6 mb-2">
-            <div class="btn-group w-100" role="group" aria-label="Basic example">
-              <button class="btn btn-info" (click)="onMonth('minus')"><i class="fas fa-caret-left"></i></button>
-              <button [ngClass]="type_rep === 'month' ? 'btn-pink':'btn-info'" class="btn w-100"
-                      (click)="onRepPassParam('month')">Месяц
-              </button>
-              <button class="btn btn-info" (click)="onMonth('plus')"><i class="fas fa-caret-right"></i></button>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-6 mb-2">
-            <div class="btn-group w-100" role="group" aria-label="Basic example">
-              <button class="btn btn-info" (click)="onYear('minus')"><i class="fas fa-caret-left"></i></button>
-              <button [ngClass]="type_rep === 'year' ? 'btn-pink':'btn-info'" class="btn w-100"
-                      (click)="onRepPassParam('year')">Год
-              </button>
-              <button class="btn btn-info" (click)="onYear('plus')"><i class="fas fa-caret-right"></i></button>
-            </div>
-        </div>
-
-        <div class="col-lg-2 col-md-4 col-5 text-right">
-          <button class="btn btn-pink mb-2" [ngClass]="listReport.length === 0 ? 'd-none':''" (click)="exportExcel()">В Excel</button>
+        <div class="col-lg-2 col-md-4 col-5 text-left">
+          <button class="btn btn-pink" [ngClass]="listReport.length === 0 ? 'd-none':''" (click)="exportExcel()">В Excel</button>
         </div>
 
         <div class="col-lg-2 col-md-8 col-7">
           <button type="button" data-dismiss="modal" class="btn btn-info w-100"
-                  (click)="getReport({date_start: date_start, date_end: date_end, groups: listGroupActive, cards: listCardActive});"
+                  (click)="getReport({groups: listGroupActive, cards: listCardActive});"
                   [disabled]="reportForm.form.invalid">Сформировать
           </button>
         </div>
@@ -111,44 +89,44 @@
 
     <div class="card mt-3" *ngFor="let park of listReport" [ngClass]="park.data.length === 0 ? 'd-none':''">
       <div class="card-header">
-        <h4 class="mb-0 pb-0">{{park.name}}</h4>
+        <h4>{{park.name}}</h4>
       </div>
       <div class="table-responsive">
-      <table class="table table-sm table-striped mb-0 table-hover table-borderless">
+      <table class="table table-sm mb-0 table-bordered">
         <thead>
         <tr class="pt-4 pb-4">
-          <th class="pointer text-left pl-lg-4 pl-2" scope="col" (click)="setOrder('rep_name')">Аттракцион
+          <td class="pointer text-left pl-lg-4 pl-2 w-25 border-0 table-title" scope="col" (click)="setOrder('rep_name')">Аттракцион
             <i [hidden]="reverse" [ngClass]="order === 'rep_name' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
             <i [hidden]="!reverse" [ngClass]="order === 'rep_name' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
-          </th>
-          <th class="pointer text-right" scope="col" (click)="setOrder('quant')">Проходы
+          </td>
+          <td class="pointer text-right w-25 border-0 table-title" scope="col" (click)="setOrder('quant')">Проходы
             <i [hidden]="reverse" [ngClass]="order === 'quant' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
             <i [hidden]="!reverse" [ngClass]="order === 'quant' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
-          </th>
-          <th class="pointer text-right" scope="col" (click)="setOrder('price')">Деньги
+          </td>
+          <td class="pointer text-right w-25 border-0 table-title" scope="col" (click)="setOrder('price')">Деньги
             <i [hidden]="reverse" [ngClass]="order === 'price' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
             <i [hidden]="!reverse" [ngClass]="order === 'price' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
-          </th>
-          <th class="pointer text-right pr-lg-3 pr-2" scope="col" (click)="setOrder('bonus')">Бонусы
+          </td>
+          <td class="pointer text-right pr-lg-3 pr-2 w-25 border-0 table-title" scope="col" (click)="setOrder('bonus')">Бонусы
             <i [hidden]="reverse" [ngClass]="order === 'bonus' ? '':'d-none'" class="fas fa-caret-up ml-2"></i>
             <i [hidden]="!reverse" [ngClass]="order === 'bonus' ? '':'d-none'" class="fas fa-caret-down ml-2"></i>
-          </th>
+          </td>
         </tr>
         </thead>
         <tbody>
 
         <tr *ngFor="let attr of park.data | orderBy:order:reverse | SearchPipe:searchStr" (click)="Detalization(park, attr)">
-          <th class="align-middle text-left pl-lg-4 pl-2" scope="row">{{attr.rep_name}}</th>
-          <td class="align-middle text-right" scope="row">{{attr.quant | currency:'RUB':' ':'1.0-0'}}</td>
-          <td class="align-middle text-right" scope="row">{{attr.price | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">руб.</span></td>
-          <td class="align-middle text-right pr-lg-3 pr-2" scope="row">{{attr.bonus | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">бон.</span></td>
+          <td class="border-left-0 border-right-0 align-middle w-25 text-left pl-lg-4 pl-2" scope="row">{{attr.rep_name}}</td>
+          <td class="align-middle w-25 text-right" scope="row">{{attr.quant | currency:'RUB':' ':'1.0-0'}}</td>
+          <td class="align-middle w-25 text-right" scope="row">{{attr.price | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">руб.</span></td>
+          <td class="border-left-0 border-right-0 align-middle w-25 text-right pr-lg-3 pr-2" scope="row">{{attr.bonus | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">бон.</span></td>
         </tr>
 
         <tr class="total" *ngFor="let total of listTotal" [ngClass]="total.id === park.id ? '':'d-none'">
-          <th class="align-middle text-left pl-lg-4 pl-2" scope="row">Итог:</th>
-          <td class="align-middle text-right" scope="row">{{total.quant | currency:'RUB':' ':'1.0-0'}}</td>
-          <td class="align-middle text-right" scope="row">{{total.price | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">руб.</span></td>
-          <td class="align-middle text-right pr-lg-3 pr-2" scope="row">{{total.bonus | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">бон.</span></td>
+          <th class="border-left-0 border-right-0 align-middle w-25 text-left pl-lg-4 pl-2" scope="row">Итог:</th>
+          <td class="align-middle w-25 text-right" scope="row">{{total.quant | currency:'RUB':' ':'1.0-0'}}</td>
+          <td class="align-middle w-25 text-right" scope="row">{{total.price | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">руб.</span></td>
+          <td class="border-left-0 border-right-0 align-middle w-25 text-right pr-lg-3 pr-2" scope="row">{{total.bonus | currency:'RUB':' ':'1.0-0'}} <span class="d-none-xs">бон.</span></td>
         </tr>
 
         </tbody>

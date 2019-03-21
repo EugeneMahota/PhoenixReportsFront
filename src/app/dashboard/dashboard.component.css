@@ -28,6 +28,9 @@
   height: 100%;
   overflow-y: auto;
   overflow-x:hidden;
+  -webkit-transform: translateZ(0px);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-perspective: 1000;
 }
 /*Заголовок*/
 p {
@@ -51,6 +54,7 @@ a, a:hover, a:focus {
 #sidebar .sidebar-header {
   padding: 20px;
   background: #6375c3;
+  letter-spacing: 1.5px;
   /*box-shadow: 0 2px 4px rgba(0, 0, 0, .2);*/
 }
 #sidebar ul.components {
@@ -98,7 +102,9 @@ a, a:hover, a:focus {
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   background-color: #FFFFFF!important;
+  border-radius: 2px!important;
 }
+
 
 /*Иконки навбара*/
 @keyframes i {
@@ -151,14 +157,15 @@ a, a:hover, a:focus {
 
 @media (max-width: 1130px) {
   /*Скрываем контент на маленьких экранах*/
-  .content-show {
+  .sidebar {
     position: absolute;
-    display: block;
-    background-color: rgba(0, 0, 0, 0.59);
+  }
+  .content-show {
     overflow-y: hidden!important;
     height: 100vh;
+    background-color: rgba(0, 0, 0, 0.71)!important;
   }
-  .content-show-back {
+  .dark-back {
     position: relative;
     z-index: -1;
   }
@@ -171,6 +178,7 @@ a, a:hover, a:focus {
   }
 }
 .showSide {
+  z-index: 99!important;
   margin-left: -250px;
   box-shadow: none!important;
 }

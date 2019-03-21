@@ -98,3 +98,8 @@
 .table-header {
   font-size: 1.2rem;
 }
+.table-title {
+  color: #898f9b;
+  letter-spacing: 1.5px;
+  font-size: 1.2rem;
+}

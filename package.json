@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.1.0",
+    "@angular/cdk": "^7.3.5",
     "@angular/common": "^6.1.0",
     "@angular/compiler": "^6.1.0",
     "@angular/core": "^6.1.0",
@@ -26,6 +27,7 @@
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.0",
+    "ng-pick-datetime": "^7.0.0",
     "ng-snotify": "^4.3.1",
     "ng2-charts": "^1.6.0",
     "ngx-cookie-service": "^2.0.0",

@@ -139,21 +139,21 @@
 <div class="row page-animate" [ngClass]="listReport.length === 0 ? 'd-none':''">
   <div class="col-md-12">
     <div class="card">
-        <table class="table table-responsive-md table-sm table-striped">
+        <table class="table table-responsive-md table-sm table-bordered mb-0">
           <thead>
           <tr>
-            <th scope="col" class="text-center table-header">Операция</th>
-            <th scope="col" class="text-center table-header">Парк</th>
-            <th scope="col" class="text-center table-header">Место</th>
-            <th scope="col" class="text-center table-header">Дата</th>
-            <th scope="col" class="text-center table-header">Сумма</th>
-            <th scope="col" class="text-center table-header">Отмена</th>
+            <td scope="col" class="text-center table-header table-title border-0">Операция</td>
+            <td scope="col" class="text-center table-header table-title border-0">Парк</td>
+            <td scope="col" class="text-center table-header table-title border-0">Место</td>
+            <td scope="col" class="text-center table-header table-title border-0">Дата</td>
+            <td scope="col" class="text-center table-header table-title border-0">Сумма</td>
+            <td scope="col" class="text-center table-header table-title border-0">Отмена</td>
           </tr>
           </thead>
           <tbody>
 
           <tr *ngFor="let item of listReport | orderBy:'date':true">
-            <th class="align-middle text-center" scope="row">{{item.name}}</th>
+            <td class="align-middle text-center" scope="row">{{item.name}}</td>
             <td class="align-middle text-center" scope="row">{{item.name_park}}</td>
             <td class="align-middle text-center" scope="row">
               <button class="btn btn-sm mr-2 btn-info align-middle" *ngIf="item.user_name" (click)="showUser = !showUser"><i class="fas fa-user-secret"></i><span class="ml-2" *ngIf="showUser">{{item.user_name}}</span></button>
@@ -184,10 +184,10 @@
 
 <div class="picture-report text-center page-animate" [ngClass]="name_type_card ? 'd-none':''">
   <div class="title-picture font-weight-bold display-4" [ngClass]="fl_change ? 'pink':''">
-    {{msg || 'Тут отчет будет!'}}
+    {{msg}}
   </div>
   <div class="picture" [ngClass]="fl_change ? 'pink':''">
-    <i class="fas fa-rocket"></i>
+    <!--<i class="fas fa-rocket"></i>-->
   </div>
 </div>
 

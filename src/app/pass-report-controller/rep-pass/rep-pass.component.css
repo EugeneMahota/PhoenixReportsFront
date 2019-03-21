@@ -32,3 +32,20 @@
 .text-input {
   width: 110px;
 }
+
+.btn-active {
+  background-color: #177187;
+  border-color: #177187;
+}
+.table-title {
+  color: #898f9b;
+  letter-spacing: 1.5px;
+  font-size: 1.2rem;
+}
+.card-header {
+  border: 0;
+  color: #000000;
+  background-color: #FFFFFF !important;
+  border-top-left-radius: 2px!important;
+  border-top-right-radius: 2px!important;
+}

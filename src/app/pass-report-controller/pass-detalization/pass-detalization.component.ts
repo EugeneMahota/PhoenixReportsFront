@@ -24,7 +24,7 @@ export class PassDetalizationComponent implements OnInit, OnDestroy {
     this.nameAttr = this.passService.getAttr();
     this.namePark = this.passService.getPark();
 
-    this.dashService.doShowTitle(this.namePark + ' / ' + this.nameAttr);
+    this.dashService.doShowTitle(  this.namePark + ' / ' + this.nameAttr);
 
     this.id = +this.route.snapshot.paramMap.get('id');
 

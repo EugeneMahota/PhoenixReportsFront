@@ -4,6 +4,7 @@ import {NotifierService} from 'angular-notifier';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ExcelPassService} from '../excel-pass.service';
 import {DashService} from '../../dashboard/dash.service';
+import {DateTimeAdapter} from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-rep-pass',
@@ -14,10 +15,8 @@ import {DashService} from '../../dashboard/dash.service';
 export class RepPassComponent implements OnInit, OnDestroy {
 
   date = new Date();
-  date_start: any;
-  date_end: any;
-
-  type_rep: string;
+  dateRange: any[] = [];
+  activeDate: string;
 
   listCard: any[] = [];
   listCardActive: any[] = [];
@@ -58,11 +57,16 @@ export class RepPassComponent implements OnInit, OnDestroy {
   order: string = 'rep_name';
   reverse: boolean = false;
 
-  searchStr: string;
-
   private notifier: NotifierService;
 
-  constructor(private passService: PassService, notifierService: NotifierService, private router: Router, private route: ActivatedRoute, private excelService: ExcelPassService, private dashService: DashService) {
+  constructor(private passService: PassService,
+              notifierService: NotifierService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private excelService: ExcelPassService,
+              dateTimeAdapter: DateTimeAdapter<any>,
+              private dashService: DashService) {
+    dateTimeAdapter.setLocale('Ru');
     this.dashService.onShowSettings.subscribe(show => {
       this.showSettings = show;
     });
@@ -93,11 +97,10 @@ export class RepPassComponent implements OnInit, OnDestroy {
     });
 
     if (this.passService.getParam()) {
+      this.dateRange = [new Date(this.passService.getParam().date_start), new Date(this.passService.getParam().date_end)];
       this.getReport(this.passService.getParam());
-      this.date_start = this.passService.getParam().date_start;
-      this.date_end = this.passService.getParam().date_end;
     } else {
-      this.onRepPassParam('day');
+      this.getDay();
     }
     this.dashService.doShowButton();
     this.dashService.doShowTitle('Отчет по аттракционам');
@@ -113,9 +116,8 @@ export class RepPassComponent implements OnInit, OnDestroy {
   }
 
   getReport(paramReport) {
-    paramReport.date_start = paramReport.date_start.toString().replace(/T/, ' ');
-    paramReport.date_end = paramReport.date_end.toString().replace(/T/, ' ');
-
+    paramReport.date_start = +this.dateRange[0];
+    paramReport.date_end = +this.dateRange[1];
 
     this.passService.getReport(paramReport).subscribe(response => {
       if (response.status === 'Ok') {
@@ -206,150 +208,6 @@ export class RepPassComponent implements OnInit, OnDestroy {
     this.excelService.exportExcel(listReportExcel, 'Отчет');
   }
 
-  //Готовые временные промежутки
-  onRepPassParam(type_rep) {
-    this.type_rep = type_rep;
-    localStorage.setItem('type_rep', type_rep);
-    //Отчет за день
-    if (type_rep === 'day') {
-
-      this.date_start = this.date.getFullYear().toString() + '-' + ((this.date.getMonth() + 1).toString().length == 2 ? (this.date.getMonth() + 1).toString() : '0' + (this.date.getMonth() + 1).toString()) + '-' + (this.date.getDate().toString().length == 2 ? this.date.getDate().toString() : '0' + this.date.getDate().toString()) + ' ' + '00:00';
-      this.date_end = this.date.getFullYear().toString() + '-' + ((this.date.getMonth() + 1).toString().length == 2 ? (this.date.getMonth() + 1).toString() : '0' + (this.date.getMonth() + 1).toString()) + '-' + (this.date.getDate().toString().length == 2 ? this.date.getDate().toString() : '0' + this.date.getDate().toString()) + ' ' + '23:59';
-    }
-    //Отчет за неделю
-    if (type_rep === 'week') {
-      let day_milliseconds = 24 * 60 * 60 * 1000;
-      let current_date = new Date();
-      let monday = new Date(current_date.getTime() - (current_date.getDay() - 1) * day_milliseconds);
-      let sunday = new Date(monday.getTime() + 6 * day_milliseconds);
-
-      // this.date_start = monday;
-      // this.date_end = sunday;
-      this.date_start = monday.getFullYear().toString() + '-' + ((monday.getMonth() + 1).toString().length == 2 ? (monday.getMonth() + 1).toString() : '0' + (monday.getMonth() + 1).toString()) + '-' + (monday.getDate().toString().length == 2 ? monday.getDate().toString() : '0' + monday.getDate().toString()) + ' ' + '00:00';
-      this.date_end = sunday.getFullYear().toString() + '-' + ((sunday.getMonth() + 1).toString().length == 2 ? (sunday.getMonth() + 1).toString() : '0' + (sunday.getMonth() + 1).toString()) + '-' + (sunday.getDate().toString().length == 2 ? sunday.getDate().toString() : '0' + sunday.getDate().toString()) + ' ' + '23:59';
-    }
-    //Отчет за месяц
-    if (type_rep === 'month') {
-      let month = 24 * 60 * 60 * 1000 * 30;
-      let date = new Date;
-      let date_end = new Date(Date.parse(date.toString()) + month);
-
-      this.date_start = this.date.getFullYear().toString() + '-' + ((this.date.getMonth() + 1).toString().length == 2 ? (this.date.getMonth() + 1).toString() : '0' + (this.date.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-      this.date_end = date_end.getFullYear().toString() + '-' + ((date_end.getMonth() + 1).toString().length == 2 ? (date_end.getMonth() + 1).toString() : '0' + (date_end.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-    }
-    //Отчет за год
-    if (type_rep === 'year') {
-      this.date_start = this.date.getFullYear().toString() + '-' + '01' + '-' + '01' + ' ' + '00:00';
-      this.date_end = this.date.getFullYear().toString() + '-' + '12' + '-' + '31' + ' ' + '23:59';
-    }
-  }
-
-  onDay(action) {
-    if (this.type_rep === 'day') {
-      if (action === 'plus') {
-        let day = 24 * 60 * 60 * 1000;
-        this.date_start = Date.parse(this.date_start) + day;
-        this.date_end = Date.parse(this.date_end) + day;
-
-        let date_start = new Date(this.date_start);
-        let date_end = new Date(this.date_end);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + ((date_start.getMonth() + 1).toString().length == 2 ? (date_start.getMonth() + 1).toString() : '0' + (date_start.getMonth() + 1).toString()) + '-' + (date_start.getDate().toString().length == 2 ? date_start.getDate().toString() : '0' + date_start.getDate().toString()) + ' ' + '00:00';
-        this.date_end = date_end.getFullYear().toString() + '-' + ((date_end.getMonth() + 1).toString().length == 2 ? (date_end.getMonth() + 1).toString() : '0' + (date_end.getMonth() + 1).toString()) + '-' + (date_end.getDate().toString().length == 2 ? date_end.getDate().toString() : '0' + date_end.getDate().toString()) + ' ' + '23:59';
-      }
-      if (action === 'minus') {
-        let day = 24 * 60 * 60 * 1000;
-        this.date_start = Date.parse(this.date_start) - day;
-        this.date_end = Date.parse(this.date_end) - day;
-
-        let date_start = new Date(this.date_start);
-        let date_end = new Date(this.date_end);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + ((date_start.getMonth() + 1).toString().length == 2 ? (date_start.getMonth() + 1).toString() : '0' + (date_start.getMonth() + 1).toString()) + '-' + (date_start.getDate().toString().length == 2 ? date_start.getDate().toString() : '0' + date_start.getDate().toString()) + ' ' + '00:00';
-        this.date_end = date_end.getFullYear().toString() + '-' + ((date_end.getMonth() + 1).toString().length == 2 ? (date_end.getMonth() + 1).toString() : '0' + (date_end.getMonth() + 1).toString()) + '-' + (date_end.getDate().toString().length == 2 ? date_end.getDate().toString() : '0' + date_end.getDate().toString()) + ' ' + '23:59';
-      }
-    }
-  }
-
-  onWeek(action) {
-    if (this.type_rep === 'week') {
-      if (action === 'plus') {
-        let week = 24 * 60 * 60 * 1000 * 7;
-
-        this.date_start = Date.parse(this.date_start) + week;
-        this.date_end = Date.parse(this.date_end) + week;
-
-        let monday = new Date(this.date_start);
-        let sunday = new Date(this.date_end);
-
-        this.date_start = monday.getFullYear().toString() + '-' + ((monday.getMonth() + 1).toString().length == 2 ? (monday.getMonth() + 1).toString() : '0' + (monday.getMonth() + 1).toString()) + '-' + (monday.getDate().toString().length == 2 ? monday.getDate().toString() : '0' + monday.getDate().toString()) + ' ' + '00:00';
-        this.date_end = sunday.getFullYear().toString() + '-' + ((sunday.getMonth() + 1).toString().length == 2 ? (sunday.getMonth() + 1).toString() : '0' + (sunday.getMonth() + 1).toString()) + '-' + (sunday.getDate().toString().length == 2 ? sunday.getDate().toString() : '0' + sunday.getDate().toString()) + ' ' + '23:59';
-      }
-      if (action === 'minus') {
-        let week = 24 * 60 * 60 * 1000 * 7;
-
-        this.date_start = Date.parse(this.date_start) - week;
-        this.date_end = Date.parse(this.date_end) - week;
-
-        let monday = new Date(this.date_start);
-        let sunday = new Date(this.date_end);
-
-        this.date_start = monday.getFullYear().toString() + '-' + ((monday.getMonth() + 1).toString().length == 2 ? (monday.getMonth() + 1).toString() : '0' + (monday.getMonth() + 1).toString()) + '-' + (monday.getDate().toString().length == 2 ? monday.getDate().toString() : '0' + monday.getDate().toString()) + ' ' + '00:00';
-        this.date_end = sunday.getFullYear().toString() + '-' + ((sunday.getMonth() + 1).toString().length == 2 ? (sunday.getMonth() + 1).toString() : '0' + (sunday.getMonth() + 1).toString()) + '-' + (sunday.getDate().toString().length == 2 ? sunday.getDate().toString() : '0' + sunday.getDate().toString()) + ' ' + '23:59';
-      }
-    }
-  }
-
-  onMonth(action) {
-    if (this.type_rep === 'month') {
-      if (action === 'plus') {
-        let month = 24 * 60 * 60 * 1000 * 31;
-        this.date_start = Date.parse(this.date_start) + month;
-        this.date_end = Date.parse(this.date_end) + month;
-
-        let date_start = new Date(this.date_start);
-        let date_end = new Date(this.date_end);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + ((date_start.getMonth() + 1).toString().length === 2 ? (date_start.getMonth() + 1).toString() : '0' + (date_start.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-        this.date_end = date_end.getFullYear().toString() + '-' + ((date_end.getMonth() + 1).toString().length === 2 ? (date_end.getMonth() + 1).toString() : '0' + (date_end.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-      }
-      if (action === 'minus') {
-        let month = 24 * 60 * 60 * 1000 * 28;
-        this.date_start = Date.parse(this.date_start) - month;
-        this.date_end = Date.parse(this.date_end) - month;
-
-
-        let date_start = new Date(this.date_start);
-        let date_end = new Date(this.date_end);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + ((date_start.getMonth() + 1).toString().length === 2 ? (date_start.getMonth() + 1).toString() : '0' + (date_start.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-        this.date_end = date_end.getFullYear().toString() + '-' + ((date_end.getMonth() + 1).toString().length === 2 ? (date_end.getMonth() + 1).toString() : '0' + (date_end.getMonth() + 1).toString()) + '-' + '01' + ' ' + '00:00';
-      }
-    }
-  }
-
-  onYear(action) {
-    if (this.type_rep === 'year') {
-      if (action === 'plus') {
-        let year: number = 24 * 60 * 60 * 1000 * 366;
-        this.date_start = Date.parse(this.date_start) + year;
-
-        let date_start = new Date(this.date_start);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + '01' + '-' + '01' + ' ' + '00:00';
-        this.date_end = date_start.getFullYear().toString() + '-' + '12' + '-' + '31' + ' ' + '23:59';
-      }
-      if (action === 'minus') {
-        let year: number = 24 * 60 * 60 * 1000 * 365;
-        this.date_start = Date.parse(this.date_start) - year;
-
-        let date_start = new Date(this.date_start);
-
-        this.date_start = date_start.getFullYear().toString() + '-' + '01' + '-' + '01' + ' ' + '00:00';
-        this.date_end = date_start.getFullYear().toString() + '-' + '12' + '-' + '31' + ' ' + '23:59';
-      }
-    }
-  }
 
   setOrder(value) {
     if (value === this.order) {
@@ -359,4 +217,127 @@ export class RepPassComponent implements OnInit, OnDestroy {
     this.order = value;
   }
 
+
+  getDay() {
+    let date: Date = new Date();
+    let dateStart: Date = new Date(new Date(date.setHours(0)).setMinutes(0));
+    let dateEnd: Date = new Date(new Date(date.setHours(23)).setMinutes(59));
+
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  getWeek() {
+    let day_milliseconds = 24 * 60 * 60 * 1000;
+    let date = new Date();
+    let dateStart = new Date(date.getTime() - (date.getDay() - 1) * day_milliseconds);
+    let dateEnd = new Date(dateStart.getTime() + 6 * day_milliseconds);
+
+    dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));
+    dateEnd = new Date(new Date(dateEnd.setHours(23)).setMinutes(59));
+
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  getMonth() {
+    //start
+    let date: Date = new Date();
+    let dateStart: Date = new Date(date.setDate(1));
+    dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));
+    //end
+    let dateEnd: Date;
+    if (date.getMonth() === 11) {
+      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(1));
+      dateEnd = new Date(dateEnd.setFullYear(date.getFullYear() + 1));
+    } else {
+      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(date.getMonth() + 1));
+    }
+    dateEnd = new Date(new Date(dateEnd.setHours(0)).setMinutes(0));
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  getYear() {
+    //start
+    let dateStart: Date = new Date(this.date.setDate(1));
+    dateStart = new Date(dateStart.setMonth(0));
+    dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));
+    //end
+    let dateEnd: Date = new Date(this.date.setDate(1));
+    dateEnd = new Date(dateEnd.setMonth(0));
+    dateEnd = new Date(new Date(dateEnd.setHours(0)).setMinutes(0));
+    dateEnd = new Date(dateEnd.setFullYear(dateEnd.getFullYear() + 1));
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  editDay(value) {
+    let day: number = 24 * 60 * 60 * 1000;
+    let dateStart: Date = this.dateRange[0];
+    let dateEnd: Date = this.dateRange[1];
+
+    if (value === '+') {
+      dateStart = new Date(+dateStart + day);
+      dateEnd = new Date(+dateEnd + day);
+    }
+
+    if (value === '-') {
+      dateStart = new Date(+dateStart - day);
+      dateEnd = new Date(+dateEnd - day);
+    }
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  editWeek(value) {
+    let week: number = 24 * 60 * 60 * 1000 * 7;
+
+    let dateStart: Date = this.dateRange[0];
+    let dateEnd: Date = this.dateRange[1];
+
+    if (value === '+') {
+      dateStart = new Date(+dateStart + week);
+      dateEnd = new Date(+dateEnd + week);
+    }
+
+    if (value === '-') {
+      dateStart = new Date(+dateStart - week);
+      dateEnd = new Date(+dateEnd - week);
+    }
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  editMonth(value) {
+    let dateStart: Date = this.dateRange[0];
+    let dateEnd: Date = this.dateRange[1];
+
+    if (value === '+') {
+      dateStart = new Date(dateStart.setMonth(dateStart.getMonth() + 1));
+      dateEnd = new Date(dateEnd.setMonth(dateEnd.getMonth() + 1));
+    }
+
+    if (value === '-') {
+      dateStart = new Date(dateStart.setMonth(dateStart.getMonth() - 1));
+      dateEnd = new Date(dateEnd.setMonth(dateEnd.getMonth() - 1));
+    }
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
+
+  editYear(value) {
+    let dateStart: Date = this.dateRange[0];
+    let dateEnd: Date = this.dateRange[1];
+
+    if (value === '+') {
+      dateStart = new Date(dateStart.setFullYear(dateStart.getFullYear() + 1));
+      dateEnd = new Date(dateEnd.setFullYear(dateEnd.getFullYear() + 1));
+    }
+
+    if (value === '-') {
+      dateStart = new Date(dateStart.setFullYear(dateStart.getFullYear() - 1));
+      dateEnd = new Date(dateEnd.setFullYear(dateEnd.getFullYear() - 1));
+    }
+    //add
+    this.dateRange = [dateStart, dateEnd];
+  }
 }

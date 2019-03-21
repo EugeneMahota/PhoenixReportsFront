@@ -136,33 +136,32 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="date_s">Дата старта</label>
+            <label for="date_st">Дата старта</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
-              <input type="datetime-local" class="form-control" id="date_s" name="date_s"
-                     [ngModel]="date_s | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_s = $event" required>
+              <input class="form-control" [(ngModel)]="date_s" [owlDateTime]="date_st" [owlDateTimeTrigger]="date_st" id="date_st" name="date_st">
+              <owl-date-time #date_st></owl-date-time>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="date_e">Дата окончания</label>
+            <label for="date_en">Дата окончания</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
-              <input type="datetime-local" class="form-control" id="date_e" name="date_e"
-                     [ngModel]="date_e | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_e = $event" required>
+              <input class="form-control" [(ngModel)]="date_e" [owlDateTime]="date_en" [owlDateTimeTrigger]="date_en" id="date_en" name="date_en">
+              <owl-date-time #date_en></owl-date-time>
             </div>
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="button" [disabled]="Period.form.invalid" data-dismiss="modal" class="btn btn-info" (click)="addPeriod({id: id, date_start: date_s, date_end: date_e})">Добавить
+          <button type="button" [disabled]="Period.form.invalid" data-dismiss="modal" class="btn btn-info"
+                  (click)="addPeriod({id: id, date_start: +date_s, date_end: +date_e})">Добавить
           </button>
           <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
         </div>
@@ -190,26 +189,24 @@
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="date_start">Дата старта</label>
+            <label for="date_startt">Дата старта</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
-              <input type="datetime-local" class="form-control" id="date_start" name="date_start"
-                     [ngModel]="date_start | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_start = $event" required>
+              <input class="form-control" [(ngModel)]="date_start" [owlDateTime]="date_startt" [owlDateTimeTrigger]="date_startt" id="date_startt" name="date_startt">
+              <owl-date-time #date_startt></owl-date-time>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="date_end">Дата окончания</label>
+            <label for="date_endd">Дата окончания</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
-              <input type="datetime-local" class="form-control" id="date_end" name="date_end"
-                     [ngModel]="date_end | date: 'yyyy-MM-ddTHH:mm'"
-                     (ngModelChange)="date_end = $event" required>
+              <input class="form-control" [(ngModel)]="date_end" [owlDateTime]="date_endd" [owlDateTimeTrigger]="date_endd" id="date_endd" name="date_endd">
+              <owl-date-time #date_endd></owl-date-time>
             </div>
           </div>
 
@@ -217,7 +214,7 @@
 
         <div class="modal-footer">
           <button type="button" [disabled]="editPeriodForm.form.invalid" data-dismiss="modal" class="btn btn-info"
-                  (click)="editPeriod({id: period_act_id, date_start: date_start, date_end: date_end})">Сохранить
+                  (click)="editPeriod({id: period_act_id, date_start: +date_start, date_end: +date_end})">Сохранить
           </button>
           <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
         </div>
