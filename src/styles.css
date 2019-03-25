@@ -35,12 +35,12 @@
 
 body {
   overflow-x:hidden;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif!important;
   /*font-family: 'Neucha', cursive;*/
-  background-color: #E9ECEF;
+  background-color: #E9ECEF!important;
 }
 .breadcrumb {
-  background-color: #E9ECEF;
+  background-color: #E9ECEF!important;
 }
 ::-webkit-scrollbar {
   width:8px;
@@ -73,7 +73,7 @@ body {
 }
 .btn-pink {
   background-color: #FF6384!important;
-  color: #FFFFFF;
+  color: #FFFFFF!important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
   border-color: #FF6384;
 }
