@@ -98,8 +98,7 @@ export class RepKassaComponent implements OnInit, OnDestroy {
   getReport(paramReport) {
     paramReport.date_start = +this.dateRange[0];
     paramReport.date_end = +this.dateRange[1];
-
-    console.log(paramReport);
+    
     this.kassaService.getRepKassa(paramReport).subscribe(response => {
       if (response.status === 'Ok') {
         let countEmpty: number = 0;
@@ -218,8 +217,10 @@ export class RepKassaComponent implements OnInit, OnDestroy {
 
   getWeek() {
     let day_milliseconds = 24 * 60 * 60 * 1000;
-    let date = new Date();
-    let dateStart = new Date(date.getTime() - (date.getDay() - 1) * day_milliseconds);
+    let date: Date = new Date();
+    let day: number = date.getDay();
+
+    let dateStart = new Date(date.setDate(date.getDate() - day + (day === 0 ? -6 : 1)));
     let dateEnd = new Date(dateStart.getTime() + 6 * day_milliseconds);
 
     dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));

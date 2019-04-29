@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CardReportService} from '../card-report.service';
 import {ExcelCardService} from '../excel-card.service';
+import {DashService} from '../../dashboard/dash.service';
 
 @Component({
   selector: 'app-rep-card',
@@ -8,7 +9,7 @@ import {ExcelCardService} from '../excel-card.service';
   styleUrls: ['./rep-card.component.css'],
   providers: [ExcelCardService]
 })
-export class RepCardComponent implements OnInit {
+export class RepCardComponent implements OnInit, OnDestroy {
 
   code: string;
   saveCode: string;
@@ -26,7 +27,7 @@ export class RepCardComponent implements OnInit {
 
   showUser: boolean = false;
 
-  constructor(private cardService: CardReportService, private excelService: ExcelCardService) {
+  constructor(private cardService: CardReportService, private excelService: ExcelCardService, private dashService: DashService) {
   }
 
   ngOnInit() {
@@ -34,6 +35,12 @@ export class RepCardComponent implements OnInit {
       this.getReport(this.cardService.getCode());
       this.code = this.cardService.getCode();
     }
+
+    this.dashService.doShowTitle('Детализация по карте');
+  }
+
+  ngOnDestroy() {
+    this.dashService.delTitle();
   }
 
   getReport(code) {

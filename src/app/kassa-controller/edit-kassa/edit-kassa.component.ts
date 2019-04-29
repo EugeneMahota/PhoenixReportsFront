@@ -14,7 +14,8 @@ export class EditKassaComponent implements OnInit {
   ip_adr: string;
   pos: any;
   kkm: any;
-  skip: number = 0;
+  skip_1: number = 0;
+  skip_2: number = 0;
 
   itemPark: any;
   constructor(private kassaService: KassaService, private router: Router, private route: ActivatedRoute) {
@@ -29,9 +30,10 @@ export class EditKassaComponent implements OnInit {
       if (response.status === 'Ok') {
         this.ip_adr = response.data.ip_adr;
         this.name = response.data.name;
-        this.skip = +response.data.skip;
         this.pos = +response.data.pos;
         this.kkm = +response.data.kkm;
+        this.skip_1 = response.data.skip_1;
+        this.skip_2 = response.data.skip_2;
       }
     });
   }

@@ -17,7 +17,8 @@ export class AddKassaComponent implements OnInit {
   ip_adr: string;
   pos: any = false;
   kkm: any = false;
-  skip: number = 0;
+  skip_1: number = 0;
+  skip_2: number = 0;
 
   listPark: any[] = [];
 

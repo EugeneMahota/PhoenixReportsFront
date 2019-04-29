@@ -23,7 +23,12 @@
 }
 @media (max-width: 768px) {
   .d-none-xs {
-    display: none;
+    display: none!important;
+  }
+}
+@media (min-width: 768px) {
+  .d-none-xl {
+    display: none!important;
   }
 }
 .total {

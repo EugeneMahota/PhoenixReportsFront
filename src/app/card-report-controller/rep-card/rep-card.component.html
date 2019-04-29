@@ -1,12 +1,11 @@
-<div class="row">
-  <div class="col-md-3">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Отчет по карте</li>
-      </ol>
-    </nav>
-  </div>
+<div class="row mb-2">
+  <!--<div class="col-md-3 d-none-xl">-->
+    <!--<nav aria-label="breadcrumb">-->
+      <!--<ol class="breadcrumb">-->
+        <!--<li class="breadcrumb-item active" aria-current="page">Отчет по карте</li>-->
+      <!--</ol>-->
+    <!--</nav>-->
+  <!--</div>-->
 
   <div class="col-md-6 align-self-center">
     <form #formKey="ngForm" (ngSubmit)="getReport(code)">
@@ -26,7 +25,7 @@
     </form>
   </div>
 
-  <div class="col-md-3 text-right align-self-center" [ngClass]="listReport.length === 0 ? 'd-none':''">
+  <div class="col-md-3 align-self-center" [ngClass]="listReport.length === 0 ? 'd-none':''">
     <button class="btn btn-pink" (click)="exportExcel()">Экспорт в Excel</button>
   </div>
 

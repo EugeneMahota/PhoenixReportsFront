@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "global-prod": "ng build --build-optimizer --prod --base-href https://report.phoenix48.com/ --output-hashing=all",
+    "local-prod": "ng build --build-optimizer --prod --output-hashing=all"
   },
   "private": true,
   "dependencies": {

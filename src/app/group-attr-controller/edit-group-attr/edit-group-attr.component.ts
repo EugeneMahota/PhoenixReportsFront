@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupAttrService} from '../group-attr.service';
 
@@ -7,7 +7,7 @@ import {GroupAttrService} from '../group-attr.service';
   templateUrl: './edit-group-attr.component.html',
   styleUrls: ['./edit-group-attr.component.css']
 })
-export class EditGroupAttrComponent implements OnInit {
+export class EditGroupAttrComponent implements OnInit, OnChanges {
 
   id: number;
 
@@ -20,19 +20,20 @@ export class EditGroupAttrComponent implements OnInit {
   listAttrActive: any[] = [];
 
   settingsAttr = {
+    filterUnSelectAllText: 'Выбрать все найденные',
     text: 'Аттракционы не выбраны',
-    selectAllText: 'Выбрать все аттракционы',
+    selectAllText: 'Выбрать всех аттракционы',
     unSelectAllText: 'Отменить',
     classes: 'myclass custom-class',
     enableSearchFilter: true,
     searchPlaceholderText: ' Поиск',
     badgeShowLimit: 3,
-    filterUnSelectAllText: 'Выбрать все',
     filterSelectAllText: 'Выбрать все',
     noDataLabel: 'Список пуст'
   };
 
   settingsUser = {
+    filterUnSelectAllText: 'Выбрать все найденные',
     text: 'Пользователи не выбраны',
     selectAllText: 'Выбрать всех пользователей',
     unSelectAllText: 'Отменить',
@@ -40,13 +41,18 @@ export class EditGroupAttrComponent implements OnInit {
     enableSearchFilter: true,
     searchPlaceholderText: ' Поиск',
     badgeShowLimit: 3,
-    filterUnSelectAllText: 'Выбрать все',
     filterSelectAllText: 'Выбрать все',
     noDataLabel: 'Список пуст'
   };
 
   itemGroupRepl: any;
+
   constructor(private router: Router, private route: ActivatedRoute, private groupService: GroupAttrService) {
+  }
+
+  ngOnChanges() {
+    this.getGroup();
+    this.getActive();
   }
 
   ngOnInit() {
@@ -56,21 +62,39 @@ export class EditGroupAttrComponent implements OnInit {
 
     this.name = this.groupService.getGroupName();
 
+    this.getGroup();
+    this.getActive();
+  }
+
+
+  getGroup() {
     this.groupService.getGroup(this.id).subscribe(response => {
       if (response.status === 'Ok') {
         for (let i = 0; response.data.attrs.length > i; i++) {
-          this.listAttrActive.push({id: response.data.attrs[i].attr_id, itemName: response.data.attrs[i].rep_name});
+          this.listAttrActive.push({
+            id: response.data.attrs[i].attr_id,
+            itemName: response.data.attrs[i].rep_name + ' (' + response.data.attrs[i].name + ')'
+          });
         }
         for (let i = 0; response.data.users.length > i; i++) {
-          this.listUserActive.push({id: response.data.users[i].user_id, itemName: response.data.users[i].name});
+          this.listUserActive.push({
+            id: response.data.users[i].user_id,
+            itemName: response.data.users[i].name
+          });
         }
       }
     });
+  }
 
+  getActive() {
     this.groupService.getListUser().subscribe(response => {
       if (response.status === 'Ok') {
         for (let i = 0; response.data.length > i; i++) {
-          this.listUser.push({id: response.data[i].user_id, itemName: response.data[i].name});
+          this.listUser.push(
+            {
+              id: response.data[i].user_id,
+              itemName: response.data[i].name
+            });
         }
       }
     });
@@ -78,7 +102,11 @@ export class EditGroupAttrComponent implements OnInit {
     this.groupService.getListAttr(this.id).subscribe(response => {
       if (response.status === 'Ok') {
         for (let i = 0; response.data.length > i; i++) {
-          this.listAttr.push({id: response.data[i].attr_id, itemName: response.data[i].rep_name});
+          this.listAttr.push(
+            {
+              id: response.data[i].attr_id,
+              itemName: response.data[i].rep_name + ' (' + response.data[i].name + ')'
+            });
         }
       }
     });

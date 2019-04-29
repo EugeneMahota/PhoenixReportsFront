@@ -48,24 +48,31 @@
           </div>
         </div>
 
-        <div class="col-lg-4 mb-3">
+        <div class="col-md-6">
           <div class="form-group">
+            <label for="name">Skip 1</label>
             <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-cog"></i></span>
-              </div>
-              <input type="number" class="form-control" id="skip" placeholder="Параметр" name="skip" [(ngModel)]="skip" required>
+              <input type="text" class="form-control" id="skip_1" placeholder="Skip 1" name="skip_1" [(ngModel)]="skip_1" required>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-4 align-self-center mb-3 text-center">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="ip_adr">Skip 2</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="skip_2" placeholder="Skip 2" name="skip_2" [(ngModel)]="skip_2" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-auto align-self-center mb-3 text-center">
           <div class="pt-2">
             <input type="checkbox" class="form-check-input checkbox" id="pos" [(ngModel)]="pos" name="pos">
             <label class="" for="pos"> POS</label>
           </div>
         </div>
-        <div class="col-lg-4 align-self-center mb-3 text-center">
+        <div class="col-lg-auto align-self-center mb-3 text-center">
           <div class="pt-2">
             <input type="checkbox" class="form-check-input checkbox" id="kkm" [(ngModel)]="kkm" name="kkm">
             <label class="" for="kkm"> KKM</label>
@@ -75,7 +82,7 @@
 
         <div class="col-md-12 text-center">
           <button class="btn btn-info" [disabled]="editForm.form.invalid"
-                  (click)="editKassa({id: id, name: name, ip_adr: ip_adr, pos: +pos, kkm: +kkm, skip: +skip})">Сохранить изменения</button>
+                  (click)="editKassa({id: id, name: name, ip_adr: ip_adr, pos: +pos, kkm: +kkm, skip_1: +skip_1, skip_2: skip_2})">Сохранить изменения</button>
         </div>
 
       </div>

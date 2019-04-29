@@ -2,7 +2,6 @@
   <div class="col-md-12">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb mb-0 pb-0">
-        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
         <li class="breadcrumb-item active" aria-current="page">Отчет по кассам</li>
       </ol>
     </nav>
@@ -79,11 +78,11 @@
         </div>
 
             <div class="col-lg-2 col-md-4 col-5 text-left">
-              <button *ngIf="listReport.length > 0" class="btn btn-pink mr-1" (click)="exportExcel()">В Excel
+              <button type="button" *ngIf="listReport.length > 0" class="btn btn-pink mr-1" (click)="exportExcel()">В Excel
               </button>
             </div>
             <div class="col-lg-2 col-md-8 col-7">
-              <button type="button" data-dismiss="modal" class="btn btn-info w-100"
+              <button type="submit" data-dismiss="modal" class="btn btn-info w-100"
                       (click)="getReport({cards: listCardActive, fl_cash: fl_cash, fl_cashless: fl_cashless});"
                       [disabled]="reportForm.form.invalid">Сформировать
               </button>

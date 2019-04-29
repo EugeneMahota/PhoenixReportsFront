@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald:300');
 /*@import url('https://fonts.googleapis.com/css?family=Neucha');*/
 
+@import '~bootstrap/dist/css/bootstrap.css';
+
 @import "~angular-notifier/styles/core.css";
 @import "~angular-notifier/styles/themes/theme-material.css";
 @import "~angular-notifier/styles/types/type-error.css";
@@ -95,8 +97,8 @@ body {
 }
 /*form*/
 .card {
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  border: none!important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2)!important;
   border-radius:2px!important;
 }
 .card-header {
