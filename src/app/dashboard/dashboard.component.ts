@@ -5,6 +5,7 @@ import {KassaService} from '../kassa-report-controller/kassa.service';
 import {PassService} from '../pass-report-controller/pass.service';
 import {CardReportService} from '../card-report-controller/card-report.service';
 import {DashService} from './dash.service';
+import {AnalyticService} from '../analytics-controller/analytic.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,21 +33,34 @@ export class DashboardComponent implements OnInit {
   showIconPass: boolean = false;
   showButtonPass: boolean = false;
   title: string = 'Панель управления';
+
   constructor(
+    private analyticService: AnalyticService,
     private router: Router,
     private authService: AuthService,
     private kassaService: KassaService,
     private passService: PassService,
     private cardReportService: CardReportService,
     private dashService: DashService) {
-    this.kassaService.onHide.subscribe(show => {this.showIconKassa = show});
-    this.kassaService.onButton.subscribe(show => {this.showButtonKassa = show});
-    this.dashService.onShowButton.subscribe(show => {this.showButtonPass = show});
-    this.dashService.onShowSettings.subscribe(show => {this.showIconPass = show});
-    this.dashService.onShowTittle.subscribe(title => {this.title = title});
+    this.kassaService.onHide.subscribe(show => {
+      this.showIconKassa = show;
+    });
+    this.kassaService.onButton.subscribe(show => {
+      this.showButtonKassa = show;
+    });
+    this.dashService.onShowButton.subscribe(show => {
+      this.showButtonPass = show;
+    });
+    this.dashService.onShowSettings.subscribe(show => {
+      this.showIconPass = show;
+    });
+    this.dashService.onShowTittle.subscribe(title => {
+      this.title = title;
+    });
   }
 
   DropCookies() {
+    this.analyticService.clearData();
     this.kassaService.deleteParam();
     this.passService.deleteParam();
     this.cardReportService.deleteCode();
@@ -63,10 +77,10 @@ export class DashboardComponent implements OnInit {
     this.usernameDesktop = this.authService.getLogin().slice(0, 5);
 
 
-    if (screen.width < 1131) {
+    if (window.innerWidth < 1131) {
       this.show = true;
     }
-    if (screen.width > 1131) {
+    if (window.innerWidth > 1131) {
       this.show = false;
     }
   }
@@ -76,8 +90,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ShowDisplaySm() {
-    if (screen.width < 1131) {
+    if (window.innerWidth < 1131) {
       this.show = !this.show;
+    }
+  }
+
+  hideSide() {
+    if (this.show === true && window.innerWidth < 1131) {
+      this.show = false;
     }
   }
 

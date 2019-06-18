@@ -98,7 +98,9 @@ export class RepPassComponent implements OnInit, OnDestroy {
 
     if (this.passService.getParam()) {
       this.dateRange = [new Date(this.passService.getParam().date_start), new Date(this.passService.getParam().date_end)];
-      this.getReport(this.passService.getParam());
+
+      this.listReport = this.passService.listReport;
+      this.listTotal = this.passService.listTotal;
     } else {
       this.getDay();
     }
@@ -163,6 +165,7 @@ export class RepPassComponent implements OnInit, OnDestroy {
           this.listPark = this.listReport;
           this.passService.saveParam(paramReport);
         }
+        this.passService.saveReport(this.listReport, this.listTotal);
       }
     });
   }

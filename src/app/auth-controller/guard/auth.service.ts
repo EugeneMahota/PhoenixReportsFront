@@ -27,24 +27,25 @@ export class AuthService {
   }
 
   secondSetUserLoggedIn(): Observable<any> {
-    return this.http.post(environment.apiUrl + 'user/info_profile', {token: this.token}, httpOptions).pipe(map(response => {
-      if (this.token) {
-        if (response['status'] === 'Ok') {
-          this.isUserLoggedIn = true;
+    return this.http.post(environment.apiUrl + 'user/info_profile', {token: this.token}, httpOptions)
+      .pipe(map(response => {
+        if (this.token) {
+          if (response['status'] === 'Ok') {
+            this.isUserLoggedIn = true;
 
-          this.login = response['data']['info']['name'];
+            this.login = response['data']['info']['name'];
 
-          if (response['data']['roles']) {
-            for (let i = 0; i < response['data']['roles'].length; i++) {
-              this.role.push(response['data']['roles'][i].name_role);
+            if (response['data']['roles']) {
+              for (let i = 0; i < response['data']['roles'].length; i++) {
+                this.role.push(response['data']['roles'][i].name_role);
+              }
             }
           }
+        } else {
+          localStorage.clear();
         }
-      } else {
-        localStorage.clear();
-      }
-      return response;
-    }));
+        return response;
+      }));
   }
 
 
@@ -107,5 +108,33 @@ export class AuthService {
     this.isUserLoggedIn = false;
     localStorage.clear();
     this.router.navigate(['auth']);
+  }
+
+
+  refreshToken() {
+    return this.http.post(environment.apiUrl + 'user/info_profile', {token: this.token}, httpOptions)
+      .pipe(map(response => {
+        if (this.token) {
+          if (response['status'] === 'Ok') {
+            this.isUserLoggedIn = true;
+
+            this.login = response['data']['info']['name'];
+
+            if (response['data']['roles']) {
+              for (let i = 0; i < response['data']['roles'].length; i++) {
+                this.role.push(response['data']['roles'][i].name_role);
+              }
+            }
+            return true;
+          } else {
+            this.router.navigate(['/']);
+            return false;
+          }
+        } else {
+          localStorage.clear();
+          this.router.navigate(['/']);
+          return false;
+        }
+      }));
   }
 }

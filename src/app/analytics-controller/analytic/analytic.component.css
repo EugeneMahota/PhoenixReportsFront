@@ -1,0 +1,11 @@
+.nav-item {
+  letter-spacing: 1px;
+}
+.nav-link {
+  color: #0C5460;
+}
+.active {
+  border-top-right-radius:2px!important;
+  border-top-left-radius:2px!important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}

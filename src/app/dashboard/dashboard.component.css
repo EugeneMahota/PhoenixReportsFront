@@ -1,4 +1,6 @@
-
+.title-dash {
+  letter-spacing: 1px;
+}
 /*Общий контейнер*/
 .wrapper {
   display: flex;
@@ -15,7 +17,8 @@
 }
 /*Параметры сайдбара*/
 .sidebar {
-  z-index: 99;
+  position: relative;
+  z-index: 101;
   min-width: 250px;
   max-width: 250px;
   min-height: 100vh;
@@ -24,6 +27,7 @@
 /*блок прокрутки*/
 .side-block {
   position: fixed;
+  z-index: 102!important;
   width: 250px;
   height: 100%;
   overflow-y: auto;
@@ -53,13 +57,16 @@ a, a:hover, a:focus {
 }
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #6375c3;
+  background: #5c69b8;
   letter-spacing: 1.5px;
   /*box-shadow: 0 2px 4px rgba(0, 0, 0, .2);*/
 }
 #sidebar ul.components {
   padding: 20px 0;
   /*border-bottom: 1px solid #47748b;*/
+}
+#sidebar .sidebar-ul{
+  background: #6B7ECD;
 }
 #sidebar ul p {
   color: #fff;
@@ -71,20 +78,22 @@ a, a:hover, a:focus {
   display: block;
 }
 #sidebar ul li a:hover {
-  color: #7386D5;
+  color: #5c69b8;
   background: #fff;
 }
 #sidebar ul li.active > a, a[aria-expanded="true"] {
   color: #ffffff;
-  background: #6375c3;
+  background: #5c69b8;
 }
 .item-list-side {
-  font-size: 0.8rem;
+  font-weight: 100!important;
+  letter-spacing: 1px;
+  font-size: 0.7rem;
 }
 
 .active-collapse {
   background: #FFFFFF!important;
-  color: #6d7fcc!important;
+  color: #5c69b8!important;
 }
 
 .none {

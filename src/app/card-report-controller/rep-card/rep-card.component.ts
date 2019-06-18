@@ -31,7 +31,7 @@ export class RepCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if(this.cardService.getCode()) {
+    if (this.cardService.getCode()) {
       this.getReport(this.cardService.getCode());
       this.code = this.cardService.getCode();
     }
@@ -46,7 +46,7 @@ export class RepCardComponent implements OnInit, OnDestroy {
   getReport(code) {
     this.cardService.getReport(code).subscribe(response => {
       if (response.status === 'Ok') {
-        if(response.data.fl_change === false) {
+        if (response.data.fl_change === false) {
           this.money_b = response.data.info.money_b;
           this.money_n = response.data.info.money_n;
           this.msg = response.data.info.msg;
@@ -56,7 +56,7 @@ export class RepCardComponent implements OnInit, OnDestroy {
           this.listReport = response.data.rep;
 
           this.saveCode = code;
-        } else if(response.data.fl_change === true) {
+        } else if (response.data.fl_change === true) {
           this.clearData();
           this.fl_change = response.data.fl_change;
           this.msg = response.data.msg;
@@ -99,7 +99,7 @@ export class RepCardComponent implements OnInit, OnDestroy {
   editCard(Card) {
     this.cardService.editCard(Card).subscribe(response => {
       if (response.status === 'Ok') {
-      } else if(response.status === 'Error') {
+      } else if (response.status === 'Error') {
         this.getReport(this.saveCode);
       }
     });

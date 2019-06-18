@@ -1,0 +1,217 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="row">
+
+
+      <div class="col-lg-12 mb-3" [hidden]="listPark.length > 0">
+        <angular2-multiselect [data]="listCard" [(ngModel)]="listCardActive" [settings]="settingsCard"
+                              name="listCardActive" id="listCardActive">
+        </angular2-multiselect>
+      </div>
+
+
+      <div class="col-md-12 mb-3">
+        <!--<div class="input-group-prepend">-->
+        <!--<div class="input-group-text bg-white">-->
+        <!--<i class="fas fa-calendar-alt"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+        <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+               [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'"
+               placeholder="Выберите временной диапазон" id="date" name="date" [disabled]="listPark.length > 0">
+        <owl-date-time #date></owl-date-time>
+      </div>
+
+
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info w-100" [ngClass]="activeDate === 'day' ? 'btn-active':''"
+               (click)="getDay(); activeDate = 'day'">День
+          </button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></button>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info w-100" [ngClass]="activeDate === 'week' ? 'btn-active':''"
+               (click)="getWeek(); activeDate = 'week'">Неделя
+          </button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></button>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info w-100" [ngClass]="activeDate === 'month' ? 'btn-active':''"
+               (click)="getMonth(); activeDate = 'month'">Месяц
+          </button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></button>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info w-100" [ngClass]="activeDate === 'year' ? 'btn-active':''"
+               (click)="getYear(); activeDate = 'year'">Год
+          </button>
+          <button [disabled]="listPark.length > 0" class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></button>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-5 text-left">
+      </div>
+
+      <div class="col-lg-2 col-md-8 col-12">
+        <button type="submit" data-dismiss="modal" class="btn btn-info w-100" (click)="getListAttr({
+        card_id: this.listCardActive,
+        date_start: +dateRange[0],
+        date_end: +dateRange[1]
+        })" [hidden]="listPark.length > 0">Сформировать
+        </button>
+        <button class="btn btn-pink w-100" [hidden]="listPark.length === 0" (click)="fullClear()">Очистить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3" *ngFor="let park of listPark" [hidden]="repTotal.count > 0">
+  <div class="card-header">
+    <h5>{{park.name}}</h5>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm mb-0 table-bordered">
+      <thead>
+      <tr class="pt-4 pb-4">
+        <td class="text-center border-0" scope="col">Аттракцион</td>
+        <td class="text-center border-0" scope="col">Кол-во проходов</td>
+        <td class="text-center border-0" scope="col">Бонусы</td>
+        <td class="text-center border-0" scope="col">Деньги</td>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let attr of park.list" (click)="getTotal({
+        card_id: this.listCardActive,
+        attr_id: attr.attr_id,
+        date_start: +dateRange[0],
+        date_end: +dateRange[1]
+      }); itemAttr = attr; listPass = []">
+        <td class="text-center border-left-0" scope="row">{{attr.rep_name}}</td>
+        <td class="text-center" scope="row">{{attr.count}}</td>
+        <td class="text-center" scope="row">{{attr.sum_bonus | currency:'RUB':' ':'1.0-0'}} бон.</td>
+        <td class="text-center border-right-0" scope="row">{{attr.sum_money | currency:'RUB':' ':'1.0-0'}} ₽</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row" *ngIf="repTotal.count">
+  <div class="col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <span class="mr-2">Аттракционы:</span> {{itemAttr.rep_name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <span class="mr-2">Кол-во проходов:</span> {{repTotal.count}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <span class="mr-2">Бонусы</span> {{repTotal.sum_bonus}} бон.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 mb-3">
+    <div class="input-group h-100 box-shadow">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Деньги, <br/>редактировать</span>
+      </div>
+      <input type="number" class="form-control h-100" id="sum_money" placeholder="Необходимая сумма" name="sum_money"
+             [(ngModel)]="repTotal.sum_money" required>
+    </div>
+  </div>
+
+  <div class="col-lg-12 h-100">
+    <button class="btn btn-info mr-2 mb-3" (click)="getOrder({
+        card_id: this.listCardActive,
+        attr_id: itemAttr.attr_id,
+        date_start: +dateRange[0],
+        date_end: +dateRange[1],
+        desired_num: repTotal.sum_money
+        })">Получить записи</button>
+    <button class="btn btn-info mr-2 mb-3" (click)="repTotal = {}; getListAttr({
+        card_id: this.listCardActive,
+        date_start: +dateRange[0],
+        date_end: +dateRange[1]
+        })">Другой аттракцион</button>
+    <button class="btn btn-pink mb-3" data-toggle="modal" data-target="#exampleModalCenter" *ngIf="listPass.length > 0">Удалить записи</button>
+  </div>
+
+
+</div>
+
+
+<div class="card" *ngIf="listPass.length > 0">
+  <div class="table-responsive">
+    <table class="table table-sm mb-0 table-bordered">
+      <thead>
+      <tr class="pt-4 pb-4">
+        <td class="text-center border-0" scope="col">Транзакция</td>
+        <td class="text-center border-0" scope="col">Дата</td>
+        <td class="text-center border-0" scope="col">Сумма</td>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr>
+        <td class="total text-center border-left-0" scope="row">Общая сумма</td>
+        <td class="total text-center" scope="row"></td>
+        <td class="total text-center border-right-0" scope="row">{{totalValue}} ₽</td>
+      </tr>
+
+      <tr *ngFor="let pass of listPass">
+        <td class="text-center border-left-0" scope="row">{{pass.name}}</td>
+        <td class="text-center" scope="row">{{pass.date | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+        <td class="text-center border-right-0" scope="row">{{pass.value | currency:'RUB':' ':'1.0-0'}} ₽</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление записей</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Все записи, которые вы видите будут удалены, вы уверены что хотите это сделать?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="delReport()" data-toggle="modal" data-target="#exampleModalCenter">Удалить</button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -24,7 +24,7 @@ export class RolesGuard implements CanActivate {
     let roles = route.data['roles'] as Array<string>;
 
     for (let i = 0; i < myRole.length; i++) {
-      if (!roles || roles.indexOf(myRole[i]) != -1) {
+      if (!roles || roles.indexOf(myRole[i]) !== -1) {
         status = true;
       }
     }

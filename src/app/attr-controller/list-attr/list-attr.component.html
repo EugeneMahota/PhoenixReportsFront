@@ -44,7 +44,14 @@
   <div class="col-md-12">
     <div class="card" [ngClass]="listAttr.length === 0 ? 'd-none':''">
       <div class="card-header">
-        <h3 class="font-weight-bold">{{itemPark.name}}</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <h3 class="font-weight-bold">{{itemPark.name}}</h3>
+          </div>
+          <div class="col-md-6 text-right">
+            <button class="btn btn-info" (click)="onExcel()">В Excel</button>
+          </div>
+        </div>
       </div>
       <div class="table-responsive">
         <table class="table">
@@ -93,7 +100,7 @@
               <input onclick="return false;" type="checkbox" class="form-check-input checkbox" id="{{attr.rep_name}}" [(ngModel)]="+attr.fl_archive" name="checkbox">
               <label class="" for="{{attr.rep_name}}"></label>
             </td>
-            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.timeout_msg}} мин.</td>
+            <td class="align-middle text-center" scope="row" (click)="editAttr(attr.attr_id)">{{attr.timeout_msg}} мс.</td>
             <td class="text-center">
               <button class="btn btn-info" (click)="selectAttr(attr)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
             </td>

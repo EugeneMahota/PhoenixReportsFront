@@ -70,6 +70,8 @@ import { SupportComponent } from './support/support.component';
 import {OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DefaultIntl} from './locale/locale';
+import { SettingsReportComponent } from './settings-controller/settings-report/settings-report.component';
+import { SettingsPassComponent } from './settings-controller/settings-pass/settings-pass.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -168,6 +170,16 @@ const routes: Routes = [
       {path: 'rep-pass/:id', component: PassDetalizationComponent, data: {title: 'rep-pass', roles: ['repAttrs']}},
 
       {path: 'rep-card', component: RepCardComponent, data: {title: 'rep-card', roles: ['rptCard']}},
+      {path: 'settings-rep', component: SettingsReportComponent, data: {title: 'settings-rep', roles: ['repEditor']}},
+      {path: 'settings-pass', component: SettingsPassComponent, data: {title: 'settings-pass', roles: ['repEditor']}},
+
+      {path: 'analytic', loadChildren: './analytics-controller/analytic/analytic.module#AnalyticModule',
+        data: {title: 'analytic', roles: ['analitic']}},
+
+      {path: 'rep-time', loadChildren: './time-report-controller/time-report/time-report.module#TimeReportModule',
+        data: {title: 'time-report', roles: ['repTime']}},
+      {path: 'rep-abonement', loadChildren: './time-report-controller/abonement-report/abonement.module#AbonementModule',
+        data: {title: 'abonement-report', roles: ['repSub']}},
 
       {path: 'support', component: SupportComponent, data:
           {roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']}},
@@ -233,7 +245,9 @@ const routes: Routes = [
     EditGroupAttrComponent,
     AddGroupAttrComponent,
     SearchPipe,
-    SupportComponent
+    SupportComponent,
+    SettingsReportComponent,
+    SettingsPassComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+.card-header {
+  border: none;
+  letter-spacing: 1px;
+  background-color: #FFFFFF;
+}
+.btn-active {
+  background-color: #177187;
+  border-color: #177187;
+}
+.table-title {
+  color: #898f9b;
+  letter-spacing: 1.5px;
+  /*font-size: 1.2rem;*/
+}
+.btn-code {
+  width: 140px;
+}

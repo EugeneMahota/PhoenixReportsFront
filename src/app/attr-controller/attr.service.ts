@@ -18,6 +18,8 @@ export class AttrService {
   itemAttr: string;
   itemPark: string;
 
+  stateOrder = {reverse: null, order: null};
+
   constructor(private authService: AuthService, private http: HttpClient) {
   }
 
@@ -78,5 +80,10 @@ export class AttrService {
 
   getPark() {
     return this.itemPark;
+  }
+
+  saveOrder(order, reverse) {
+    this.stateOrder.order = order;
+    this.stateOrder.reverse = reverse;
   }
 }

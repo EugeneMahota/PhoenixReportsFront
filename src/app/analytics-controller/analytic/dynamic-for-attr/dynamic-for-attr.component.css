@@ -1,0 +1,27 @@
+.c-btn {
+  height: 45px!important;
+}
+.card-header {
+  border: none;
+  letter-spacing: 1px;
+  background-color: #FFFFFF;
+}
+.btn-active {
+  background-color: #177187;
+  border-color: #177187;
+}
+.btn-del {
+  box-shadow: none!important;
+}
+.table-title {
+  color: #898f9b;
+  letter-spacing: 1.5px;
+  /*font-size: 1.2rem;*/
+}
+tbody tr:hover {
+  background-color: transparent!important;
+  cursor: auto!important;
+}
+.active-date {
+  background-color: #FFE0E6;
+}

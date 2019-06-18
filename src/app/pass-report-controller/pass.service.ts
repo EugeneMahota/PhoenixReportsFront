@@ -20,6 +20,7 @@ export class PassService {
   reportParam: any;
 
   listReport: any[] = [];
+  listTotal: any[] = [];
 
   nameAttr: string;
   namePark: string;
@@ -92,4 +93,8 @@ export class PassService {
     return this.nameAttr;
   }
 
+  saveReport(listReport: any[], listTotal: any[]) {
+    this.listReport = listReport;
+    this.listTotal = listTotal;
+  }
 }

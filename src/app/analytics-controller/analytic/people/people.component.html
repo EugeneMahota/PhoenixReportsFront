@@ -1,0 +1,155 @@
+<div class="row">
+
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <!--<div class="card-header">-->
+        <!--<h5>Задать параметры</h5>-->
+      <!--</div>-->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Список карт</label>
+              <angular2-multiselect [data]="listCard" [(ngModel)]="listCardActive" [settings]="settingsCard" name="listCardActive" id="listCardActive">
+              </angular2-multiselect>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Список парков</label>
+              <angular2-multiselect [data]="listPark" [(ngModel)]="listParkActive" [settings]="settingsPark" name="listParkActive" id="listParkActive">
+              </angular2-multiselect>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>Диапазон времени</label>
+              <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+                     [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'" placeholder="Выберите временной диапазон" id="date" name="date">
+              <owl-date-time #date></owl-date-time>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'day' ? 'btn-active':''" (click)="getDay(); activeDate = 'day'">День</div>
+              <div class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'week' ? 'btn-active':''" (click)="getWeek(); activeDate = 'week'">Неделя</div>
+              <div class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'month' ? 'btn-active':''" (click)="getMonth(); activeDate = 'month'">Месяц</div>
+              <div class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'year' ? 'btn-active':''" (click)="getYear(); activeDate = 'year'">Год</div>
+              <div class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <button class="btn w-100 btn-info" (click)="getReport({
+            parks: listParkActive,
+            cards: listCardActive,
+            date_start: +dateRange[0],
+            date_end: +dateRange[1]
+            })">Сформировать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6" *ngIf="pieChartLabels.length > 0">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>Диаграмма пополнений и проходов</h5>
+      </div>
+      <canvas class="p-lg-2"
+              baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+  <div class="col-lg-6" *ngIf="barChartLabels.length > 0">
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>График популярности аттракционов</h5>
+      </div>
+      <canvas class="p-lg-2"
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [chartType]="barChartType"
+              [options]="barChartOptions">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="col-lg-12" *ngIf="listReport.length > 0">
+
+    <div class="card table-responsive">
+      <div class="card-header">
+        <h5>Статистические данные</h5>
+      </div>
+      <table class="table table-sm mb-0 table-bordered">
+        <thead>
+        <tr class="pt-4 pb-4">
+          <td class="pointer pl-lg-4 border-0 table-title" scope="col">Код карты
+          </td>
+          <td class="pointer border-0 table-title" scope="col">Кол-во пополнений(Касса)
+          </td>
+          <td class="pointer border-0 table-title" scope="col">Кол-во пополнений(Приложение)
+          </td>
+          <td class="pointer border-0 table-title" scope="col">Кол-во проходов
+          </td>
+          <td class="pointer border-0 table-title" scope="col">Популярный аттракцион
+          </td>
+          <td class="pointer border-0 table-title" scope="col">Непопулярный аттракцион
+          </td>
+          <!--<td class="pointer border-0 table-title" scope="col">Средний чек-->
+          <!--</td>-->
+          <td class="pointer border-0 table-title pr-lg-4" scope="col">Списано
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let item of listReport">
+          <td class="align-middle border-left-0 text-center pr-lg-2 pl-lg-2" scope="row">
+            <button class="btn btn-pink btn-sm btn-code" (click)="onCard(item.code)">{{item.code}}</button>
+          </td>
+          <td class="align-middle text-right" scope="row">{{item.count_add_kassa}}</td>
+          <td class="align-middle text-right" scope="row">{{item.count_add_attach}}</td>
+          <td class="align-middle text-right" scope="row">{{item.count_pass}}</td>
+          <td class="align-middle text-right" scope="row">{{item.popular_attr}}</td>
+          <td class="align-middle text-right" scope="row">{{item.popular_attr !== item.not_popular_attr ? item.not_popular_attr: ''}}</td>
+          <!--<td class="align-middle text-right" scope="row">{{item.median | currency:'RUB':' ':'1.0-0'}} ₽</td>-->
+          <td class="align-middle text-right pr-lg-4 border-right-0" scope="row">{{item.sum_pass | currency:'RUB':' ':'1.0-0'}} ₽</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

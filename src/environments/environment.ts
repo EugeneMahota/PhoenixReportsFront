@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/'
+  apiUrl: 'https://gold.goldinnfish.com/'
 };

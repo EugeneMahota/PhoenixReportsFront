@@ -15,7 +15,7 @@ export class RepKassaComponent implements OnInit, OnDestroy {
 
   date = new Date();
   dateRange: any[] = [];
-  activeDate: string;
+  activeDate: string = '';
 
   fl_cashless: boolean = true;
   fl_cash: boolean = true;
@@ -79,7 +79,10 @@ export class RepKassaComponent implements OnInit, OnDestroy {
       this.fl_cash = this.kassaService.getParam().fl_cash;
 
       this.dateRange = [new Date(this.kassaService.getParam().date_start), new Date(this.kassaService.getParam().date_end)];
-      this.getReport(this.kassaService.getParam());
+
+      console.log(this.kassaService.listReport);
+      this.listReport = this.kassaService.listReport;
+      this.listTotal = this.kassaService.listReportTotal;
     } else {
       this.getDay();
     }
@@ -98,7 +101,6 @@ export class RepKassaComponent implements OnInit, OnDestroy {
   getReport(paramReport) {
     paramReport.date_start = +this.dateRange[0];
     paramReport.date_end = +this.dateRange[1];
-    
     this.kassaService.getRepKassa(paramReport).subscribe(response => {
       if (response.status === 'Ok') {
         let countEmpty: number = 0;
@@ -148,6 +150,7 @@ export class RepKassaComponent implements OnInit, OnDestroy {
           this.kassaService.saveParam(paramReport);
           this.itemPark = '';
         }
+        this.kassaService.saveReport(this.listReport, this.listTotal);
       }
     });
 

@@ -19,6 +19,7 @@ export class KassaService {
   listGroup: any[] = [];
   listPark: any[] = [];
   listReport: any[] = [];
+  listReportTotal: any[] = [];
 
   paramRep: any;
 
@@ -103,5 +104,11 @@ export class KassaService {
   }
   getKassa() {
     return this.nameKassa;
+  }
+
+
+  saveReport(listRep: any[], listTotal: any[]) {
+    this.listReport = listRep;
+    this.listReportTotal = listTotal;
   }
 }

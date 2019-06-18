@@ -3,259 +3,310 @@
   <!-- Sidebar -->
   <nav id="sidebar" class="sidebar" [ngClass]="show ? 'showSide':''">
     <div class="side-block">
-      <div class="sidebar-header p-2">
-        <div class="row">
-          <div class="col-12 mt-1 text-center">
-            <a href="https://goldinnfish.com/">
-              <img src="assets/logo11.png" width="140" height="auto">
-            </a>
-          </div>
-          <!--<div class="col-12 h-100 text-center">-->
-            <!--<h3 class="pt-2 pb-2 m-0">Phoenix Reports</h3>-->
+      <div class="sidebar-header text-center p-2">
+        <img src="assets/logo11.png" width="120" height="auto">
+        <!--<div class="row">-->
+          <!--<div class="col-3 mt-1 text-center align-self-center">-->
+            <!--<a href="https://goldinnfish.com/">-->
+              <!--<img src="assets/logo2.png" width="65" height="auto">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="col-9 h-100 text-center align-self-center">-->
+            <!--<h3 class="pt-3 pb-3 m-0 font-weight-bold">GOLDEN FISH</h3>-->
             <!--</div>-->
-        </div>
+        <!--</div>-->
+
       </div>
 
-      <ul class="list-unstyled components pt-0">
+      <div class="sidebar-ul">
+        <ul class="list-unstyled components pt-0">
 
-        <!--<li>-->
-          <!--<ul class="row list-unstyled">-->
-            <!--<li class="col-12 text-center" (click)="Side()">-->
-              <!--<p class="">-->
-                <!--<i class="fas fa-chevron-circle-left mr-2 user-xs"></i>-->
-                <!--Навигационное меню-->
-              <!--</p>-->
-            <!--</li>-->
+          <li routerLinkActive="active"
+              *appRoles="['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']">
+            <a routerLink="home" (click)="ShowDisplaySm()" class="border-top">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-cubes"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ГЛАВНАЯ
+                </div>
+              </div>
+            </a>
+          </li>
 
-            <!--&lt;!&ndash;<li class="col-12 text-center mb-4 user-xs">&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="mr-3">&ndash;&gt;-->
-                <!--&lt;!&ndash;<button type="button" class="btn btn-toggle"&ndash;&gt;-->
-                        <!--&lt;!&ndash;(click)="Side()" [ngStyle]="{'display': show === true ? 'none':''}">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<i class="fas fa-bars mr-2"></i> Навигационное меню&ndash;&gt;-->
-                <!--&lt;!&ndash;</button>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</li>&ndash;&gt;-->
-          <!--</ul>-->
-        <!--</li>-->
+          <li routerLinkActive="active"
+              *appRoles="['users']">
+            <a routerLink="list-user" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ПОЛЬЗОВАТЕЛИ
+                </div>
+              </div>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']">
-          <a routerLink="home" (click)="ShowDisplaySm()" class="border-top">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-cubes"></i>
+          <li routerLinkActive="active"
+              *appRoles="['kassirs']">
+            <a routerLink="list-kassir" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  КАССИРЫ
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <!--<span class="badge badge-yellow">bobr</span>-->
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                ГЛАВНАЯ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['users']">
-          <a routerLink="list-user" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-user-tie"></i>
+          <li routerLinkActive="active"
+              *appRoles="['aclKassa']">
+            <a routerLink="list-kassa" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-store"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  КАССЫ
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                ПОЛЬЗОВАТЕЛИ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['kassirs']">
-          <a routerLink="list-kassir" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-user-graduate"></i>
+          <li routerLinkActive="active"
+              *appRoles="['graphics']">
+            <a routerLink="list-graphic" (click)="ShowDisplaySm()" class="border-top">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ГРАФИКИ
+                </div>
               </div>
-              <div class="col-7 item-list-side h-100 align-self-center mt-1">
-                КАССИРЫ
-              </div>
-              <div class="col-3 align-self-center h-100">
-                <!--<span class="badge badge-yellow">bobr</span>-->
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['aclKassa']">
-          <a routerLink="list-kassa" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-store"></i>
+          <li routerLinkActive="active"
+              *appRoles="['cards']">
+            <a routerLink="list-card" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  КАРТЫ
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                КАССЫ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['graphics']">
-          <a routerLink="list-graphic" (click)="ShowDisplaySm()" class="border-top">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-calendar-alt"></i>
+          <li routerLinkActive="active"
+              *appRoles="['hubs']">
+            <a routerLink="list-hub" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-hdd"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  КОНЦЕНТРАТОРЫ
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <span class="badge badge-green">hub</span>
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                ГРАФИКИ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['cards']">
-          <a routerLink="list-card" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-credit-card"></i>
+          <li routerLinkActive="active"
+              *appRoles="['attrs']">
+            <a routerLink="list-attr" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  АТТРАКЦИОНЫ
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                КАРТЫ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['hubs']">
-          <a routerLink="list-hub" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-hdd"></i>
+          <li routerLinkActive="active"
+              *appRoles="['groups']">
+            <a routerLink="list-attr-group" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-handshake"></i>
+                </div>
+                <div class="col-9 item-list-side h-100 align-self-center mt-1">
+                  ГРУППЫ АТТРАКЦИОНОВ
+                </div>
               </div>
-              <div class="col-7 item-list-side h-100 align-self-center mt-1">
-                КОНЦЕНТРАТОРЫ
-              </div>
-              <div class="col-3 align-self-center h-100">
-                <span class="badge badge-green">hub</span>
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['attrs']">
-          <a routerLink="list-attr" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-rocket"></i>
+          <li routerLinkActive="active"
+              *appRoles="['repEditor']">
+            <a routerLink="settings-rep" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="col-9 item-list-side h-100 align-self-center mt-1">
+                  НАСТРОЙКА КАССОВЫХ ОПЕР.
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                АТТРАКЦИОНЫ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active"
-            *appRoles="['groups']">
-          <a routerLink="list-attr-group" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-handshake"></i>
+          <li routerLinkActive="active"
+              *appRoles="['repEditor']">
+            <a routerLink="settings-pass" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="col-9 item-list-side h-100 align-self-center mt-1">
+                  НАСТРОЙКА ПРОХОДОВ
+                </div>
               </div>
-              <div class="col-9 item-list-side h-100 align-self-center mt-1">
-                ГРУППЫ АТТРАКЦИОНОВ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <!-------------------------->
-        <li routerLinkActive="active" *appRoles="['rptKassa']">
-          <a routerLink="rep-kassa" (click)="ShowDisplaySm()" class="border-top">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-store"></i>
+          <!-------------------------->
+          <li routerLinkActive="active" *appRoles="['rptKassa']">
+            <a routerLink="rep-kassa" (click)="ShowDisplaySm()" class="border-top">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-store"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">ОТЧЕТ ПО КАССАМ</div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">ОТЧЕТ ПО КАССАМ</div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active" *appRoles="['repAttrs']">
-          <a routerLink="rep-pass" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-rocket"></i>
+          <li routerLinkActive="active" *appRoles="['repAttrs']">
+            <a routerLink="rep-pass" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <div class="col-10 item-list-side h-100 align-self-center mt-1">
+                  ОТЧЕТ ПО АТТРАКЦИОНАМ
+                </div>
               </div>
-              <div class="col-10 item-list-side h-100 align-self-center mt-1">
-                ОТЧЕТ ПО АТТРАКЦИОНАМ
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-        <li routerLinkActive="active" *appRoles="['rptCard']">
-          <a routerLink="rep-card" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-credit-card"></i>
+          <li routerLinkActive="active" *appRoles="['rptCard']">
+            <a routerLink="rep-card" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ОТЧЕТ ПО КАРТАМ
+                </div>
               </div>
-              <div class="col-8 item-list-side h-100 align-self-center mt-1">
-                ОТЧЕТ ПО КАРТАМ
-              </div>
-            </div>
-          </a>
-        </li>
-        <!------------------------------->
+            </a>
+          </li>
 
-        <li routerLinkActive="active">
-          <a routerLink="profile" (click)="ShowDisplaySm()" class="border-top">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-user-astronaut"></i>
+          <li routerLinkActive="active" *appRoles="['analitic']">
+            <a routerLink="analytic" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ГРАФИКИ И АНАЛИТИКА
+                </div>
               </div>
-              <div class="col-7 item-list-side h-100 align-self-center mt-1">
-                ПРОФИЛЬ
-              </div>
-              <div class="col-3 align-self-center h-100">
-                <!--<span class="badge badge-pink">new</span>-->
-              </div>
-            </div>
-          </a>
-        </li>
-        <li routerLinkActive="active">
-          <a routerLink="support" (click)="ShowDisplaySm()">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-question-circle"></i>
-              </div>
-              <div class="col-7 item-list-side h-100 align-self-center mt-1">
-                ПОДДЕРЖКА
-              </div>
-              <div class="col-3 align-self-center h-100">
-                <!--<span class="badge badge-pink">new</span>-->
-              </div>
-            </div>
-          </a>
-        </li>
-        <li routerLinkActive="active">
-          <a data-toggle="modal" data-target="#ModalExit">
-            <div class="row">
-              <div class="col-2 pr-0 text-center side-icon">
-                <i class="fas fa-sign-out-alt"></i>
-              </div>
-              <div class="col-7 item-list-side h-100 align-self-center mt-1">
-                ВЫХОД
-              </div>
-              <div class="col-3 align-self-center h-100">
-                <!--<span class="badge badge-pink">exit</span>-->
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
 
-      </ul>
+          <li routerLinkActive="active" *appRoles="['repTime']">
+            <a routerLink="rep-time" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-hourglass-start"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ОТЧЕТ ПО ВРЕМЕННЫМ АТТРАКЦИОНАМ
+                </div>
+              </div>
+            </a>
+          </li>
+
+          <li routerLinkActive="active" *appRoles="['repSub']">
+            <a routerLink="rep-abonement" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-calendar-week"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">
+                  ОТЧЕТ ПО АБОНЕМЕНТАМ
+                </div>
+              </div>
+            </a>
+          </li>
+          <!------------------------------->
+
+          <li routerLinkActive="active">
+            <a routerLink="profile" (click)="ShowDisplaySm()" class="border-top">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-user-astronaut"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  ПРОФИЛЬ
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <!--<span class="badge badge-pink">new</span>-->
+                </div>
+              </div>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="support" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  ПОДДЕРЖКА
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <!--<span class="badge badge-pink">new</span>-->
+                </div>
+              </div>
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a data-toggle="modal" data-target="#ModalExit">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  ВЫХОД
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <!--<span class="badge badge-pink">exit</span>-->
+                </div>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -282,7 +333,7 @@
           <i *ngIf="!showIconPass" class="fas fa-chevron-circle-up"></i>
         </button>
 
-        <h5 class="ml-3 pt-2 d-none d-md-block" style="color: #0C5460">{{title}}</h5>
+        <h5 class="ml-3 pt-2 d-none d-md-block title-dash" style="color: #0C5460">{{title}}</h5>
 
       </form>
 

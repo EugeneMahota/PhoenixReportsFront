@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Список карт</label>
+              <angular2-multiselect [data]="listCard" [(ngModel)]="listCardActive" [settings]="settingsCard" name="listCardActive" id="listCardActive">
+              </angular2-multiselect>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Список групп аттракционов</label>
+              <angular2-multiselect [data]="listGroup" [(ngModel)]="listGroupActive" [settings]="settingsGroup" name="listGroupActive" id="listGroupActive">
+              </angular2-multiselect>
+            </div>
+          </div>
+
+          <div class="col-lg-10">
+            <div class="form-group">
+              <!--<label>Диапазон времени</label>-->
+              <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+                     [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'" placeholder="Выберите временной диапазон" id="date" name="date">
+              <owl-date-time #date></owl-date-time>
+            </div>
+          </div>
+          <div class="col-lg-2 mb-small">
+            <button class="btn w-100 btn-pink" (click)="addDiapason()">Добавить</button>
+          </div>
+
+          <div class="col-lg-10">
+            <label>Список диапазонов</label>
+            <table class="table table-sm table-bordered">
+              <thead>
+              <tr class="pt-4 pb-4">
+                <td class="pointer table-title border-bottom-0" scope="col">#</td>
+                <td class="pointer table-title border-bottom-0" scope="col">Дата старта</td>
+                <td class="pointer table-title border-bottom-0" scope="col">Дата окончания</td>
+                <td class="pointer table-title border-bottom-0 text-center" scope="col">Удалить</td>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let date of listDateDiapason; let i = index">
+                <td class="align-middle" scope="row" [ngClass]="activeDateDiapason(date.date_start_media, date.date_end_media)">{{i+1}}</td>
+                <td class="align-middle" scope="row" [ngClass]="activeDateDiapason(date.date_start_media, date.date_end_media)">{{date.date_start_media}}</td>
+                <td class="align-middle" scope="row" [ngClass]="activeDateDiapason(date.date_start_media, date.date_end_media)">{{date.date_end_media}}</td>
+                <td class="align-middle text-center" scope="row">
+                  <button class="btn btn-sm btn-light btn-del" (click)="delDiapason(date)"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-lg-2">
+            <label>Готовые диапазоны</label>
+            <button class="btn btn-info w-100 mb-3" (click)="setDiapasonDay()">За последние 5 дней</button>
+            <button class="btn btn-info w-100 mb-3" (click)="setDiapasonWeek()">За последние 5 недель</button>
+            <button class="btn btn-info w-100 mb-3" (click)="setDiapasonMonth()">За последние 5 месяцев</button>
+            <button class="btn btn-info w-100 mb-3" (click)="setDiapasonYear()">За последние 3 года</button>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'day' ? 'btn-active':''" (click)="getDay(); activeDate = 'day'">День</div>
+              <div class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'week' ? 'btn-active':''" (click)="getWeek(); activeDate = 'week'">Неделя</div>
+              <div class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'month' ? 'btn-active':''" (click)="getMonth(); activeDate = 'month'">Месяц</div>
+              <div class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <div class="btn-group w-100">
+              <div class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></div>
+              <div class="btn w-100 btn-info" [ngClass]="activeDate === 'year' ? 'btn-active':''" (click)="getYear(); activeDate = 'year'">Год</div>
+              <div class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-small">
+            <button class="btn w-100 btn-info" (click)="getReport({
+            group: listGroupActive[0].id,
+            type_cash: [
+            {name: 'Деньги'},
+            {name: 'Бонусы'}
+            ],
+            cards: listCardActive,
+            date: listDateDiapason
+            })">Сформировать</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6 mb-3" *ngIf="barChartLabels.length > 0">
+    <div class="card">
+      <div class="card-header">
+        <h5>График выручки по группе {{listGroupActive[0].group_repl}}/{{listGroupActive[0].itemName}}</h5>
+      </div>
+      <canvas class="p-lg-2"
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [chartType]="barChartType"
+              [options]="barChartOptions">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="col-lg-6 mb-3" *ngFor="let itemRep of listReport">
+    <div class="card table-responsive">
+      <div class="card-header">
+        <h5>{{listGroupActive[0].group_repl}}/{{listGroupActive[0].itemName}} - {{itemRep.date_start_media}} - {{itemRep.date_end_media}}</h5>
+      </div>
+      <table class="table table-sm mb-0 table-bordered">
+        <thead>
+        <tr class="pt-4 pb-4">
+          <td class="pointer pl-lg-4 border-0 table-title" scope="col">Аттракцион
+          </td>
+          <td class="pointer border-0 table-title text-right" scope="col">Бонусы
+          </td>
+          <td class="pointer border-0 table-title text-right pr-lg-4" scope="col">Деньги
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of itemRep.attrs; let i = index;">
+          <td class="align-middle border-left-0 pl-lg-4" scope="row">{{item.rep_name}}</td>
+          <td class="align-middle text-right" scope="row">{{item.total_bonus | currency:'RUB':' ':'1.0-0'}}</td>
+          <td class="align-middle text-right pr-lg-4 border-right-0" scope="row">{{item.total_money | currency:'RUB':' ':'1.0-0'}} ₽</td>
+        </tr>
+        <tr>
+          <td class="align-middle active-date border-left-0 border-right-0 pl-lg-4" scope="row">Итог:</td>
+          <td class="border-right-0 active-date border-left-0 text-right">{{itemRep.total_bonus | currency:'RUB':' ':'1.0-0'}}</td>
+          <td class="border-right-0 active-date border-left-0 text-right pl-lg-4 pr-lg-4">{{itemRep.total_money | currency:'RUB':' ':'1.0-0'}} ₽</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

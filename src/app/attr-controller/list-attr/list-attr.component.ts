@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AttrService} from '../attr.service';
+import {ExcelAttrService} from '../excel-attr.service';
 
 @Component({
   selector: 'app-list-attr',
@@ -22,9 +23,10 @@ export class ListAttrComponent implements OnInit {
   date: string;
   searchStr: string;
 
-  reverse: boolean = false;
-  order: string = 'ip_adr';
-  constructor(private router: Router, private route: ActivatedRoute, private attrService: AttrService) {
+  reverse: boolean;
+  order: string;
+
+  constructor(private router: Router, private route: ActivatedRoute, private attrService: AttrService, private excelAttrService: ExcelAttrService) {
   }
 
   ngOnInit() {
@@ -51,6 +53,9 @@ export class ListAttrComponent implements OnInit {
         this.listCardAll = response.data;
       }
     });
+
+    this.reverse = this.attrService.stateOrder.reverse || false;
+    this.order = this.attrService.stateOrder.order || 'ip_adr';
   }
 
   selectAttr(Attr) {
@@ -108,6 +113,12 @@ export class ListAttrComponent implements OnInit {
     }
 
     this.order = value;
+
+    this.attrService.saveOrder(this.order, this.reverse);
+  }
+
+  onExcel() {
+    this.excelAttrService.exportExcel(this.listAttr, this.itemPark.name);
   }
 
 }
