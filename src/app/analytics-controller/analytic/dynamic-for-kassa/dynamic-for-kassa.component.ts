@@ -153,6 +153,10 @@ export class DynamicForKassaComponent implements OnInit {
         listReport[i].date_end_media.slice(0, 10));
       this.barChartData[0].data.push(+listReport[i].total);
     }
+
+    this.barChartLabels = this.barChartLabels.reverse();
+    this.barChartData[0].data = this.barChartData[0].data.reverse();
+    this.barChartData[1].data = this.barChartData[1].data.reverse();
   }
 
   activeDateDiapason(dateStart, dateEnd) {

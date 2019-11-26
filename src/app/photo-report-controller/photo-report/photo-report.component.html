@@ -1,0 +1,147 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <form class="form-row">
+      <div class="form-group col-md-6">
+        <label>Выберите парк</label>
+        <select class="form-control" [(ngModel)]="parkId" name="parkId" id="parkId" (change)="eventType()">
+          <option *ngFor="let park of listPark" [value]="park.park_id">{{park.name}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6 text-center">
+        <label>Выберите тип отчета</label>
+        <br/>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="typeReport1" name="typeReport" [(ngModel)]="typeReport" [value]="'attr'" class="custom-control-input"
+                 (change)="eventType(); listEventActive = []">
+          <label class="custom-control-label" for="typeReport1">Отчет по аттракционам</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="typeReport2" name="typeReport" [(ngModel)]="typeReport" [value]="'kassa'" class="custom-control-input"
+                 (change)="eventType(); listEventActive = []">
+          <label class="custom-control-label" for="typeReport2">Отчет по кассам</label>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6" *ngIf="typeReport === 'attr'">
+        <label>Выберите аттракцион</label>
+        <angular2-multiselect [data]="listAttr" [(ngModel)]="listAttrActive" [settings]="settingsAttr" name="listAttrActive">
+            </angular2-multiselect>
+      </div>
+      <div class="form-group col-md-6" *ngIf="typeReport === 'kassa'">
+        <label>Выберите кассы</label>
+        <angular2-multiselect [data]="listKassa" [(ngModel)]="listKassaActive" [settings]="settingsKassa" name="listKassaActive">
+        </angular2-multiselect>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Выберите событие</label>
+        <angular2-multiselect [data]="listEvent" [(ngModel)]="listEventActive" [settings]="settingsEvent" name="listEventActive">
+            </angular2-multiselect>
+      </div>
+
+      <div class="col-12 form-group">
+        <label>Выберите временной диапазон</label>
+        <div class="input-group">
+          <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+                 [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'" placeholder="Выберите временной диапазон" id="date" name="date">
+          <owl-date-time #date></owl-date-time>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <div class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></div>
+          <div class="btn w-100 btn-info" [ngClass]="activeDate === 'day' ? 'btn-active':''" (click)="getDay(); activeDate = 'day'">День</div>
+          <div class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <div class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></div>
+          <div class="btn w-100 btn-info" [ngClass]="activeDate === 'week' ? 'btn-active':''" (click)="getWeek(); activeDate = 'week'">Неделя</div>
+          <div class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <div class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></div>
+          <div class="btn w-100 btn-info" [ngClass]="activeDate === 'month' ? 'btn-active':''" (click)="getMonth(); activeDate = 'month'">Месяц</div>
+          <div class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-12 mb-small">
+        <div class="btn-group w-100">
+          <div class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></div>
+          <div class="btn w-100 btn-info" [ngClass]="activeDate === 'year' ? 'btn-active':''" (click)="getYear(); activeDate = 'year'">Год</div>
+          <div class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-5 text-left">
+      </div>
+
+      <div class="col-lg-2 col-md-8 col-7">
+        <button type="submit" data-dismiss="modal" class="btn btn-info w-100" (click)="getReport({
+        date_start: +dateRange[0],
+        date_end: +dateRange[1],
+        place: (typeReport === 'attr' ? listAttrActive:listKassaActive),
+        event: listEventActive
+        })">Сформировать</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<div class="card" *ngIf="listReport">
+  <div class="card-header">
+    <h5 class="mb-0">Отчет</h5>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <td class="pl-4"><small>Событие</small></td>
+        <td><small>Место</small></td>
+        <td><small>Дата</small></td>
+        <td class="pr-4 text-center"><small>Фото</small></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rep of listReport">
+        <td class="pl-4 text-nowrap">{{rep.event}}</td>
+        <td class="text-nowrap">{{rep.place}}</td>
+        <td class="text-nowrap">{{rep.date | date:'dd.MM.yyyy HH:mm'}}</td>
+        <td class="pr-4 text-center text-nowrap">
+          <img *ngFor="let photo of rep.photo" class="rounded small-photo mr-2" [src]="photo" (click)="setPhoto(rep.photo, photo)"
+               data-toggle="modal" data-target=".bd-example-modal-lg">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border-0 position-relative">
+      <img [src]="activePhoto" width="100%" class="rounded-top">
+      <div class="position-absolute w-100 h-100 align-middle">
+        <button class="btn rounded-circle btn-arrow btn-left m-3" (click)="carouselPrev()">
+          <i class="fas fa-angle-double-left"></i>
+        </button>
+        <button class="btn rounded-circle btn-arrow btn-right m-3" (click)="carouselNext()">
+          <i class="fas fa-angle-double-right"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-inline-flex overflow-auto w-100 block-small-image">
+          <div class="col-auto pl-0 mb-2" *ngFor="let photo of listPhoto; let i = index" (click)="setActivePhoto(photo)" [id]="photo"
+               [ngClass]="listPhoto.length === i+1 ? 'pr-0':''">
+            <img [src]="photo" height="100" width="auto" class="slide-small-photo" [ngClass]="activePhoto === photo ? 'active-photo':''">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

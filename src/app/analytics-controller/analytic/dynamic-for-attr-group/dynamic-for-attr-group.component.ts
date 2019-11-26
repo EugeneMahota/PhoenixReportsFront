@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AnalyticService} from '../../analytic.service';
 import {PassService} from '../../../pass-report-controller/pass.service';
-import {KassaService} from '../../../kassa-report-controller/kassa.service';
 import {DateTimeAdapter} from 'ng-pick-datetime';
 import {NotifierService} from 'angular-notifier';
 
@@ -186,6 +185,10 @@ export class DynamicForAttrGroupComponent implements OnInit {
     }
     this.barChartLabels = listLabel;
     this.listReport = listBar;
+
+    this.barChartLabels = this.barChartLabels.reverse();
+    this.barChartData[0].data = this.barChartData[0].data.reverse();
+    this.barChartData[1].data = this.barChartData[1].data.reverse();
   }
 
   getDay() {

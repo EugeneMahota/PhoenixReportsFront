@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Oswald:300');
+/*@import url('https://fonts.googleapis.com/css?family=Oswald:300');*/
 /*@import url('https://fonts.googleapis.com/css?family=Neucha');*/
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:300,400,500&display=swap');
 
 @import '~bootstrap/dist/css/bootstrap.css';
 
@@ -37,7 +38,8 @@
 
 body {
   overflow-x:hidden;
-  font-family: 'Oswald', sans-serif!important;
+  font-family: 'Fira Sans Extra Condensed', sans-serif;
+  /*font-family: 'Oswald', sans-serif!important;*/
   /*font-family: 'Neucha', cursive;*/
   background-color: #E9ECEF!important;
 }

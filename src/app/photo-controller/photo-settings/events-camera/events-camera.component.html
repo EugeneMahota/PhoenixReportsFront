@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card mb-3">
+      <div class="card-body">
+        <form class="form-row" #addFrom="ngForm" *ngIf="!itemSettingsEdit">
+          <div class="form-group col-md-3">
+            <label>Камера</label>
+            <select class="form-control" name="camera_id" [(ngModel)]="itemSettingsAdd.camera_id" required>
+              <option *ngFor="let camera of listCamera" [value]="camera.camera_id">{{camera.name_camera}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Событие</label>
+            <select class="form-control" name="type_event_id" [(ngModel)]="itemSettingsAdd.type_event_id" required>
+              <option *ngFor="let event of listEvent" [value]="event.type_event_id">{{event.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Интервал</label>
+            <input type="number" class="form-control" name="interval_photo" [(ngModel)]="itemSettingsAdd.interval_photo" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Кол-во фото</label>
+            <input type="number" class="form-control" name="count_photo" [(ngModel)]="itemSettingsAdd.count_photo" required>
+          </div>
+          <div class="form-group col-md-12">
+            <label>Дата</label>
+            <input class="form-control" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" name="date" [(ngModel)]="itemSettingsAdd.date">
+            <owl-date-time #dt2></owl-date-time>
+          </div>
+
+          <div class="form-group col-md-3 mb-1">
+            <button class="btn-info btn w-100" (click)="addSettingsEvent(itemSettingsAdd)" [disabled]="addFrom.form.invalid">Привязать камеру</button>
+          </div>
+        </form>
+
+        <form class="form-row" #editFrom="ngForm" *ngIf="itemSettingsEdit">
+          <div class="form-group col-md-3">
+            <label>Камера</label>
+            <select class="form-control" name="camera_id" [(ngModel)]="+itemSettingsEdit.camera_id" required>
+              <option *ngFor="let camera of listCamera" [value]="+camera.camera_id">{{camera.name_camera}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Событие</label>
+            <select class="form-control" name="type_event_id" [(ngModel)]="itemSettingsEdit.type_event_id" required>
+              <option *ngFor="let event of listEvent" [value]="event.type_event_id">{{event.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Интервал</label>
+            <input type="number" class="form-control" name="interval_photo" [(ngModel)]="itemSettingsEdit.interval_photo" required>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Кол-во фото</label>
+            <input type="number" class="form-control" name="count_photo" [(ngModel)]="itemSettingsEdit.count_photo" required>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label>Дата</label>
+            <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" name="date" [(ngModel)]="itemSettingsEdit.date">
+            <owl-date-time #dt1></owl-date-time>
+          </div>
+
+          <div class="form-group col-md-3 mb-1">
+            <button class="btn-info btn w-100" (click)="editSettingsEvent(itemSettingsEdit)" [disabled]="editFrom.form.invalid">Сохранить изменения</button>
+          </div>
+          <div class="form-group col-md-3 mb-1">
+            <button class="btn btn-pink" (click)="itemSettingsEdit = null; getListSettings()">Вернуться к добавлению</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card" *ngIf="listSettings">
+      <div class="card-header">
+        <h3 class="font-weight-bold">Список привязанных камер</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table mb-0">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col">Камера</th>
+            <th scope="col">Событие</th>
+            <th scope="col">Интервал</th>
+            <th scope="col">Кол-во фото</th>
+            <th scope="col">Дата</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <tr *ngFor="let settings of listSettings; let i = index" [ngClass]="itemSettingsEdit === settings ? 'active-settings':''">
+            <td class="text-center align-middle">{{i + 1}}</td>
+            <th class="align-middle" scope="row">{{settings.name_camera}}</th>
+            <td class="align-middle" scope="row">{{settings.name_type}}</td>
+            <td class="align-middle" scope="row">{{settings.interval_photo}}</td>
+            <td class="align-middle" scope="row">{{settings.count_photo}}</td>
+            <td class="align-middle" scope="row">{{settings.date | date:'dd.MM.yyyy HH:mm'}}</td>
+            <td class="text-center">
+              <div class="btn-group">
+                <button class="btn btn-info" (click)="setEventEdit(settings)"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-info" (click)="itemSettingsDel = settings" data-toggle="modal"
+                        data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true" *ngIf="itemSettingsDel">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление камеры</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить привязку камеры {{itemSettingsDel.name_camera}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="delCamera()" data-toggle="modal"
+                data-target="#exampleModalCenter">Удалить
+        </button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

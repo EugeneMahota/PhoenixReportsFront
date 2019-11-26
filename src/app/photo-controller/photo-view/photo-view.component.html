@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Камеры</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="col-md-6 text-right align-self-center">
+
+    <button class="btn btn-pink mb-2" routerLink="add"><span>Добавить</span> <i class="fas fa-camera ml-2"></i></button>
+  </div>
+
+</div>
+
+
+<div class="row page-animate">
+  <div class="col-md-12">
+    <div class="card" *ngIf="listCamera">
+      <div class="card-header">
+        <h3 class="font-weight-bold">Список камер</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Ip адрес</th>
+            <th scope="col">Парк</th>
+            <th scope="col">Линия</th>
+            <th scope="col">Сообщение</th>
+            <th scope="col" class="text-center">Удалить</th>
+          </tr>
+          </thead>
+          <tbody>
+
+
+          <tr *ngFor="let camera of listCamera; let i = index">
+            <td class="text-center align-middle">{{i + 1}}</td>
+            <th class="align-middle" scope="row" [routerLink]="camera.camera_id">{{camera.name_camera}}</th>
+            <td class="align-middle" scope="row" [routerLink]="camera.camera_id">{{camera.ip}}</td>
+            <td class="align-middle" scope="row" [routerLink]="camera.camera_id">{{camera.name_park}}</td>
+            <td class="align-middle" scope="row" [routerLink]="camera.camera_id">{{camera.line}}</td>
+            <td class="align-middle" scope="row" [routerLink]="camera.camera_id">{{camera.msg}}</td>
+            <td class="text-center">
+              <button class="btn btn-info" (click)="itemCamera = camera" data-toggle="modal"
+                      data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true" *ngIf="itemCamera">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Удаление камеры</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы действительно хотите удалить камеру {{itemCamera.name_camera}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" (click)="delCamera()" data-toggle="modal"
+                data-target="#exampleModalCenter">Удалить
+        </button>
+        <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>

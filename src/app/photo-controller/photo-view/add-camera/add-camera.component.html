@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['../../']">Phoenix Reporting</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['../']">Камеры</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Добавление</li>
+      </ol>
+    </nav>
+
+  </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="font-weight-bold">Новая камера</h3>
+      </div>
+      <div class="card-body">
+        <form #addForm="ngForm" class="form-row">
+
+          <div class="form-group col-12">
+            <label>Парк</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-camera"></i></span>
+              </div>
+              <select class="form-control" name="park_id" [(ngModel)]="itemCamera.park_id">
+                <option *ngFor="let park of listPark" [value]="park.park_id">{{park.name}}</option>
+              </select>
+            </div>
+            <small class="form-text text-muted">Список парков.</small>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Название</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-camera"></i></span>
+              </div>
+              <input type="text" class="form-control" id="name_camera" placeholder="Название камеры" name="name_camera"
+                     [(ngModel)]="itemCamera.name_camera" required>
+            </div>
+            <small class="form-text text-muted">Название камеры.</small>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Ip адрес</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-camera"></i></span>
+              </div>
+              <input type="text" class="form-control" id="ip" placeholder="Ip адрес" name="ip" [(ngModel)]="itemCamera.ip" required>
+            </div>
+            <small class="form-text text-muted">Ip адрес камеры.</small>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Линия</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-camera"></i></span>
+              </div>
+              <input type="text" class="form-control" id="line" placeholder="Линия камеры" name="line"
+                     [(ngModel)]="itemCamera.line" required>
+            </div>
+            <small class="form-text text-muted">Линия камеры.</small>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Сообщение</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-camera"></i></span>
+              </div>
+              <input type="text" class="form-control" id="msg" placeholder="Сообщение" name="msg" [(ngModel)]="itemCamera.msg">
+            </div>
+            <small class="form-text text-muted">Дополнительная информация.</small>
+          </div>
+
+          <div class="form-group text-center col-12">
+            <button class="btn btn-info" [disabled]="addForm.form.invalid"
+                    (click)="addCamera(itemCamera)">Сохранить изменения
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

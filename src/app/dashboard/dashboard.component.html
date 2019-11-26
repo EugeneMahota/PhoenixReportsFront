@@ -181,9 +181,55 @@
             </a>
           </li>
 
+          <li routerLinkActive="active" *appRoles="['logs']">
+            <a routerLink="log" (click)="ShowDisplaySm()">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-tasks"></i>
+                </div>
+                <div class="col-9 item-list-side h-100 align-self-center mt-1">
+                  ЛОГИРОВАНИЕ
+                </div>
+              </div>
+            </a>
+          </li>
+
+          <li routerLinkActive="active" class="dropright" *appRoles="['camera']">
+            <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-camera"></i>
+                </div>
+                <div class="col-7 item-list-side h-100 align-self-center mt-1">
+                  ФОТОФИКСАЦИЯ
+                </div>
+                <div class="col-3 align-self-center h-100">
+                  <!--<span class="badge badge-pink">new</span>-->
+                </div>
+              </div>
+            </a>
+
+            <div class="dropdown-menu w-100 p-0 border" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" routerLink="photo-view" (click)="ShowDisplaySm()"><i class="fas fa-camera mr-3"></i>КАМЕРЫ</a>
+              <a class="dropdown-item" routerLink="photo-settings" (click)="ShowDisplaySm()"><i class="fas fa-cog mr-3"></i>НАСТРОЙКИ</a>
+            </div>
+
+          </li>
+
           <!-------------------------->
+          <li routerLinkActive="active" *appRoles="['repPhoto']">
+            <a routerLink="photo-report" (click)="ShowDisplaySm()" class="border-top">
+              <div class="row">
+                <div class="col-2 pr-0 text-center side-icon">
+                  <i class="fas fa-camera"></i>
+                </div>
+                <div class="col-8 item-list-side h-100 align-self-center mt-1">ОТЧЕТ ПО ФОТОФИКСАЦИИ</div>
+              </div>
+            </a>
+          </li>
+
           <li routerLinkActive="active" *appRoles="['rptKassa']">
-            <a routerLink="rep-kassa" (click)="ShowDisplaySm()" class="border-top">
+            <a routerLink="rep-kassa" (click)="ShowDisplaySm()">
               <div class="row">
                 <div class="col-2 pr-0 text-center side-icon">
                   <i class="fas fa-store"></i>

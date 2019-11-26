@@ -161,6 +161,9 @@ export class DynamicForAttrComponent implements OnInit {
       this.barChartData[0].data.push(listReport[i].total_money);
       this.barChartData[1].data.push(listReport[i].total_bonus);
     }
+    this.barChartLabels = this.barChartLabels.reverse();
+    this.barChartData[0].data = this.barChartData[0].data.reverse();
+    this.barChartData[1].data = this.barChartData[1].data.reverse();
   }
 
   getDay() {

@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-12">
+    <form #formLog="ngForm">
+      <div class="card mb-3">
+
+        <div class="card-body">
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <label>Диапазон времени</label>
+              <div class="input-group">
+
+                <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
+                       [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'"
+                       placeholder="Выберите временной диапазон" id="date" name="date" required>
+                <owl-date-time #date></owl-date-time>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Список пользователей</label>
+              <select class="form-control" [(ngModel)]="userId" name="userId" required>
+                <option *ngFor="let user of listUser" value="{{+user.user_id}}">{{user.name}}</option>
+              </select>
+            </div>
+
+            <div class="col-lg-2 col-md-6 col-12 mb-small">
+              <div class="btn-group w-100">
+                <div class="btn btn-info" (click)="editDay('-')"><i class="fas fa-caret-left"></i></div>
+                <div class="btn w-100 btn-info" [ngClass]="activeDate === 'day' ? 'btn-active':''" (click)="getDay(); activeDate = 'day'">День</div>
+                <div class="btn btn-info" (click)="editDay('+')"><i class="fas fa-caret-right"></i></div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12 mb-small">
+              <div class="btn-group w-100">
+                <div class="btn btn-info" (click)="editWeek('-')"><i class="fas fa-caret-left"></i></div>
+                <div class="btn w-100 btn-info" [ngClass]="activeDate === 'week' ? 'btn-active':''" (click)="getWeek(); activeDate = 'week'">Неделя</div>
+                <div class="btn btn-info" (click)="editWeek('+')"><i class="fas fa-caret-right"></i></div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12 mb-small">
+              <div class="btn-group w-100">
+                <div class="btn btn-info" (click)="editMonth('-')"><i class="fas fa-caret-left"></i></div>
+                <div class="btn w-100 btn-info" [ngClass]="activeDate === 'month' ? 'btn-active':''" (click)="getMonth(); activeDate = 'month'">Месяц</div>
+                <div class="btn btn-info" (click)="editMonth('+')"><i class="fas fa-caret-right"></i></div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-12 mb-small">
+              <div class="btn-group w-100">
+                <div class="btn btn-info" (click)="editYear('-')"><i class="fas fa-caret-left"></i></div>
+                <div class="btn w-100 btn-info" [ngClass]="activeDate === 'year' ? 'btn-active':''" (click)="getYear(); activeDate = 'year'">Год</div>
+                <div class="btn btn-info" (click)="editYear('+')"><i class="fas fa-caret-right"></i></div>
+              </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+            </div>
+
+            <div class="col-lg-2 col-md-8 col-12">
+              <button type="submit" data-dismiss="modal" class="btn btn-info w-100" [disabled]="formLog.form.invalid"
+                      (click)="getListLog({user_id: userId, date_start: +dateRange[0], date_end: +dateRange[1]})">Сформировать
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+    <div class="card" *ngIf="listLog">
+      <div class="card-header border-0">
+        <h5 class="mb-0">
+          Список событий
+        </h5>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm mb-0">
+          <thead>
+          <tr>
+            <td class="pl-lg-4 pl-2 font-weight-bold" scope="col">Пользователь</td>
+            <td class="font-weight-bold text-right" scope="col">Объект</td>
+            <td class="font-weight-bold text-right" scope="col">Событие</td>
+            <td class="pr-lg-4 pr-2 font-weight-bold text-right" scope="col">Дата</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let event of listLog" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="setObjectData(event.data)">
+            <td class="pl-lg-4 pl-2">{{event.name}}</td>
+            <td class="text-right">{{event.object}}</td>
+            <td class="text-right">{{event.event}}</td>
+            <td class="pr-lg-4 pr-2 text-right">{{event.date | date:'dd.MM.yyyy HH:mm'}}</td>
+          </tr>
+          <tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <ngx-json-viewer [json]="objectData"></ngx-json-viewer>
+      </div>
+    </div>
+  </div>
+</div>

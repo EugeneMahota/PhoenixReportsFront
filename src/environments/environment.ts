@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://gold.goldinnfish.com/'
+  apiUrl: 'http://pms.ru/'
 };

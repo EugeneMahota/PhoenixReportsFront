@@ -72,6 +72,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DefaultIntl} from './locale/locale';
 import { SettingsReportComponent } from './settings-controller/settings-report/settings-report.component';
 import { SettingsPassComponent } from './settings-controller/settings-pass/settings-pass.component';
+import { LogComponent } from './log-controller/log/log.component';
+import {NgxJsonViewerModule} from 'ngx-json-viewer';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -172,6 +174,7 @@ const routes: Routes = [
       {path: 'rep-card', component: RepCardComponent, data: {title: 'rep-card', roles: ['rptCard']}},
       {path: 'settings-rep', component: SettingsReportComponent, data: {title: 'settings-rep', roles: ['repEditor']}},
       {path: 'settings-pass', component: SettingsPassComponent, data: {title: 'settings-pass', roles: ['repEditor']}},
+      {path: 'log', component: LogComponent, data: {title: 'log', roles: ['logs']}},
 
       {path: 'analytic', loadChildren: './analytics-controller/analytic/analytic.module#AnalyticModule',
         data: {title: 'analytic', roles: ['analitic']}},
@@ -180,6 +183,15 @@ const routes: Routes = [
         data: {title: 'time-report', roles: ['repTime']}},
       {path: 'rep-abonement', loadChildren: './time-report-controller/abonement-report/abonement.module#AbonementModule',
         data: {title: 'abonement-report', roles: ['repSub']}},
+
+      //camers
+      {path: 'photo-settings', loadChildren: './photo-controller/photo-settings.module#PhotoSettingsModule',
+        data: {title: 'photo-settings', roles: ['camera']}},
+      {path: 'photo-view', loadChildren: './photo-controller/photo-view.module#PhotoViewModule',
+        data: {title: 'photo-view', roles: ['camera']}},
+
+      {path: 'photo-report', loadChildren: './photo-report-controller/photo-report.module#PhotoReportModule',
+        data: {title: 'photo-report', roles: ['repPhoto']}},
 
       {path: 'support', component: SupportComponent, data:
           {roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']}},
@@ -247,7 +259,8 @@ const routes: Routes = [
     SearchPipe,
     SupportComponent,
     SettingsReportComponent,
-    SettingsPassComponent
+    SettingsPassComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,
@@ -262,6 +275,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgxJsonViewerModule
   ],
   providers: [AuthGuard, AuthService, RolesGuard, CookieService, LoadingService,
     {

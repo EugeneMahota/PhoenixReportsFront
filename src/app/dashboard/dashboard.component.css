@@ -78,6 +78,7 @@ a, a:hover, a:focus {
   display: block;
 }
 #sidebar ul li a:hover {
+  cursor: pointer;
   color: #5c69b8;
   background: #fff;
 }
@@ -100,8 +101,9 @@ a, a:hover, a:focus {
   display: none
 }
 .dropdown-item {
-  font-size: 0.85rem;
-  color: #0C5460;
+  font-size: 0.8rem!important;
+  color: #ffffff;
+  background: #5c69b8;
 }
 .dropdown-item:active, .dropdown-item:focus {
   background-color: #FFFFFF;
