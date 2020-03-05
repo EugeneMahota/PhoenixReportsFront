@@ -44,7 +44,7 @@
             <!--</div>-->
             <input class="form-control" [selectMode]="'range'" [(ngModel)]="dateRange"
                    [owlDateTime]="date" [owlDateTimeTrigger]="date" [rangeSeparator]="'-'" placeholder="Выберите временной диапазон" id="date" name="date">
-            <owl-date-time #date></owl-date-time>
+            <owl-date-time #date [firstDayOfWeek]="1"></owl-date-time>
           </div>
         </div>
 

@@ -142,7 +142,7 @@
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
               <input class="form-control" [(ngModel)]="date_s" [owlDateTime]="date_st" [owlDateTimeTrigger]="date_st" id="date_st" name="date_st">
-              <owl-date-time #date_st></owl-date-time>
+              <owl-date-time #date_st [firstDayOfWeek]="1"></owl-date-time>
             </div>
           </div>
 
@@ -153,7 +153,7 @@
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
               <input class="form-control" [(ngModel)]="date_e" [owlDateTime]="date_en" [owlDateTimeTrigger]="date_en" id="date_en" name="date_en">
-              <owl-date-time #date_en></owl-date-time>
+              <owl-date-time #date_en [firstDayOfWeek]="1"></owl-date-time>
             </div>
           </div>
 
@@ -195,7 +195,7 @@
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
               <input class="form-control" [(ngModel)]="date_start" [owlDateTime]="date_startt" [owlDateTimeTrigger]="date_startt" id="date_startt" name="date_startt">
-              <owl-date-time #date_startt></owl-date-time>
+              <owl-date-time #date_startt [firstDayOfWeek]="1"></owl-date-time>
             </div>
           </div>
 
@@ -206,7 +206,7 @@
                 <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
               </div>
               <input class="form-control" [(ngModel)]="date_end" [owlDateTime]="date_endd" [owlDateTimeTrigger]="date_endd" id="date_endd" name="date_endd">
-              <owl-date-time #date_endd></owl-date-time>
+              <owl-date-time #date_endd [firstDayOfWeek]="1"></owl-date-time>
             </div>
           </div>
 

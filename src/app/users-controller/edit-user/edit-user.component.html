@@ -172,9 +172,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal"
-                  [disabled]="password1 != password2 || editFormPassword.form.invalid"
-                  (click)="editPassword(password1); editFormPassword.reset()">Сохранить
+          <button type="button" class="btn btn-info"
+                  (click)="editPassword(password1); editFormPassword.reset()" data-dismiss="modal">Сохранить
           </button>
           <button type="button" class="btn btn-pink" data-dismiss="modal">Отмена</button>
         </div>

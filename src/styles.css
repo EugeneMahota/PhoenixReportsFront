@@ -11,6 +11,12 @@
 
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
+.modal-backdrop {
+  z-index: 990!important;
+}
+.modal {
+  z-index: 999!important;
+}
 .wrap {
   display: flex;
   /*flex-flow: column wrap;*/
@@ -192,7 +198,9 @@ tbody tr:hover {
   left: 26px;
 }
 
-
+.owl-dt-container-inner {
+  z-index: 2000;
+}
 
 /*Navigation*/
 .breadcrumb-item a {
