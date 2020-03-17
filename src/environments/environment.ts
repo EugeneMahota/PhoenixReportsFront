@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/'
+  apiUrl: 'http://aqua.phoenix48.com/'
 };

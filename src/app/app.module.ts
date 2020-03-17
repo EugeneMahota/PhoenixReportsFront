@@ -59,20 +59,20 @@ import {AddSchComponent} from './sch-controller/add-sch/add-sch.component';
 import {ListAttrComponent} from './attr-controller/list-attr/list-attr.component';
 import {AddAttrComponent} from './attr-controller/add-attr/add-attr.component';
 import {EditAttrComponent} from './attr-controller/edit-attr/edit-attr.component';
-import { ListPriceComponent } from './price-controller/list-price/list-price.component';
-import { EditPriceComponent } from './price-controller/edit-price/edit-price.component';
-import { AddPriceComponent } from './price-controller/add-price/add-price.component';
-import { ListGroupAttrComponent } from './group-attr-controller/list-group-attr/list-group-attr.component';
-import { EditGroupAttrComponent } from './group-attr-controller/edit-group-attr/edit-group-attr.component';
-import { AddGroupAttrComponent } from './group-attr-controller/add-group-attr/add-group-attr.component';
+import {ListPriceComponent} from './price-controller/list-price/list-price.component';
+import {EditPriceComponent} from './price-controller/edit-price/edit-price.component';
+import {AddPriceComponent} from './price-controller/add-price/add-price.component';
+import {ListGroupAttrComponent} from './group-attr-controller/list-group-attr/list-group-attr.component';
+import {EditGroupAttrComponent} from './group-attr-controller/edit-group-attr/edit-group-attr.component';
+import {AddGroupAttrComponent} from './group-attr-controller/add-group-attr/add-group-attr.component';
 import {SearchPipe} from './dashboard/SearchPipe';
-import { SupportComponent } from './support/support.component';
+import {SupportComponent} from './support/support.component';
 import {OwlDateTimeIntl, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DefaultIntl} from './locale/locale';
-import { SettingsReportComponent } from './settings-controller/settings-report/settings-report.component';
-import { SettingsPassComponent } from './settings-controller/settings-pass/settings-pass.component';
-import { LogComponent } from './log-controller/log/log.component';
+import {SettingsReportComponent} from './settings-controller/settings-report/settings-report.component';
+import {SettingsPassComponent} from './settings-controller/settings-pass/settings-pass.component';
+import {LogComponent} from './log-controller/log/log.component';
 import {NgxJsonViewerModule} from 'ngx-json-viewer';
 
 const customNotifierOptions: NotifierOptions = {
@@ -104,12 +104,14 @@ const routes: Routes = [
     canActivateChild: [RolesGuard],
     children: [
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: 'home', component: HomeComponent, data: {
+      {
+        path: 'home', component: HomeComponent, data: {
           title: 'home',
           roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']
         }
       },
-      {path: 'profile', component: ProfileComponent, data: {
+      {
+        path: 'profile', component: ProfileComponent, data: {
           title: 'profile',
           roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']
         }
@@ -176,25 +178,39 @@ const routes: Routes = [
       {path: 'settings-pass', component: SettingsPassComponent, data: {title: 'settings-pass', roles: ['repEditor']}},
       {path: 'log', component: LogComponent, data: {title: 'log', roles: ['logs']}},
 
-      {path: 'analytic', loadChildren: './analytics-controller/analytic/analytic.module#AnalyticModule',
-        data: {title: 'analytic', roles: ['analitic']}},
+      {
+        path: 'analytic', loadChildren: './analytics-controller/analytic/analytic.module#AnalyticModule',
+        data: {title: 'analytic', roles: ['analitic']}
+      },
 
-      {path: 'rep-time', loadChildren: './time-report-controller/time-report/time-report.module#TimeReportModule',
-        data: {title: 'time-report', roles: ['repTime']}},
-      {path: 'rep-abonement', loadChildren: './time-report-controller/abonement-report/abonement.module#AbonementModule',
-        data: {title: 'abonement-report', roles: ['repSub']}},
+      {
+        path: 'rep-time', loadChildren: './time-report-controller/time-report/time-report.module#TimeReportModule',
+        data: {title: 'time-report', roles: ['repTime']}
+      },
+      {
+        path: 'rep-abonement', loadChildren: './time-report-controller/abonement-report/abonement.module#AbonementModule',
+        data: {title: 'abonement-report', roles: ['repSub']}
+      },
 
-      //camers
-      {path: 'photo-settings', loadChildren: './photo-controller/photo-settings.module#PhotoSettingsModule',
-        data: {title: 'photo-settings', roles: ['camera']}},
-      {path: 'photo-view', loadChildren: './photo-controller/photo-view.module#PhotoViewModule',
-        data: {title: 'photo-view', roles: ['camera']}},
+      //camera
+      {
+        path: 'photo-settings', loadChildren: './photo-controller/photo-settings.module#PhotoSettingsModule',
+        data: {title: 'photo-settings', roles: ['camera']}
+      },
+      {
+        path: 'photo-view', loadChildren: './photo-controller/photo-view.module#PhotoViewModule',
+        data: {title: 'photo-view', roles: ['camera']}
+      },
 
-      {path: 'photo-report', loadChildren: './photo-report-controller/photo-report.module#PhotoReportModule',
-        data: {title: 'photo-report', roles: ['repPhoto']}},
+      {
+        path: 'photo-report', loadChildren: './photo-report-controller/photo-report.module#PhotoReportModule',
+        data: {title: 'photo-report', roles: ['repPhoto']}
+      },
 
-      {path: 'support', component: SupportComponent, data:
-          {roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']}},
+      {
+        path: 'support', component: SupportComponent, data:
+          {roles: ['users', 'graphics', 'devices', 'cards', 'attrs', 'rptKassa', 'repAttrs', 'aclKassa', 'rptCard', 'rptCardEdit, groups', 'reset']}
+      },
 
       {path: '**', component: HomeComponent}
     ]

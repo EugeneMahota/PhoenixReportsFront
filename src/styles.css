@@ -382,3 +382,27 @@ tbody {
     margin-bottom: 1rem;
   }
 }
+
+
+/*datepicker*/
+.owl-dt-calendar-cell-selected {
+  background-color: #0C5460!important;
+}
+.owl-dt-weekday {
+  color: #17A2B8!important;
+}
+.owl-dt-control-button-content {
+  color: #0C5460!important;
+}
+.owl-dt-calendar-cell-in-range {
+  background-color: #D0ECEF!important;
+}
+.owl-dt-control-content {
+  color: #0C5460!important;
+}
+.owl-dt-container-range-content {
+  color: #000000!important;
+}
+.owl-dt-container-info-active .owl-dt-container-info-label, .owl-dt-container-info-active .owl-dt-container-info-value {
+  color: #0C5460!important;
+}
