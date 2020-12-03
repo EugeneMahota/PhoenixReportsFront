@@ -149,6 +149,17 @@
             <small class="form-text text-muted">Количество милисекунд до того, как сообщение на считывателе погаснет.</small>
           </div>
 
+          <div class="form-group">
+            <label>Тайм-аут зеленого</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="timeout_green"><i class="fas fa-stopwatch"></i></label>
+              </div>
+              <input type="number" class="form-control" id="timeout_green" name="timeout_green" [(ngModel)]="timeout_green" placeholder="Введите значение тайм-аута" required>
+            </div>
+            <small class="form-text text-muted">Количество милисекунд до того, как зеленый светодиод на считывателе погаснет.</small>
+          </div>
+
         </div>
 
         <div class="col-lg-6">
@@ -220,6 +231,19 @@
             <small class="form-text text-muted">Установите интервал реле.</small>
           </div>
 
+          <div class="form-group">
+            <label>Время действия абонимента</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text bg-white">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <input class="form-control" [(ngModel)]="time_action_sub" [owlDateTimeTrigger]="date" [owlDateTime]="date" id="time_action_sub" name="time_action_sub">
+              <owl-date-time #date [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </div>
+
           <div class="form-group mt-3">
             <input type="checkbox" class="form-check-input checkbox" id="fl_archive" [(ngModel)]="fl_archive"
                    name="fl_archive">
@@ -248,7 +272,8 @@
         timeout_rele_2: timeout_rele_2,
         interval_rele_1: interval_rele_1,
         interval_rele_2: interval_rele_2,
-        display_name: display_name_array
+        display_name: display_name_array,
+        time_action_sub: time_action_sub?.getHours() + ':' + time_action_sub?.getMinutes()
         })">Сохранить изменения</button>
       </div>
 

@@ -24,6 +24,7 @@ export class AddSaleComponent implements OnInit {
   period_act_card_id: number;
   price: number;
   value: number = 0;
+  deposit: number = 0;
 
   itemGroupRepl: any;
   constructor(private saleService: SaleService, private route: ActivatedRoute, private router: Router, private cardService: CardService) {

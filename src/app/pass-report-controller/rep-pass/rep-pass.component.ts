@@ -244,18 +244,14 @@ export class RepPassComponent implements OnInit, OnDestroy {
   }
 
   getMonth() {
+    const month = 32 * 24 * 60 * 60 * 1000;
     //start
     let date: Date = new Date();
     let dateStart: Date = new Date(date.setDate(1));
     dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));
     //end
     let dateEnd: Date;
-    if (date.getMonth() === 11) {
-      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(1));
-      dateEnd = new Date(dateEnd.setFullYear(date.getFullYear() + 1));
-    } else {
-      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(date.getMonth() + 1));
-    }
+    dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(date.getMonth() + 1));
     dateEnd = new Date(new Date(dateEnd.setHours(0)).setMinutes(0));
     //add
     this.dateRange = [dateStart, dateEnd];

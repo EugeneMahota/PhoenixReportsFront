@@ -78,25 +78,24 @@ export class AuthService {
     return this.http.get(environment.apiUrl + 'get_ver', httpOptions);
   }
 
-  //Подписываемся на данные функции в разных компонентах в зависимости от того, что нужно
   getUserLoggedIn() {
-    return this.isUserLoggedIn; //возвращаем переменную, которая говорит есть ли у нас доступ, подписываемся в auth.guard.ts и roles.guard.ts
+    return this.isUserLoggedIn; //возвращаем переменную, которая говорит есть ли у нас доступ, проверяем в auth.guard.ts и roles.guard.ts
   }
 
   getRole() {
-    return this.role; //возвращаем роли, подписываемся в roles.guard.ts и roles.directive.ts
+    return this.role;
   }
 
   getLogin() {
-    return this.login; //возвращаем логин, подписываемся в dashboard
+    return this.login;
   }
 
   getIdUser() {
-    return this.id; //возвращаем id пользователя, подписываемся в dashboard
+    return this.id;
   }
 
   getToken() {
-    return this.token;//возвращаем token пользователя, подписываемся в сервисах где он нужен
+    return this.token;
   }
 
   //Очищаем данные, выходя из системы

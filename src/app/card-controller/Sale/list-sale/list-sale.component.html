@@ -35,6 +35,7 @@
             <th scope="col" class="text-center">Пополнение деньги</th>
             <th scope="col" class="text-center">Пополнение бонусы</th>
             <th scope="col" class="text-center">Повторение</th>
+            <th scope="col" class="text-center">Депизит</th>
             <th scope="col" class="text-center">Удалить</th>
           </tr>
           </thead>
@@ -52,6 +53,7 @@
             <td class="align-middle text-center" scope="row" (click)="editSale(sale.sale_id)">{{sale.add_money}} руб.</td>
             <td class="align-middle text-center" scope="row" (click)="editSale(sale.sale_id)">{{sale.add_bonus}} бон.</td>
             <td class="align-middle text-center" scope="row" (click)="editSale(sale.sale_id)">{{sale.value}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editSale(sale.sale_id)">{{sale.deposit}} руб.</td>
 
             <td class="text-center">
               <button class="btn btn-info" (click)="selectSale(sale)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>

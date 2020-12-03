@@ -35,6 +35,7 @@
             <th scope="col" class="text-center">Карта</th>
             <th scope="col" class="text-center">Цена(Деньги)</th>
             <th scope="col" class="text-center">Цена(Бонусы)</th>
+            <th scope="col" class="text-center">Мин. время</th>
             <th scope="col" class="text-center">Удалить</th>
           </tr>
           </thead>
@@ -50,6 +51,7 @@
             <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.name_type_card}}</td>
             <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.price}}</td>
             <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.bonus}}</td>
+            <td class="align-middle text-center" scope="row" (click)="editPrice(price.price_attr_id)">{{price.time_min}}</td>
             <td class="text-center">
               <button class="btn btn-info" (click)="selectPrice(price)" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i></button>
             </td>

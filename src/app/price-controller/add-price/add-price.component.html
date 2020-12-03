@@ -50,11 +50,6 @@
             <small class="form-text text-muted">Установите цену.</small>
           </div>
 
-        </div>
-
-
-        <div class="col-md-6">
-
           <div class="form-group">
             <label>Тип карты</label>
             <div class="input-group">
@@ -70,6 +65,11 @@
             <small class="form-text text-muted">Выберите тип карты из существующих.</small>
           </div>
 
+        </div>
+
+
+        <div class="col-md-6">
+
           <div class="form-group">
             <label>Бонусы</label>
             <div class="input-group">
@@ -81,6 +81,20 @@
             <small class="form-text text-muted">Установите количество бонусов.</small>
           </div>
 
+          <div class="form-group">
+            <label>Мин. время</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+              <div class="input-group-text bg-white">
+                <i class="fas fa-clock"></i>
+              </div>
+              </div>
+              <input class="form-control" [(ngModel)]="time_min"
+                     [owlDateTimeTrigger]="date" [owlDateTime]="date" placeholder="Выберите временной диапазон" id="time_min" name="time_min">
+              <owl-date-time #date [pickerType]="'timer'"></owl-date-time>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -90,7 +104,8 @@
         graphic_id: graphic_id,
         type_card_id: type_card_id,
         price: price,
-        bonus: bonus
+        bonus: bonus,
+        time_min: time_min?.getHours() + ':' + time_min?.getMinutes()
         })">Добавить цену</button>
       </div>
 

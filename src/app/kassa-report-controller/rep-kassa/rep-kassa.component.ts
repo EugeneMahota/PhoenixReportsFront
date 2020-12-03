@@ -79,8 +79,6 @@ export class RepKassaComponent implements OnInit, OnDestroy {
       this.fl_cash = this.kassaService.getParam().fl_cash;
 
       this.dateRange = [new Date(this.kassaService.getParam().date_start), new Date(this.kassaService.getParam().date_end)];
-
-      console.log(this.kassaService.listReport);
       this.listReport = this.kassaService.listReport;
       this.listTotal = this.kassaService.listReportTotal;
     } else {
@@ -239,12 +237,7 @@ export class RepKassaComponent implements OnInit, OnDestroy {
     dateStart = new Date(new Date(dateStart.setHours(0)).setMinutes(0));
     //end
     let dateEnd: Date;
-    if (date.getMonth() === 11) {
-      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(1));
-      dateEnd = new Date(dateEnd.setFullYear(date.getFullYear() + 1));
-    } else {
-      dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(date.getMonth() + 1));
-    }
+    dateEnd = new Date(new Date(this.date.setDate(1)).setMonth(date.getMonth() + 1));
     dateEnd = new Date(new Date(dateEnd.setHours(0)).setMinutes(0));
     //add
     this.dateRange = [dateStart, dateEnd];

@@ -18,7 +18,6 @@ export class ExcelPassService {
 
   exportExcel(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    // console.log(worksheet);
     const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
     const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
     this.saveAsExcelFile(excelBuffer, excelFileName);

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AttrService} from '../attr.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DateTimeAdapter} from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-add-attr',
@@ -27,11 +28,17 @@ export class AddAttrComponent implements OnInit {
   timeout_rele_2: number = 0;
   interval_rele_1: number = 0;
   interval_rele_2: number = 0;
+  time_action_sub: Date;
 
   display_name_array: any[] = [];
 
   itemPark: any;
-  constructor(private attrService: AttrService, private route: ActivatedRoute, private router: Router) {
+
+  constructor(private attrService: AttrService,
+              private route: ActivatedRoute,
+              private router: Router,
+              dateTimeAdapter: DateTimeAdapter<any>) {
+    dateTimeAdapter.setLocale('Ru');
   }
 
   ngOnInit() {
@@ -50,15 +57,15 @@ export class AddAttrComponent implements OnInit {
         listSch = response.data.find(x => x.id === Park.park_id).list;
 
         let listHub: any[] = [];
-        for(let i = 0; listSch.length > i; i++) {
-          if(listHub.indexOf(listSch[i].ip_adr.slice(0,3)) === -1) {
-            listHub.push(listSch[i].ip_adr.slice(0,3));
-            this.listHub.push({hub: listSch[i].ip_adr.slice(0,3), list: []});
+        for (let i = 0; listSch.length > i; i++) {
+          if (listHub.indexOf(listSch[i].ip_adr.slice(0, 3)) === -1) {
+            listHub.push(listSch[i].ip_adr.slice(0, 3));
+            this.listHub.push({hub: listSch[i].ip_adr.slice(0, 3), list: []});
           }
         }
-        for(let i = 0; this.listHub.length > i; i++) {
-          for(let j = 0; listSch.length > j; j++) {
-            if(this.listHub[i].hub === listSch[j].ip_adr.slice(0,3)) {
+        for (let i = 0; this.listHub.length > i; i++) {
+          for (let j = 0; listSch.length > j; j++) {
+            if (this.listHub[i].hub === listSch[j].ip_adr.slice(0, 3)) {
               this.listHub[i].list.push(listSch[j]);
             }
           }

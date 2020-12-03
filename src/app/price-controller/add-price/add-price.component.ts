@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PriceService} from '../price.service';
 import {AttrService} from '../../attr-controller/attr.service';
+import {DateTimeAdapter} from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-add-price',
@@ -23,7 +24,13 @@ export class AddPriceComponent implements OnInit {
   itemAttr: any;
   itemPark: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private priceService: PriceService, private attrService: AttrService) {
+  time_min: Date;
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private priceService: PriceService,
+              private attrService: AttrService,
+              dateTimeAdapter: DateTimeAdapter<any>) {
+    dateTimeAdapter.setLocale('Ru');
   }
 
   ngOnInit() {

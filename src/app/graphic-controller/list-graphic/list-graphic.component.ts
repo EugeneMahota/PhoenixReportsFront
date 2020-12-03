@@ -74,7 +74,6 @@ export class ListGraphicComponent implements OnInit {
 
   curGraphic(Data) {
     Data.date = Data.date.replace(/T/, ' ');
-    console.log(Data);
   }
 
 }

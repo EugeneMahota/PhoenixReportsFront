@@ -24,6 +24,7 @@ export class EditSaleComponent implements OnInit {
   period_act_card_id: number;
   price: number;
   value: number;
+  deposit: number;
 
   itemGroupRepl: any;
   constructor(private saleService: SaleService, private router: Router, private route: ActivatedRoute, private cardService: CardService) {
@@ -45,6 +46,7 @@ export class EditSaleComponent implements OnInit {
         this.period_act_card_id = response.data.period_act_card_id;
         this.price = response.data.price;
         this.value = response.data.value;
+        this.deposit = response.data.deposit;
       } else if (response.status === 'Error') {
         this.onBack();
       }
